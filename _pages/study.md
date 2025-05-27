@@ -174,7 +174,7 @@ The building structure will be constructed from the ground up, designed to accom
   <div>
   <p >
     <figcaption><b>Figure 1:</b> Site (Top view)  </figcaption>
-    <img src="{{ site.baseurl }}/assets/pilot_images/topview_new.JPG"  style="width: 90%; height: auto;">
+    <img src="{{ site.baseurl }}/assets/pilot_images/topview_new.jpg"  style="width: 90%; height: auto;">
   </p>
   </div>
 </div>
