@@ -1,0 +1,400 @@
+{
+  "fixed-capex": {
+    "label": "Fixed CAPEX",
+    "fields": {
+      "siteConstruction": {
+        "label": "Site Construction",
+        "value": 39318,
+        "type": "input",
+        "subType": "config",
+        "description": "Costs related to site development, foundation, and physical setup.",
+        "min":0,
+        "max":null
+      },
+      "officeAndLabEquipments": {
+        "label": "Office & lab equipments",
+        "value": 1928,
+        "type": "input",
+        "subType": "config",
+        "description": "Costs of furnishing office space and equipping labs.",
+        "min":0,
+        "max":null
+      },
+      "hvacSystem": {
+        "label": "HVAC System",
+        "value": 11824,
+        "type": "input",
+        "subType": "config",
+        "description": "Heating, ventilation, and air conditioning system setup.",
+        "min":0,
+        "max":null
+      },
+      "LiquidCoolingSystem": {
+        "label": "Liquid Cooling System",
+        "value": 5273,
+        "type": "input",
+        "subType": "config",
+        "description": "Advanced cooling system for miner heat dissipation.",
+        "min":0,
+        "max":null
+      },
+      "importDuties": {
+        "label": "Logistics & Import Duties",
+        "value": 29183,
+        "type": "input",
+        "subType": "config",
+        "description": "The Logistics and Import Duties for miner and container importation to site.",
+        "min":0,
+        "max":null
+      },
+      "labor": {
+        "label": "Labor & Engineering Fees",
+        "value": 7500,
+        "type": "input",
+        "subType": "config",
+        "description": "The Labor paid for the installation of the equipment on site, excluding building and foundation work.",
+        "min":0,
+        "max":null
+      },
+      "coolingContainer": {
+        "label": "HW5 Cooling Container",
+        "value": 84000,
+        "type": "input",
+        "subType": "config",
+        "description": "Container unit providing integrated hydro cooling for mining hardware.",
+        "min":0,
+        "max":null
+      }
+    }
+  },
+  "miners": {
+    "label": "Antminer Hardware",
+    "fields": {
+      "miner": {
+        "label": "Antminer Price",
+        "value": 10170,
+        "type": "input",
+        "subType": "cost",
+        "description": "Price of one Antminer hardware unit.",
+        "min":1,
+        "max":null
+      },
+      "antminerPower": {
+        "label": "Power Consumption (W)",
+        "value": 5676,
+        "type": "input",
+        "subType": "config",
+        "description": "Average power consumption of an Antminer in watts.",
+        "min":1,
+        "max":null
+      },
+      "antminerPowerFluncPercentage": {
+        "label": "Power Fluctuation (%)",
+        "value": 10,
+        "type": "input",
+        "subType": "config",
+        "description": "Estimated variation in power usage due to fluctuations.",
+        "min":0,
+        "max":30
+      },
+      "antminerHashrate": {
+        "label": "Hashrate (TH/s)",
+        "value": 473,
+        "type": "input",
+        "subType": "config",
+        "description": "The processing power of a miner in terahashes per second.",
+        "min":1,
+        "max":null
+      },
+      "antminerMaintenanceAnually": {
+        "label": "Annual Maintenance Cost ($)",
+        "value": 200,
+        "type": "input",
+        "subType": "config",
+        "description": "Annual maintenance cost for each Antminer.",
+        "min":0,
+        "max":null
+      },
+      "antminerDepreciationPercent": {
+        "label": "Depreciation (% per year)",
+        "value": 2,
+        "type": "input",
+        "subType": "config",
+        "description": "Yearly depreciation percentage of each Antminer.",
+        "min":0,
+        "max":40
+      },
+      "rewardPerTh": {
+        "label": "Reward per TH (BTC) 5.18e-7",
+        "value": 5.994e-12,
+        "type": "input",
+        "subType": "config",
+        "description": "Estimated Bitcoin reward earned per terahash.",
+        "min":0,
+        "max":null
+      }
+    }
+  },
+  "solar-System": {
+    "label": "Solar Power System",
+    "fields": {
+      "panel": {
+        "label": "Panel Price",
+        "value": 57,
+        "type": "input",
+        "subType": "cost",
+        "description": "Cost of one solar panel unit.",
+        "min":0,
+        "max":null
+      },
+      "solarPowerDuration": {
+        "label": "Sunlight Duration (hrs/day)",
+        "value": 7,
+        "type": "input",
+        "subType": "config",
+        "description": "Average sunlight hours per day available for solar power.",
+        "min":1,
+        "max":20
+      },
+      "solarPanelRating": {
+        "label": "Panel Rating (W per panel)",
+        "value": 610,
+        "type": "input",
+        "subType": "config",
+        "description": "Energy output per panel under standard conditions (W).",
+        "min":1,
+        "max":null
+      },
+      "battery": {
+        "label": "Battery Price",
+        "value": 16500,
+        "type": "input",
+        "subType": "cost",
+        "description": "Cost of a single battery.",
+        "min":0,
+        "max":null
+      },
+      "batteryEfficiency": {
+        "label": "Battery efficiency (%)",
+        "value": 90,
+        "type": "input",
+        "subType": "config",
+        "description": "5-10% losses during charge/discharge cycles.",
+        "min":50,
+        "max":100
+      },
+      "batteryCapacity": {
+        "label": "Battery Capacity (kWh)",
+        "value": 215,
+        "type": "input",
+        "subType": "config",
+        "description": "Total usable capacity of each battery.",
+        "min":1,
+        "max":null
+      }
+    }
+  },
+  "generator-System": {
+    "label": "Generator & Power Backup",
+    "fields": {
+      "generatorPowerFactor": {
+        "label": "Generator Power Factor",
+        "value": 0.9,
+        "type": "input",
+        "subType": "config",
+        "description": "The efficiency factor that determines how much real power is delivered by the generator relative to its apparent power. Usually between 0.8 and 1.",
+        "min":0.6,
+        "max":1
+      },
+      "generatorRedundancyPercentage": {
+        "label": "Generator Redundancy (%)",
+        "value": 15,
+        "type": "input",
+        "subType": "config",
+        "description": "A percentage representing the additional capacity to account for unexpected loads or generator failures.",
+        "min":0,
+        "max":100
+      },
+      "generatorDepreciationPercentage": {
+        "label": "Generator Trade Loss (%)",
+        "value": 20,
+        "type": "input",
+        "subType": "config",
+        "description": "Estimated percentage of value loss for a generator when selling and upgrading.",
+        "min":0,
+        "max":40
+      },
+      "generatorSelectionOptions": {
+        "label": "Current Generator Selection: ",
+        "value": {
+          "250": 13000,
+          "500": 25000,
+          "750": 45000,
+          "1200": 60000,
+          "2000": 100000
+        },
+        "buttonId": "addGeneratorBtn",
+        "buttonText": "Add Generator",
+        "type": "dictionary",
+        "optionsDivId": "generator-options",
+        "unit": "Kva",
+        "description": "A dictionary of generator capacities (in kVA) and their associated costs, allowing the software to select an appropriate generator based on load."
+      }
+    }
+  },
+  "inverter-Selection": {
+    "label": "Inverter & Transformers:",
+    "fields": {
+      "transformer": {
+        "label": "Transformer Price",
+        "value": 4950,
+        "type": "input",
+        "subType": "cost",
+        "description": "Total cost of the transformer needed to adapt voltage levels for different components in the system.",
+        "min":0,
+        "max":null
+      },
+      "transformerKVA": {
+        "label": "Transformer Capacity (kVA)",
+        "value": 1600,
+        "type": "input",
+        "subType": "config",
+        "description": "The rated capacity of the transformer in kilovolt-amperes (kVA), indicating the maximum load it can handle.",
+        "min":1,
+        "max":null
+      },
+      "inverterSelectionOptions": {
+        "label": "Current Inverter Selection: ",
+        "value": {
+          "30": 5750,
+          "50": 8600,
+          "100": 16000,
+          "120": 18300,
+          "150": 20600
+        },
+        "buttonId": "addInverterBtn",
+        "buttonText": "Add Inverter",
+        "type": "dictionary",
+        "optionsDivId": "inverter-options",
+        "unit": "KW",
+        "description": "A dictionary of inverter capacities (in kW) and their corresponding prices, used to match the system's energy needs with appropriate inverters."
+      }
+    }
+  },
+  "operational-costs": {
+    "label": "Operational Costs",
+    "fields": {
+      "powerCostPerKWh": {
+        "label": "Power Cost per kWh ($)",
+        "value": 0.14,
+        "type": "input",
+        "subType": "config",
+        "description": "Cost of electricity per kilowatt-hour. This is used to calculate the monthly and yearly electricity expenses.",
+        "min":0,
+        "max":null
+      },
+      "hvacPercentMaintenanceAnually": {
+        "label": "HVAC Maintenance (% yearly)",
+        "value": 2,
+        "type": "input",
+        "subType": "config",
+        "description": "Annual maintenance cost of the HVAC system, expressed as a percentage of its original cost.",
+        "min":0,
+        "max":100
+      },
+      "insuranceAnnualPercentage": {
+        "label": "Insurance (% yearly)",
+        "value": 2,
+        "type": "input",
+        "subType": "config",
+        "description": "Annual insurance cost expressed as a percentage of the total asset value or insured components.",
+        "min":0,
+        "max":100
+      },
+      "annualSalaries": {
+        "label": "Annual Salaries ($)",
+        "value": 13200,
+        "type": "input",
+        "subType": "config",
+        "description": "Total yearly salaries paid to on-site staff responsible for operations and maintenance.",
+        "min":0,
+        "max":null
+      },
+      "annualInternet": {
+        "label": "Annual Internet Cost ($)",
+        "value": 1000,
+        "type": "input",
+        "subType": "config",
+        "description": "Yearly cost of internet service used to manage, monitor, or run operations remotely.",
+        "min":0,
+        "max":null
+      }
+    }
+  },
+  "simulation-settings": {
+    "label": "Simulation Settings",
+    "fields": {
+      "investmentPeriod": {
+        "label": "Investment Period:",
+        "type": "range",
+        "subType": "double",
+        "description": "Duration of the mining investment in months or years. Influences long-term profitability projections."
+      },
+      "minersSlider": {
+        "label": "Starting Antminers:",
+        "value": 30,
+        "max": 210,
+        "spanLabelId": "minersVal",
+        "unit": "",
+        "type": "range",
+        "subType": "single",
+        "description": "Number of Antminers to begin the simulation with. Increasing the count impacts cost, power consumption, and revenue."
+      },
+      "solarSlider": {
+        "label": "Solar Load Percentage:",
+        "value": 60,
+        "max": 100,
+        "spanLabelId": "solarVal",
+        "unit": "%",
+        "type": "range",
+        "subType": "single",
+        "description": "Percentage of the mining operation's power consumption expected to be supplied by the solar system."
+      },
+      "reinvestSlider": {
+        "label": "Monthly Reinvestment (%):",
+        "value": 85,
+        "max": 100,
+        "spanLabelId": "reinvestVal",
+        "unit": "%",
+        "type": "range",
+        "subType": "single",
+        "description": "Monthly percentage of profits to be reinvested into expanding mining capacity or upgrading infrastructure."
+      },      
+      "reinvestStrategy": {
+        "label": "Reinvest Strategy:",
+        "value": ["reinvestEnergy","reinvestMiners"],
+        "labels": ["prioritize reinvestment in Energy","prioritize reinvestment in Miners"],
+        "type": "select",
+        "description": "The selection dictates wether the reinvestment should prioritize Solar Energy or Miner count."
+      },  
+      "btcPrice": {
+        "label": "Bitcoin Price (USD)",
+        "value": 104200,
+        "type": "input",
+        "subType": "config",
+        "description": "Current market price of Bitcoin in USD. This affects the revenue calculation from mining activities.",
+        "min":1,
+        "max":null
+      },
+      "assetDepreciation": {
+        "label": "Asset Depreciation (%)",
+        "value": 5,
+        "type": "input",
+        "subType": "config",
+        "description": "Estimated percentage of Asset value lost each year cumulatively.",
+        "min":0,
+        "max":40
+      }
+    }
+  }
+}

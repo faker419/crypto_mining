@@ -1,7 +1,7 @@
 # Configurations
-title:            The Green Room
-longtitle:        The Green Room Project
-author:           HE Tao
+title:            Documentation
+longtitle:        Crypto Mining Business Documentation
+author:           Issa Fares
 email:            faresissa22@gmail.com
 description: >
     Vertical Farm Project.
@@ -44,6 +44,10 @@ permalink:                /:categories/:year-:month-:day-:title:output_ext
 # Disqus comments
 # disqushandler:            sighingnow
 
+include:
+  - assets/variables.json
+  - assets/vendor/Parsley/parsley.js.map
+  
 exclude:
   - _drafts
 

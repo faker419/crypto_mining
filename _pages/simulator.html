@@ -1,0 +1,1909 @@
+---
+title: Reinvestment Simulator
+author: Issa Fares
+date: 2025-05-23
+category: Jekyll
+layout: post
+mermaid: true
+---
+
+<!DOCTYPE html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title> Crypto Mining Business Simulator </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 CDN -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="{{ site.baseurl }}/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ site.baseurl }}/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="{{ site.baseurl }}/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.js"></script>
+
+    <!-- Google Charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+    <style>
+        #slider-round {
+            height: 10px;
+        }
+
+        #slider-round .noUi-connect {
+            background: #198754;
+        }
+
+        #slider-round .noUi-handle {
+            height: 18px;
+            width: 18px;
+            top: -5px;
+            right: -9px;
+            /* half the width */
+            border-radius: 9px;
+        }
+
+
+        input.parsley-success,
+        select.parsley-success,
+        textarea.parsley-success {
+            color: #468847;
+            background-color: #DFF0D8;
+            border: 1px solid #D6E9C6;
+        }
+
+        input.parsley-error,
+        select.parsley-error,
+        textarea.parsley-error {
+            color: #B94A48;
+            background-color: #F2DEDE;
+            border: 1px solid #EED3D7;
+        }
+
+        .parsley-errors-list {
+            margin-top: 0.5rem !important;
+            /* or more */
+            margin: 20px 0 3px;
+            padding: 0;
+            list-style-type: none;
+            font-size: 0.9em;
+            line-height: 0.9em;
+            opacity: 0;
+            color: #B94A48;
+
+            transition: all .3s ease-in;
+            -o-transition: all .3s ease-in;
+            -moz-transition: all .3s ease-in;
+            -webkit-transition: all .3s ease-in;
+        }
+
+        .parsley-errors-list.filled {
+            opacity: 1;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            aspect-ratio: 16 / 9;
+            /* or 4 / 3 for square-ish charts */
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .chart-container {
+                aspect-ratio: 4 / 3;
+            }
+        }
+
+        .sankey-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 66.66%;
+            /* 16:9 aspect ratio (9 / 16 * 100) */
+            margin-bottom: 2rem;
+        }
+
+        #sankey_chart {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .sankey-container {
+                padding-bottom: 100%;
+                /* 1:1 aspect ratio for better mobile height */
+            }
+        }
+
+
+        nav {
+            display: block
+        }
+
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-text-size-adjust: none;
+            -webkit-touch-callout: none;
+            -webkit-font-smoothing: antialiased
+        }
+
+        a {
+            text-decoration: none
+        }
+
+        body,
+        html {
+            height: 100%
+        }
+
+        html {
+            font-size: 62.5%
+        }
+
+        body {
+            text-rendering: optimizeLegibility;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            letter-spacing: .2px;
+            text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%
+        }
+    </style>
+
+</head>
+
+
+<body class="bg-light">
+    <div class="container ">
+
+        <form id="inputForm" data-parsley-validate class="row">
+
+            <div class="section ">
+                <h1 id="10-fixed-capex">1.0 Fixed CAPEX</h1>
+                <div class="spinner-container text-center mb-3">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="row" id="fixed-capex">
+                </div>
+            </div>
+
+            <h1 id="20-variables">2.0 CAPEX Variables </h1>
+
+
+            <div class="section ">
+                <h2 class="mb-3" id="21-miners">2.1 Antminer Hardware</h2>
+                <div class="spinner-container text-center mb-3">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="row" id="miners">
+                </div>
+            </div>
+
+            <div class="section ">
+                <h2 class="mb-3" id="22-solar-System">2.2 Solar Power System</h2>
+                <div class="spinner-container text-center mb-3">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="row" id="solar-System">
+                </div>
+            </div>
+
+            <div class="section ">
+                <h2 class="mb-3" id="23-generator-System">2.3 Generator & Power Backup</h2>
+                <div class="spinner-container text-center mb-3">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="row" id="generator-System">
+                </div>
+            </div>
+
+            <div class="section ">
+                <h2 class="mb-3" id="24-inverter-Selection">2.4 Inverter Selection</h2>
+                <div class="spinner-container text-center mb-3">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="row" id="inverter-Selection">
+                </div>
+            </div>
+
+
+
+            <div class="section ">
+                <h2 class="mb-3" id="25-operational-costs">2.5 Operational Costs</h2>
+                <div class="spinner-container text-center mb-3">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="row" id="operational-costs">
+                </div>
+            </div>
+
+            <div class="section ">
+                <h1 class="mb-3" id="30-simulation-settings">3.0 Simulation Settings</h1>
+                <div class="spinner-container text-center mb-3">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="row" id="simulation-settings">
+                </div>
+            </div>
+
+
+            <div class="mt-4 d-flex gap-2 mb-3">
+                <button type="submit" id="runSimulationBtn" class="btn btn-success flex-fill" disabled>Run
+                    Simulation</button>
+            </div>
+
+        </form>
+
+
+
+        <div class="mt-5" id="results">
+            <h1 id="40-simulation-results">4.0 Simulation Results</h1>
+
+            <div class="row">
+                <div id="column-1" class="col-md-6">
+                </div>
+                <div id="column-2" class="col-md-6">
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="assetChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="opexPieChart"></canvas>
+            </div>
+
+            <p id="sankeyChartTitle"
+                style="text-align: center; font-size: 18px; font-weight: bold; margin-bottom: 20px; margin-top: 10px; color: #666666;">
+            </p>
+            <div class="sankey-container">
+                <div id="sankey_chart"></div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="profitChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="powerChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="energyChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="apparentPowerChart"></canvas>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!--<script src="https://cdn.jsdelivr.net/npm/parsleyjs"></script>-->
+    <script src="{{ site.baseurl }}/assets/vendor/Parsley/parsley.js"></script>
+
+
+    <script>
+        (() => {
+            if (window.loadSimulation) {
+                window.location.reload();
+                return;
+            }
+
+            window.loadSimulation = () => {
+
+                const inputFields = [];
+                const inputFieldsCosts = [];
+                let inverterSelection = {};
+                let generatorSelection = {};
+
+                const simulationMonths = 36;
+
+                async function loadConfig(source = '{{ site.baseurl }}/assets/variables.json') {
+                    const response = await fetch(source);
+                    const jsonResponse = await response.json();
+
+                    document.querySelectorAll('.spinner-container').forEach(spinner => {
+                        spinner.style.display = 'none';
+                    });
+
+                    for (const sectionKey in jsonResponse) {
+                        const section = jsonResponse[sectionKey];
+                        const formInputs = document.getElementById(sectionKey);
+                        formInputs.innerHTML = '';
+
+                        // Loop through each field in the section
+                        for (const fieldKey in section.fields) {
+                            const field = section.fields[fieldKey];
+
+                            let minimumVal = field.min != null ? `min="${field.min}"` : "";
+                            let maxVal = field.max != null ? `max="${field.max}"` : "";
+                            let minimumValParsley = field.min != null ? `data-parsley-min="${field.min}"` : "";
+                            let maxValParsley = field.max != null ? `data-parsley-max="${field.max}"` : "";
+
+
+
+
+                            if (field.type == "input") {
+                                if (field.subType == "cost") { inputFieldsCosts.push(fieldKey); } else { inputFields.push(fieldKey); }
+                                formInputs.innerHTML += `
+                            <div class="col-md-6 col-l mb-3">
+                                <label for="${fieldKey}" style="font-size: 0.8em;" class="form-label text-muted"> 
+                                    ${field.label}
+                                    <span class="text-muted" data-bs-toggle="tooltip" title="${field.description}" style="cursor: pointer; font-size: 0.75em; vertical-align: top;">
+                                        <i class="bi bi-info-circle-fill"></i>
+                                    </span>
+                                </label>  
+                                <input type="number" ${minimumVal} ${maxVal} step="any" class="form-control" id="${fieldKey}" name="${fieldKey}" value="${parseFloat(field.value)}" data-parsley-type="number" ${minimumValParsley} ${maxValParsley} required>
+                            </div>
+                        `;
+                            }
+
+                            if (field.type == "dictionary") {
+                                if (fieldKey == "inverterSelectionOptions") { inverterSelection = field.value; } else { generatorSelection = field.value; }
+                                formInputs.innerHTML += `
+                            <p class="mb-3 text-muted" style="font-size: 15px;" >${field.label}
+                                <span class="text-muted" data-bs-toggle="tooltip" title="${field.description}" style="cursor: pointer; font-size: 0.75em; vertical-align: top;">
+                                    <i class="bi bi-info-circle-fill"></i>
+                                </span>   
+                            </p>
+                            <div id="${field.optionsDivId}" class="mb-3">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="number" id="${fieldKey}_newRating" class="form-control" placeholder="${field.unit} (e.g. 75)" data-parsley-type="number">
+                                <input type="number" id="${fieldKey}_newPrice" class="form-control" placeholder="Price (e.g. 12000)" data-parsley-type="number">
+                                <button id="${field.buttonId}" class="btn btn-success">${field.buttonText}</button>
+                            </div>
+                        `
+                            }
+
+
+                            if (field.type == "select") {
+                                formInputs.innerHTML += `
+                            <div class="col-md-6 col-l mb-3">
+                                <label for="${fieldKey}" style="font-size: 0.8em;" class="form-label text-muted"> 
+                                    ${field.label}
+                                    <span class="text-muted" data-bs-toggle="tooltip" title="${field.description}" style="cursor: pointer; font-size: 0.75em; vertical-align: top;">
+                                        <i class="bi bi-info-circle-fill"></i>
+                                    </span>
+                                </label> 
+                                <select class="form-select" id="${fieldKey}">
+                                    <option value="${field.value[0]}" default>${field.labels[0]}</option>
+                                    <option value="${field.value[1]}">${field.labels[1]}</option>
+                                </select>
+                            </div>
+                        `;
+                            }
+
+
+                            if (field.type === "range") {
+                                if (field.subType === "single") {
+                                    formInputs.innerHTML += `
+                                <div class="col-md-6 mb-3">
+                                    <label for="${fieldKey}" style="font-size: 0.8em;" class="form-label text-muted"> 
+                                        ${field.label}
+                                        <span id="${field.spanLabelId}" class="fw-bold">${field.value}${field.unit}</span>
+                                        <span class="text-muted" data-bs-toggle="tooltip" title="${field.description}" style="cursor: pointer; font-size: 0.75em; vertical-align: top;">
+                                            <i class="bi bi-info-circle-fill"></i>
+                                        </span>
+                                    </label>  
+                                    <input type="range" id="${fieldKey}" min="1" max="${field.max}" value="${field.value}" style="width: 100%;">
+                                </div>
+                            `;
+                                }
+
+                                if (field.subType === "double") {
+                                    formInputs.innerHTML += `
+                                <div class="col-12 mb-3">
+                                    <label for="slider-styled" style="font-size: 0.8em;" class="form-label text-muted"> 
+                                        ${field.label}
+                                        <span id="${fieldKey}" class="fw-bold"></span>
+                                        <span class="text-muted" data-bs-toggle="tooltip" title="${field.description}" style="cursor: pointer; font-size: 0.75em; vertical-align: top;">
+                                            <i class="bi bi-info-circle-fill"></i>
+                                        </span>
+                                    </label>  
+                                    <div class="slider-styled" id="slider-round"></div>
+                                </div>
+                            `;
+                                }
+                            }
+                        }
+                    }
+
+                    $('#runSimulationBtn').prop('disabled', false);
+                }
+
+
+
+                function findMinCostInverterCombo(inverters, requiredKW) {
+                    const inverterEntries = Object.entries(inverters).map(([k, v]) => [parseInt(k), v]);
+                    const minSize = Math.min(...inverterEntries.map(([k]) => k));
+
+                    // Special case: requiredKW is less than smallest inverter size
+                    if (requiredKW <= minSize) {
+                        return {
+                            totalKW: minSize,
+                            totalCost: inverters[minSize],
+                            inverterCombo: { [minSize]: 1 }
+                        };
+                    }
+
+                    const maxKW = Math.ceil(requiredKW * 2);
+                    const dp = Array(maxKW + 1).fill(Infinity);
+                    const combo = Array(maxKW + 1).fill(null);
+
+                    dp[0] = 0;
+                    combo[0] = {};
+
+                    for (let kw = 1; kw <= maxKW; kw++) {
+                        for (const [size, price] of inverterEntries) {
+                            if (kw >= size && dp[kw - size] + price < dp[kw]) {
+                                dp[kw] = dp[kw - size] + price;
+                                combo[kw] = { ...(combo[kw - size] || {}) };
+                                combo[kw][size] = (combo[kw][size] || 0) + 1;
+                            }
+                        }
+                    }
+
+                    let bestKW = null;
+                    let minCost = Infinity;
+
+                    for (let i = requiredKW; i <= maxKW; i++) {
+                        if (dp[i] < minCost) {
+                            minCost = dp[i];
+                            bestKW = i;
+                        }
+                    }
+
+                    return bestKW !== null ? {
+                        totalKW: bestKW,
+                        totalCost: dp[bestKW],
+                        inverterCombo: combo[bestKW]
+                    } : null;
+                }
+
+                function calculateTransformers(transformerKVA, transformerPrice, requiredKW) {
+                    const powerFactor = 0.9;
+                    const safetyMargin = 0.8;
+
+                    // Real usable kW per transformer
+                    const usableKW = transformerKVA * powerFactor * safetyMargin;
+
+                    // Number of transformers needed (rounded up)
+                    const transformerNumber = Math.ceil(requiredKW / usableKW);
+
+                    const cost = transformerNumber * transformerPrice
+                    return {
+                        usableKWPerTransformer: usableKW,
+                        transformersNeeded: transformerNumber,
+                        totalCost: cost
+                    };
+                }
+
+                function calculateTotalDicCost(selection, prices) {
+                    let totalCost = 0;
+                    for (const [key, count] of Object.entries(selection)) {
+                        const price = prices[key];
+                        totalCost += price * count;
+                    }
+                    return totalCost;
+                }
+
+                function reinvest(budget, minerCount, solarCount, batteryCount, inverterSelection, costs, totalAvailableInverters, config, solarPercent, transformerCount, generatorKvaSelected, generatorSelection, reinvestInMiners) {
+                    let newMiners = 0;
+                    let minerPower = config.antminerPower;
+                    let minerFluctuation = parseFloat(config.antminerPowerFluncPercentage / 100);
+                    budget = parseFloat(budget);
+                    const addedInverters = {}
+
+
+                    //const maxPowerRequired = Math.ceil(((210 * minerPower) / 1000) * (1 + minerFluctuation));
+                    //const maxDailyEnergyRequired = maxPowerRequired * 24;
+                    //const maxRequiredSolarCapacity = maxDailyEnergyRequired / config.solarPowerDuration;
+                    //const maxRequiredSolarPanels = Math.ceil(maxRequiredSolarCapacity / parseFloat(config.solarPanelRating/1000));
+
+
+                    //if (newMiners + minerCount === 210 && solarCount < maxRequiredSolarPanels){
+                    //while (solarCount < maxRequiredSolarPanels && solarPercent < 1) {
+                    //if (costs.panel > budget) break;
+                    //budget -= costs.panel;
+                    //solarCount++;
+                    //solarPercent = Math.min(solarCount/ maxRequiredSolarPanels, 1);
+                    //};
+                    //}
+
+
+                    if (solarPercent >= 1 || (reinvestInMiners && minerCount < 210)) {
+                        while (newMiners + minerCount < 210) {
+                            const simulatedMinerCount = minerCount + newMiners + 1;
+
+                            const simulatedPowerRequired = Math.ceil(((simulatedMinerCount * minerPower) / 1000) * (1 + minerFluctuation));
+                            const simulatedDailyEnergyRequired = simulatedPowerRequired * 24;
+
+                            const simulatedRequiredSolarCapacity = (simulatedDailyEnergyRequired * solarPercent) / config.solarPowerDuration;
+                            const simulatedRequiredSolarPanels = Math.ceil(simulatedRequiredSolarCapacity / parseFloat(config.solarPanelRating / 1000));
+                            const additionalPanels = simulatedRequiredSolarPanels - solarCount;
+
+
+                            const simulatedTotalSolarEnergy = simulatedDailyEnergyRequired * solarPercent
+                            const simulatedDirectFeed = simulatedDailyEnergyRequired * (config.solarPowerDuration / 24)
+                            const simulatedEnergyToStore = simulatedTotalSolarEnergy - simulatedDirectFeed
+                            let simulatedRequiredBatteries = 0;
+                            if (simulatedEnergyToStore > 0) {
+                                simulatedRequiredBatteries = Math.ceil((simulatedEnergyToStore / parseFloat(config.batteryEfficiency / 100)) / config.batteryCapacity);
+                            }
+                            const additionalBatteries = simulatedRequiredBatteries - batteryCount;
+
+
+                            const simulatedTransformersNeeded = calculateTransformers(config.transformerKVA, costs.transformer, simulatedPowerRequired)['transformersNeeded'];
+                            const additionalTransformers = simulatedTransformersNeeded - transformerCount;
+
+                            const updateGenerator = selectGenerator(generatorSelection, config, simulatedPowerRequired, generatorKvaSelected);
+                            const generatorSelected = updateGenerator['generatorSelected'];
+                            if (!generatorSelected) {
+                                alert('Generator Required cannot be met with current selection');
+                                clearSimulationResults();
+                                return;
+                            }
+                            const generatorCost = updateGenerator['totalCost'];
+
+
+
+
+                            let inverterCombo = {};
+                            let inverterCost = 0;
+
+                            const currentTotalInverterCapacity = Object.entries(totalAvailableInverters).reduce(
+                                (sum, [kw, count]) => sum + parseInt(kw) * count,
+                                0
+                            );
+
+
+                            if (currentTotalInverterCapacity < simulatedPowerRequired) {
+                                const inverterNewSelection = findMinCostInverterCombo(inverterSelection, Math.ceil(simulatedPowerRequired - currentTotalInverterCapacity));
+                                inverterCombo = inverterNewSelection['inverterCombo'];
+                                inverterCost = inverterNewSelection['totalCost'];
+                            }
+
+                            const totalCost =
+                                costs.miner +
+                                Math.max(additionalPanels, 0) * costs.panel +
+                                Math.max(additionalBatteries, 0) * costs.battery +
+                                Math.max(additionalTransformers, 0) * costs.transformer +
+                                generatorCost +
+                                inverterCost;
+
+
+
+
+                            if (totalCost > budget) break;
+
+
+
+                            // Commit
+                            budget -= totalCost;
+                            newMiners++;
+                            solarCount = Math.max(solarCount, simulatedRequiredSolarPanels);
+                            batteryCount = Math.max(batteryCount, simulatedRequiredBatteries);
+                            transformerCount = Math.max(transformerCount, simulatedTransformersNeeded);
+                            generatorKvaSelected = Math.max(generatorKvaSelected, generatorSelected);
+
+
+                            // Merge inverters correctly
+                            for (let kw in inverterCombo) {
+                                if (totalAvailableInverters[kw]) {
+                                    totalAvailableInverters[kw] += inverterCombo[kw];
+                                } else {
+                                    totalAvailableInverters[kw] = inverterCombo[kw];
+                                }
+                            }
+                            for (let kw in inverterCombo) {
+                                if (addedInverters[kw]) {
+                                    addedInverters[kw] += inverterCombo[kw];
+                                } else {
+                                    addedInverters[kw] = inverterCombo[kw];
+                                }
+                            }
+                        }
+                    } else {
+
+                        const currentPowerRequired = Math.ceil(((minerCount * minerPower) / 1000) * (1 + minerFluctuation));
+                        const currentDailyEnergyRequired = currentPowerRequired * 24;
+
+                        while (solarPercent < 1) {
+                            let newSolarPercent = solarPercent + 0.01;
+
+                            const currentRequiredSolarCapacity = (currentDailyEnergyRequired * newSolarPercent) / config.solarPowerDuration;
+                            const currentRequiredSolarPanels = Math.ceil(currentRequiredSolarCapacity / parseFloat(config.solarPanelRating / 1000));
+                            const additionalPanels = currentRequiredSolarPanels - solarCount;
+
+                            const currentTotalSolarEnergy = currentDailyEnergyRequired * newSolarPercent
+                            const currentDirectFeed = currentDailyEnergyRequired * (config.solarPowerDuration / 24)
+                            const currentEnergyToStore = currentTotalSolarEnergy - currentDirectFeed
+                            let currentRequiredBatteries = 0;
+                            if (currentEnergyToStore > 0) {
+                                currentRequiredBatteries = Math.ceil((currentEnergyToStore / parseFloat(config.batteryEfficiency / 100)) / config.batteryCapacity);
+                            }
+                            const additionalBatteries = currentRequiredBatteries - batteryCount;
+
+                            const totalCost =
+                                Math.max(additionalPanels, 0) * costs.panel +
+                                Math.max(additionalBatteries, 0) * costs.battery;
+
+                            if (totalCost > budget) break;
+                            budget -= totalCost;
+                            solarCount = Math.max(solarCount, currentRequiredSolarPanels);
+                            batteryCount = Math.max(batteryCount, currentRequiredBatteries);
+                            solarPercent = newSolarPercent;
+                        };
+                    }
+
+
+                    return {
+                        addedMiners: newMiners,
+                        updatedSolarCount: solarCount,
+                        updatedBatteryCount: batteryCount,
+                        updatedTransformerCount: transformerCount,
+                        updatedInverters: totalAvailableInverters,
+                        updatedGeneratorSelection: generatorKvaSelected,
+                        leftoverBudget: parseFloat(budget),
+                        newInverters: addedInverters,
+                        newSolarPercent: solarPercent
+                    };
+                }
+
+                function selectGenerator(generatorSelection, config, powerRequired, currentSelection) {
+                    const { generatorPowerFactor, generatorRedundancyPercentage, generatorDepreciationPercentage } = config;
+                    const requiredApparentPower = (powerRequired * (1 + parseFloat(generatorRedundancyPercentage / 100))) / generatorPowerFactor;
+
+
+                    // Sort generator sizes in ascending order
+                    const sortedGeneratorKva = Object.keys(generatorSelection).map(Number).sort((a, b) => a - b);
+
+                    // Find the smallest generator that meets or exceeds the required apparent power
+                    const selectedKva = sortedGeneratorKva.find(kva => kva >= requiredApparentPower);
+
+                    // If no suitable generator found, return null
+                    if (!selectedKva) {
+                        return { generatorSelected: null, totalCost: 0 };
+                    }
+
+                    let cost = 0;
+
+                    // If upgrading from a smaller generator, apply depreciation value
+                    if (currentSelection && currentSelection < selectedKva) {
+                        const recoupValue = (generatorSelection[currentSelection] || 0) * (1 - parseFloat(generatorDepreciationPercentage / 100));
+                        cost = generatorSelection[selectedKva] - recoupValue;
+
+                    }
+
+                    if (!currentSelection) {
+                        cost = generatorSelection[selectedKva];
+                    }
+
+                    return {
+                        generatorSelected: selectedKva,
+                        totalCost: cost
+                    };
+                }
+
+                function queryInputs(field_list) {
+                    const results = {}
+                    for (const index in field_list) {
+                        const value = parseFloat(document.getElementById(field_list[index]).value)
+                        results[field_list[index]] = value
+                    }
+                    return results
+                }
+
+                function renderOptions(containerSelector, dataObject, entryClass, removeBtnClass, formatDisplay) {
+                    const container = $(containerSelector);
+                    container.empty();
+
+                    Object.entries(dataObject).forEach(([key, value]) => {
+                        const item = $(`
+                    <div class="input-group mb-2 ${entryClass}" data-key="${key}">
+                        <div class="form-control bg-light">${formatDisplay(key, value)}</div>
+                        <button class="btn btn-danger btn-sm ${removeBtnClass}">Remove</button>
+                    </div>
+                `);
+                        container.append(item);
+                    });
+                }
+
+                function addOption(dataObject, keyInputSelector, valueInputSelector, renderFn) {
+                    const key = parseFloat($(keyInputSelector).val());
+                    const value = parseFloat($(valueInputSelector).val());
+
+                    if (!isNaN(key) && !isNaN(value) && key > 0 && value >= 0) {
+                        dataObject[key] = value;
+                        dataObject = Object.entries(dataObject).map(([k, v]) => [parseInt(k), v]);
+                        $(keyInputSelector).val('');
+                        $(valueInputSelector).val('');
+                        renderFn();
+                    } else {
+                        alert("Please enter valid values.");
+                    }
+                }
+
+                function setupRemoveHandler(entryClass, removeBtnClass, dataObject, renderFn) {
+                    $(document).on('click', `.${removeBtnClass}`, function () {
+                        if (Object.keys(dataObject).length <= 1) {
+                            alert('Selection cannot be left empty, please add more data prior to deleting.');
+                            return;
+                        }
+                        const key = $(this).closest(`.${entryClass}`).data('key');
+                        delete dataObject[key];
+                        renderFn();
+                    });
+                }
+
+                function clearSimulationResults() {
+                    // Clear result columns
+                    $('#column-1').empty();
+                    $('#column-2').empty();
+
+                    // Destroy and reset charts
+                    const charts = ['profitChartInstance', 'powerChartInstance', 'energyChartInstance', 'apparentPowerChartInstance', 'opexChart', 'assetsChartInstance'];
+
+                    charts.forEach(chartName => {
+                        const chart = window[chartName];
+                        if (chart && typeof chart.destroy === 'function') {
+                            chart.destroy();
+                            window[chartName] = null; // Clear reference after destroying
+                        }
+                    });
+
+                    // Clear Sankey chart
+                    const sankeyContainer = document.getElementById('sankey_chart');
+                    if (sankeyContainer) {
+                        document.getElementById('sankeyChartTitle').innerText = '';
+                        sankeyContainer.innerHTML = ''; // remove chart
+                        window.sankeyChartInstance = null;
+                    }
+                }
+
+                function displayResults(column, result, value) {
+                    document.getElementById(column).innerHTML += `
+                <div class="card mb-3">
+                    <div class="card-body d-flex justify-content-between align-items-center p-2">
+                        <strong class="fw-bold text-success">${result}:</strong>
+                        <span id="breakEvenText" class="text-secondary">${value}</span>
+                    </div>
+                </div>
+            `
+                }
+
+                function groupArrayByYear(assetArray, cost, depreciationPercent) {
+
+                    const yearlyEvaluation = [];
+                    yearlyEvaluation.push(assetArray[0] * cost);
+                    for (let i = 1; i < assetArray.length + 1; i++) {
+                        if (i % 12 === 0) {
+                            yearlyEvaluation.push(assetArray[i - 1] * cost);
+                        }
+                    }
+
+                    const compoundedEval = [yearlyEvaluation[0]]
+                    const factor = 1 - parseFloat(depreciationPercent / 100);
+                    for (let i = 1; i < yearlyEvaluation.length; i++) {
+                        const difference = yearlyEvaluation[i] - yearlyEvaluation[i - 1]
+                        const eval = (compoundedEval[i - 1] * factor) + difference
+                        compoundedEval.push(parseInt(eval))
+                    }
+
+                    return compoundedEval
+                }
+
+                function groupArrayByYearGenerators(assetArray, costDict, depreciationPercent) {
+
+                    const yearlyEvaluation = [];
+                    yearlyEvaluation.push(costDict[assetArray[0]]);
+                    for (let i = 1; i < assetArray.length + 1; i++) {
+                        if (i % 12 === 0) {
+                            yearlyEvaluation.push(costDict[assetArray[i - 1]]);
+                        }
+                    }
+
+                    const compoundedEval = [yearlyEvaluation[0]]
+                    const factor = 1 - parseFloat(depreciationPercent / 100);
+                    for (let i = 1; i < yearlyEvaluation.length; i++) {
+                        const difference = yearlyEvaluation[i] - yearlyEvaluation[i - 1]
+                        const eval = (compoundedEval[i - 1] * factor) + difference
+                        compoundedEval.push(parseInt(eval))
+                    }
+
+                    return compoundedEval
+                }
+
+                function groupArrayByYearInverters(assetDictionary, costDict, depreciationPercent) {
+                    const yearlyEvaluation = [];
+
+                    for (const [month, inverters] of Object.entries(assetDictionary)) {
+                        if (month % 12 === 0 || month == 1) {
+                            let sum = 0;
+                            for (const [rating, count] of Object.entries(inverters)) {
+                                sum += (costDict[rating] * count)
+                            }
+                            yearlyEvaluation.push(sum);
+                        }
+                    }
+
+                    const compoundedEval = [yearlyEvaluation[0]]
+                    const factor = 1 - parseFloat(depreciationPercent / 100);
+                    for (let i = 1; i < yearlyEvaluation.length; i++) {
+                        const difference = yearlyEvaluation[i] - yearlyEvaluation[i - 1]
+                        const eval = (compoundedEval[i - 1] * factor) + difference
+                        compoundedEval.push(parseInt(eval))
+                    }
+
+                    return compoundedEval
+                }
+
+
+                window.onload = async () => {
+                    await loadConfig();
+
+
+                    const renderInverters = () => renderOptions(
+                        '#inverter-options',
+                        inverterSelection,
+                        'inverter-entry',
+                        'remove-inverter',
+                        (kw, price) => `${kw} kW - $${price}`
+                    );
+                    $('#addInverterBtn').on('click', function () {
+                        addOption(inverterSelection, '#inverterSelectionOptions_newRating', '#inverterSelectionOptions_newPrice', renderInverters);
+                    });
+                    setupRemoveHandler('inverter-entry', 'remove-inverter', inverterSelection, renderInverters);
+                    renderInverters();
+
+
+                    const renderGenerators = () => renderOptions(
+                        '#generator-options',
+                        generatorSelection,
+                        'generator-entry',
+                        'remove-generator',
+                        (kva, price) => `${kva} kva - $${price}`
+                    );
+                    $('#addGeneratorBtn').on('click', function () {
+                        addOption(generatorSelection, '#generatorSelectionOptions_newRating', '#generatorSelectionOptions_newPrice', renderGenerators);
+                    });
+                    setupRemoveHandler('generator-entry', 'remove-generator', generatorSelection, renderGenerators);
+                    renderGenerators();
+
+                    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+                    tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
+
+                    const slider = document.getElementById('slider-round');
+
+                    noUiSlider.create(slider, {
+                        start: [1, 11],
+                        connect: true,
+                        range: {
+                            'min': 1,
+                            'max': simulationMonths
+                        }
+                    });
+
+                    const investmentPeriod = document.getElementById('investmentPeriod');
+                    slider.noUiSlider.on('update', (values) => {
+                        investmentPeriod.innerText = `months ${Math.round(values[0])} - ${Math.round(values[1])}`;
+                    });
+
+
+                    const minersSlider = document.getElementById('minersSlider');
+                    const solarSlider = document.getElementById('solarSlider');
+                    const reinvestSlider = document.getElementById('reinvestSlider');
+
+                    minersSlider.oninput = () => document.getElementById('minersVal').innerText = minersSlider.value;
+                    solarSlider.oninput = () => document.getElementById('solarVal').innerText = solarSlider.value + '%';
+                    reinvestSlider.oninput = () => document.getElementById('reinvestVal').innerText = reinvestSlider.value + '%';
+
+
+                    $('#inputForm').on('submit', function (e) {
+                        e.preventDefault();
+
+
+                        const config = queryInputs(inputFields);
+                        const costs = queryInputs(inputFieldsCosts);
+
+                        const startMiners = parseInt(minersSlider.value);
+                        let solarPercent = parseInt(solarSlider.value) / 100;
+                        const reinvestPercent = parseInt(reinvestSlider.value) / 100;
+                        const selectedStrategy = document.getElementById("reinvestStrategy");
+                        const reinvestInMiners = selectedStrategy.value === "reinvestMiners";
+
+
+
+                        let minerCount = startMiners;
+                        let cumulativeProfit = 0;
+
+                        const rangeValues = slider.noUiSlider.get();
+                        const startMonth = Math.round(rangeValues[0]);
+                        const endMonth = Math.round(rangeValues[1]);
+
+                        const investmentArray = Array.from({ length: simulationMonths }, (_, i) => {
+                            const month = i + 1;
+                            return (month >= startMonth && month <= endMonth) ? 1 : 0;
+                        });
+
+
+                        const initalPowerRequired = Math.ceil(((minerCount * config.antminerPower) / 1000) * (1 + parseFloat(config.antminerPowerFluncPercentage / 100)))
+                        const dailyEnergyRequired = initalPowerRequired * 24
+
+                        const solarFarmCapacity = (dailyEnergyRequired * solarPercent) / config.solarPowerDuration
+                        const solarPanelsRequired = Math.ceil(solarFarmCapacity / parseFloat(config.solarPanelRating / 1000))
+
+                        const totalSolarEnergy = dailyEnergyRequired * solarPercent
+                        const directFeed = dailyEnergyRequired * (config.solarPowerDuration / 24)
+                        const energyToStore = totalSolarEnergy - directFeed
+                        let batteriesRequired = 0;
+                        if (energyToStore > 0) {
+                            batteriesRequired = Math.ceil((energyToStore / parseFloat(config.batteryEfficiency / 100)) / config.batteryCapacity);
+                        }
+                        const batteriesCost = batteriesRequired * costs.battery
+
+                        const inverterCalculations = findMinCostInverterCombo(inverterSelection, initalPowerRequired)
+                        const inverterQuantity = inverterCalculations['inverterCombo']
+                        const inverterCost = inverterCalculations['totalCost']
+
+                        const transformersCalculations = calculateTransformers(config.transformerKVA, costs.transformer, initalPowerRequired)
+                        const transformerQuantity = transformersCalculations['transformersNeeded'];
+                        const transformerCost = transformersCalculations['totalCost'];
+
+
+                        const selectingGenerator = selectGenerator(generatorSelection, config, initalPowerRequired, null)
+                        const generatorSelected = selectingGenerator['generatorSelected'];
+                        if (!generatorSelected) {
+                            alert('Generator Required cannot be met with current selection');
+                            clearSimulationResults();
+                            return;
+                        }
+                        const generatorCost = selectingGenerator['totalCost'];
+
+                        const fixedCapex = config.siteConstruction + config.officeAndLabEquipments + config.hvacSystem + config.LiquidCoolingSystem + config.coolingContainer + config.importDuties + config.labor;
+                        const variableCapex = (minerCount * costs.miner) + (solarPanelsRequired * costs.panel) + inverterCost + transformerCost + batteriesCost + generatorCost;
+
+                        const totalCapex = fixedCapex + variableCapex;
+
+                        const rawSankeyData = [
+                            ['Total Capex', 'Fixed Capex', fixedCapex],
+                            ['Total Capex', 'Variable Capex', variableCapex],
+
+                            ['Fixed Capex', 'Site Construction', config.siteConstruction],
+                            ['Fixed Capex', 'Office & Lab Equipments', config.officeAndLabEquipments],
+                            ['Fixed Capex', 'HVAC System', config.hvacSystem],
+                            ['Fixed Capex', 'Liquid Cooling System', config.LiquidCoolingSystem],
+                            ['Fixed Capex', 'Cooling Container', config.coolingContainer],
+                            ['Fixed Capex', 'Import Duties', config.importDuties],
+                            ['Fixed Capex', 'Labor', config.labor],
+
+
+                            ['Variable Capex', 'Miners', minerCount * costs.miner],
+                            ['Variable Capex', 'Solar Panels', solarPanelsRequired * costs.panel],
+                            ['Variable Capex', 'Inverter', inverterCost],
+                            ['Variable Capex', 'Transformer', transformerCost],
+                            ['Variable Capex', 'Batteries', batteriesCost],
+                            ['Variable Capex', 'Generator', generatorCost]
+                        ];
+
+
+
+
+
+                        let invertersData = inverterQuantity
+
+                        const solarPanelData = [solarPanelsRequired]
+                        const minerCountData = [minerCount];
+                        const transformerData = [transformerQuantity]
+                        const batteryData = [batteriesRequired]
+                        const generatorData = [generatorSelected]
+
+                        const revenueData = [];
+                        const grossProfitData = [];
+                        const electricCostData = [];
+                        const maintainanceAndSparepartsData = [];
+                        const insuranceData = [];
+                        const fixedCostsData = [];
+                        const leftoverData = [];
+                        const reinvestmentData = [];
+                        const netProfitData = [];
+                        const cumulativeProfitData = [];
+                        const invertersDataTrack = {}
+
+
+                        const labels = [];
+
+                        let monthlyInsurance = ((config.insuranceAnnualPercentage / 100) * (totalCapex - config.importDuties - config.labor)) / 12
+
+
+                        for (let month = 1; month <= simulationMonths; month++) {
+
+                            const dailyRevenue = minerCountData.slice(-1)[0] * (config.antminerHashrate * 60 * 60 * 24) * config.rewardPerTh * config.btcPrice;
+                            const monthlyRevenue = dailyRevenue * 30;
+                            revenueData.push(monthlyRevenue.toFixed(2))
+
+                            const monthlyEnergyKWh = (minerCountData.slice(-1)[0] * config.antminerPower * 24 * 30 * (1 + parseFloat(config.antminerPowerFluncPercentage / 100))) / 1000;
+                            const solarOffset = monthlyEnergyKWh * solarPercent;
+                            const netKWh = monthlyEnergyKWh - solarOffset;
+                            const energyCost = netKWh * config.powerCostPerKWh;
+                            electricCostData.push(energyCost.toFixed(2))
+
+                            const maintenance = ((config.antminerMaintenanceAnually / 12) * minerCountData.slice(-1)[0]) + (config.hvacSystem * ((config.hvacPercentMaintenanceAnually / 100)) / 12)
+                            const spareParts = ((config.antminerDepreciationPercent / 100) * minerCountData.slice(-1)[0] * costs.miner) / 12
+                            const maintainanceAndSpareparts = maintenance + spareParts
+                            maintainanceAndSparepartsData.push(maintainanceAndSpareparts.toFixed(2))
+
+                            if (month % 12 === 0) {
+                                const newvariableCapex = (minerCountData.slice(-1)[0] * costs.miner) + (solarPanelData.slice(-1)[0] * costs.panel) + calculateTotalDicCost(invertersData, inverterSelection) + (transformerData.slice(-1)[0] * costs.transformer) + (batteryData.slice(-1)[0] * costs.battery) + (generatorSelection[generatorData.slice(-1)[0]]);
+                                const totalAssetsWorth = newvariableCapex + fixedCapex - config.importDuties - config.labor
+                                monthlyInsurance = ((config.insuranceAnnualPercentage / 100) * totalAssetsWorth) / 12
+                            }
+                            insuranceData.push(monthlyInsurance.toFixed(2))
+
+                            const fixedCosts = (config.annualSalaries + config.annualInternet) / 12
+                            fixedCostsData.push(fixedCosts.toFixed(2))
+
+                            const grossProfit = monthlyRevenue - energyCost - maintainanceAndSpareparts - monthlyInsurance - fixedCosts;
+
+                            grossProfitData.push(grossProfit.toFixed(2));
+
+                            const lastLeftover = leftoverData.length > 0 ? Number(leftoverData.slice(-1)[0]) : 0.00;
+                            const appliedReinvestmentPercent = Math.floor((grossProfit * reinvestPercent * investmentArray[month - 1]));
+                            const estimatedReinvestment = appliedReinvestmentPercent + lastLeftover;
+
+
+                            const reinvestValues = reinvest(estimatedReinvestment, minerCountData.slice(-1)[0], solarPanelData.slice(-1)[0], batteryData.slice(-1)[0], inverterSelection, costs, invertersData, config, solarPercent, transformerData.slice(-1)[0], generatorData.slice(-1)[0], generatorSelection, reinvestInMiners)
+                            solarPercent = reinvestValues.newSolarPercent
+                            if (!reinvestValues) {
+                                alert('Generator Required cannot be met with current selection');
+                                return;
+                            }
+                            const addedMiners = reinvestValues.addedMiners;
+                            minerCountData.push(addedMiners + minerCountData.slice(-1)[0]);
+                            let leftoverBudget = reinvestValues.leftoverBudget;
+                            solarPanelData.push(reinvestValues.updatedSolarCount);
+                            invertersData = reinvestValues.updatedInverters;
+                            batteryData.push(reinvestValues.updatedBatteryCount);
+                            transformerData.push(reinvestValues.updatedTransformerCount);
+                            generatorData.push(reinvestValues.updatedGeneratorSelection);
+
+
+
+                            const lastMonth = Math.max(...Object.keys(invertersDataTrack).map(Number));
+                            const lastEntry = invertersDataTrack[lastMonth];
+                            const newEntry = {};
+                            if (lastEntry && typeof lastEntry === 'object') {
+                                for (const [rating, count] of Object.entries(lastEntry)) {
+                                    newEntry[rating] = count;
+                                }
+                            }
+                            for (const [rating, count] of Object.entries(reinvestValues.newInverters)) {
+                                newEntry[rating] = (newEntry[rating] || 0) + count;
+                            }
+                            if (Object.keys(invertersDataTrack).length === 0) {
+                                for (const [rating, count] of Object.entries(invertersData)) {
+                                    newEntry[rating] = (newEntry[rating] || 0) + count;
+                                }
+                            }
+                            invertersDataTrack[month] = newEntry
+
+
+
+                            const actualReinvestment = estimatedReinvestment - leftoverBudget;
+                            reinvestmentData.push(actualReinvestment.toFixed(2));
+                            let netProfit = grossProfit - appliedReinvestmentPercent
+
+                            if ((minerCountData.slice(-1)[0] >= 210 && solarPercent == 1) || month > endMonth) {
+                                netProfit = netProfit + leftoverBudget;
+                                leftoverBudget = 0;
+                                console.log(netProfitData.map(Number).reduce((a, b) => a + b, 0))
+                            }
+                            netProfitData.push(netProfit.toFixed(2));
+                            leftoverData.push(leftoverBudget.toFixed(2));
+
+                            labels.push(month);
+
+                            cumulativeProfit += netProfit;
+                            cumulativeProfitData.push(cumulativeProfit.toFixed(2))
+
+                        }
+
+
+
+                        document.getElementById('column-1').innerHTML = ''
+                        document.getElementById('column-2').innerHTML = ''
+
+                        const totalNetProfit = cumulativeProfitData.slice(-1)[0];
+                        const ROI = ((totalNetProfit / totalCapex) * 100);
+
+
+                        const totalElecticity = electricCostData.map(Number).reduce((a, b) => a + b, 0);
+                        const totalMaintainanceAndSparepartsData = maintainanceAndSparepartsData.map(Number).reduce((a, b) => a + b, 0);
+                        const totalInsuranceData = insuranceData.map(Number).reduce((a, b) => a + b, 0);
+                        const totalFixedCostsData = fixedCostsData.map(Number).reduce((a, b) => a + b, 0);
+
+                        const avgElectricity = totalElecticity / simulationMonths;
+                        const avgMaintenance = totalMaintainanceAndSparepartsData / simulationMonths;
+                        const avgInsurance = totalInsuranceData / simulationMonths;
+                        const avgFixedCosts = totalFixedCostsData / simulationMonths;
+
+                        const totalOPEXAvg = avgElectricity + avgMaintenance + avgInsurance + avgFixedCosts;
+
+                        const solarYearlyEval = groupArrayByYear(solarPanelData, costs.panel, config.assetDepreciation)
+                        const minerYearlyEval = groupArrayByYear(minerCountData, costs.miner, config.assetDepreciation)
+                        const batteryYearlyEval = groupArrayByYear(batteryData, costs.battery, config.assetDepreciation)
+                        const transformerYearlyEval = groupArrayByYear(transformerData, costs.transformer, config.assetDepreciation)
+                        const generatorYearlyEval = groupArrayByYearGenerators(generatorData, generatorSelection, config.assetDepreciation)
+                        const inverterYearlyEval = groupArrayByYearInverters(invertersDataTrack, inverterSelection, config.assetDepreciation)
+                        const otherYearlyEval = groupArrayByYear(new Array(simulationMonths).fill(fixedCapex - config.importDuties - config.labor), 1, config.assetDepreciation)
+
+                        const evalYear3 = solarYearlyEval[3] + minerYearlyEval[3] + batteryYearlyEval[3] + transformerYearlyEval[3] + generatorYearlyEval[3] + inverterYearlyEval[3] + otherYearlyEval[3]
+
+
+
+                        displayResults('column-1', 'Total CAPEX', parseInt(totalCapex).toLocaleString());
+                        displayResults('column-2', 'Asset Evaluation (year 3)', parseInt(evalYear3).toLocaleString());
+                        displayResults('column-1', 'Net Profit', Number(parseInt(totalNetProfit)).toLocaleString());
+                        displayResults('column-2', 'Monthly Profit (avg)', Number(parseInt(totalNetProfit / simulationMonths)).toLocaleString());
+                        displayResults('column-1', 'OPEX (avg)', Number(parseInt(totalOPEXAvg)).toLocaleString());
+                        displayResults('column-2', 'ROI', Number(ROI).toFixed(1) + '%');
+                        displayResults('column-1', 'Final Solar Load Percentile', Number(solarPercent * 100).toFixed(1) + '%');
+                        if (investmentArray.slice(-1)[0] === 1) {
+                            displayResults('column-2', 'Leftover Reinvestment Funds', Number(parseInt(reinvestmentData.slice(-2)[0])).toLocaleString());
+                        }
+
+
+
+
+                        const assets = document.getElementById('assetChart').getContext('2d');
+                        if (window.assetsChartInstance) {
+                            window.assetsChartInstance.destroy();
+                        }
+
+
+                        window.assetsChartInstance = new Chart(assets, {
+                            type: 'bar',
+                            data: {
+                                labels: ['Year 0', 'Year 1', 'Year 2', 'Year 3'],
+                                datasets: [
+                                    {
+                                        label: 'Solar',
+                                        data: solarYearlyEval,
+                                        backgroundColor: 'rgba(255, 99, 132, 0.7)'
+                                    },
+                                    {
+                                        label: 'Miners',
+                                        data: minerYearlyEval,
+                                        backgroundColor: 'rgba(54, 162, 235, 0.7)'
+                                    },
+                                    {
+                                        label: 'Batteries',
+                                        data: batteryYearlyEval,
+                                        backgroundColor: 'rgba(255, 206, 86, 0.7)'
+                                    },
+                                    {
+                                        label: 'Transformer',
+                                        data: transformerYearlyEval,
+                                        backgroundColor: 'rgba(75, 192, 192, 0.7)'
+                                    },
+                                    {
+                                        label: 'Generator',
+                                        data: generatorYearlyEval,
+                                        backgroundColor: 'rgba(153, 102, 255, 0.7)'
+                                    },
+                                    {
+                                        label: 'Inverter',
+                                        data: inverterYearlyEval,
+                                        backgroundColor: 'rgba(255, 159, 64, 0.7)'
+                                    },
+                                    {
+                                        label: 'Other',
+                                        data: otherYearlyEval,
+                                        backgroundColor: 'rgba(227, 161, 214, 0.7)'
+                                    }
+                                ]
+                            },
+                            options: {
+                                indexAxis: 'y', // horizontal
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        position: 'bottom',
+                                        labels: {
+                                            font: {
+                                                size: 10 // or whatever smaller value fits
+                                            },
+                                            boxWidth: 10, // reduce size of color box
+                                            padding: 8     // space around legend items
+                                        }
+                                    },
+
+
+                                    title: {
+                                        display: true,
+                                        text: `Asset Evaluation with ${config.assetDepreciation}% cumulative Anual depreciation`,
+                                        font: {
+                                            size: 18
+                                        },
+                                        padding: {
+                                            top: 20,
+                                            bottom: 30
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    x: {
+                                        stacked: true,
+                                        title: {
+                                            display: true,
+                                            text: 'Asset Value (USD)'
+                                        }
+                                    },
+                                    y: {
+                                        stacked: true
+                                    }
+                                }
+                            }
+                        });
+
+
+                        const pieData = {
+                            labels: ['Electricity', 'Maintenance & Spare Parts', 'Insurance', 'Fixed Costs'],
+                            datasets: [{
+                                data: [
+                                    (avgElectricity / totalOPEXAvg) * 100,
+                                    (avgMaintenance / totalOPEXAvg) * 100,
+                                    (avgInsurance / totalOPEXAvg) * 100,
+                                    (avgFixedCosts / totalOPEXAvg) * 100
+                                ],
+                                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#CBAACB'],
+                                hoverOffset: 10
+                            }]
+                        };
+
+
+                        const ctx_pie = document.getElementById('opexPieChart').getContext('2d');
+
+                        if (window.opexChart) {
+                            window.opexChart.destroy();  // destroy existing chart if any
+                        }
+
+                        window.opexChart = new Chart(ctx_pie, {
+                            type: 'pie',
+                            data: pieData,
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        position: 'bottom',
+                                        labels: {
+                                            font: {
+                                                size: 10 // or whatever smaller value fits
+                                            },
+                                            boxWidth: 10, // reduce size of color box
+                                            padding: 8     // space around legend items
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Average OPEX Distribution',
+                                        font: {
+                                            size: 18
+                                        },
+                                        padding: {
+                                            top: 20,
+                                            bottom: 30
+                                        }
+                                    },
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function (context) {
+                                                return context.label + ': ' + context.parsed.toFixed(1) + '%';
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+
+
+                        if (window.sankeyChartInstance) {
+                            window.sankeyChartInstance = null;
+                            document.getElementById('sankeyChartTitle').innerText = '';
+                        }
+                        google.charts.load('current', { packages: ['sankey'] });
+                        google.charts.setOnLoadCallback(drawChart);
+
+                        // Filter out rows where value is not a positive number
+                        const sankeyData = rawSankeyData.filter(row => {
+                            const value = Number(row[2]);
+                            return value > 0 && !isNaN(value);
+                        });
+
+
+                        const colors = [
+                            '#a6cee3', '#b2df8a', '#fb9a99', '#fdbf6f',
+                            '#cab2d6', '#ffff99', '#1f78b4', '#33a02c',
+                            '#ff7f00', '#6a3d9a', '#e31a1c', '#b15928'
+                        ];
+
+                        const uniqueNodes = [...new Set(sankeyData.flatMap(([from, to]) => [from, to]))];
+                        const nodeColorMap = {};
+                        uniqueNodes.forEach((node, index) => {
+                            nodeColorMap[node] = colors[index % colors.length];
+                        });
+
+                        const nodeColorsInOrder = uniqueNodes.map(n => nodeColorMap[n]);
+
+                        const options = {
+                            tooltip: { isHtml: true },
+                            width: '100%',
+                            sankey: {
+                                node: {
+                                    colors: nodeColorsInOrder,
+                                    label: {
+                                        fontSize: 14,
+                                        color: '#333'
+                                    },
+                                    nodePadding: 25
+                                },
+                                link: {
+                                    colorMode: 'gradient'
+                                }
+                            }
+                        };
+
+                        function drawChart() {
+                            const data = new google.visualization.DataTable();
+                            data.addColumn('string', 'From');
+                            data.addColumn('string', 'To');
+                            data.addColumn('number', 'Cost');
+                            data.addColumn({ type: 'string', role: 'tooltip', p: { html: true } });
+
+                            const formattedRows = sankeyData.map(([from, to, value]) => {
+                                const formattedValue = value.toLocaleString();
+                                const tooltip = `<b>${from} → ${to}</b><br>Cost: ${formattedValue}`;
+                                return [from, to, value, tooltip];
+                            });
+
+                            data.addRows(formattedRows);
+
+                            const chart = new google.visualization.Sankey(document.getElementById('sankey_chart'));
+                            chart.draw(data, options);
+
+                            document.getElementById('sankeyChartTitle').innerText = 'Capital Expenditure Breakdown';
+
+                            // Save reference
+                            window.sankeyChartInstance = chart;
+                        }
+
+                        const monthKeys = Object.keys(invertersDataTrack).map(Number).sort((a, b) => a - b);
+
+                        const ctx = document.getElementById('profitChart').getContext('2d');
+                        if (window.profitChartInstance) {
+                            window.profitChartInstance.destroy();
+                        }
+
+                        window.profitChartInstance = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: monthKeys,
+                                datasets: [
+                                    {
+                                        label: 'Revenue',
+                                        data: revenueData,
+                                        borderColor: 'pink',
+                                        fill: false,
+                                        borderWidth: 1,
+                                        tension: 0.1
+                                    },
+                                    {
+                                        label: 'Electricity',
+                                        data: electricCostData,
+                                        borderColor: '#FF6384',
+                                        fill: false,
+                                        borderWidth: 1,
+                                        tension: 0.1
+
+                                    },
+                                    {
+                                        label: 'Maintenance & Spearparts',
+                                        data: maintainanceAndSparepartsData,
+                                        borderColor: '#36A2EB',
+                                        fill: false,
+                                        borderWidth: 1,
+                                        tension: 0.1
+                                    },
+                                    {
+                                        label: 'Insurance',
+                                        data: insuranceData,
+                                        borderColor: '#FFCE56',
+                                        fill: false,
+                                        borderWidth: 1,
+                                        tension: 0.1
+                                    },
+                                    {
+                                        label: 'Fixed Costs',
+                                        data: fixedCostsData,
+                                        borderColor: '#CBAACB',
+                                        fill: false,
+                                        borderWidth: 1,
+                                        tension: 0.1
+                                    },
+                                    {
+                                        label: 'Gross Profit',
+                                        data: grossProfitData,
+                                        borderColor: '#7E57C2',
+                                        fill: false,
+                                        borderWidth: 1,
+                                        tension: 0.1
+                                    },
+                                    {
+                                        label: 'Left-over funds',
+                                        data: leftoverData,
+                                        borderColor: 'teal',
+                                        fill: false,
+                                        borderWidth: 1,
+                                        tension: 0.1
+                                    },
+                                    {
+                                        label: 'reinvestment',
+                                        data: reinvestmentData,
+                                        borderColor: 'yellow',
+                                        fill: false,
+                                        borderWidth: 1,
+                                        tension: 0.1
+                                    },
+                                    {
+                                        label: 'Net Profit',
+                                        data: netProfitData,
+                                        borderColor: 'green',
+                                        fill: false,
+                                        borderWidth: 1,
+                                        tension: 0.1
+                                    },
+                                    {
+                                        label: 'Cumulative Profit (USD)',
+                                        data: cumulativeProfitData,
+                                        borderColor: 'purple',
+                                        fill: false,
+                                        borderWidth: 1,
+                                        tension: 0.1,
+                                        hidden: true
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        title: {
+                                            display: true,
+                                            text: 'USD ($)'
+                                        }
+                                    }
+                                },
+                                plugins: {
+                                    legend: {
+                                        position: 'bottom',
+                                        labels: {
+                                            font: {
+                                                size: 10 // or whatever smaller value fits
+                                            },
+                                            boxWidth: 10, // reduce size of color box
+                                            padding: 8     // space around legend items
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: `Financial Position `,
+                                        font: {
+                                            size: 18
+                                        },
+                                        padding: {
+                                            top: 20,
+                                            bottom: 30
+                                        }
+                                    }
+                                }
+                            }
+                        });
+
+
+
+
+                        // Calculate total power for each month and the breakdown for tooltips
+                        const totalPowerData = monthKeys.map(month => {
+                            let totalPower = 0;  // Total power for the current month (in kW)
+                            let powerBreakdown = [];  // To hold the breakdown for hover info
+
+                            // Calculate the total power for the month and store the breakdown
+                            for (const [rating, units] of Object.entries(invertersDataTrack[month])) {
+                                const totalInvertersPowerKW = rating * units;  // Power contributed by this rating
+                                totalPower += totalInvertersPowerKW;
+                                powerBreakdown.push(`${rating}Kw: ${units} units (${totalInvertersPowerKW.toFixed(2)} Kw)`);
+                            }
+
+                            return { totalPower, powerBreakdown };
+                        });
+
+                        // Extract total power and power breakdown for chart
+                        const totalPower = totalPowerData.map(item => item.totalPower);
+                        const breakdownData = totalPowerData.map(item => item.powerBreakdown);
+
+                        const solarPanlePower = solarPanelData.map(x => x * parseFloat(config.solarPanelRating / 1000));
+                        const minerPower = minerCountData.map(x => (x * config.antminerPower) / 1000);
+
+
+
+                        // Initialize the chart
+                        const ctx2 = document.getElementById('powerChart').getContext('2d');
+
+                        // Destroy the previous chart instance if it exists
+                        if (window.powerChartInstance) {
+                            window.powerChartInstance.destroy();
+                        }
+
+
+                        window.powerChartInstance = new Chart(ctx2, {
+                            type: 'line',
+                            data: {
+                                labels: monthKeys,  // Months as x-axis labels
+                                datasets: [
+                                    {
+                                        label: 'Inverter',
+                                        data: totalPower,  // Total power per month
+                                        borderColor: 'blue',
+                                        fill: false,
+                                        borderWidth: 1,
+                                        tension: 0.1
+                                    },
+                                    {
+                                        label: 'Panels',
+                                        data: solarPanlePower,
+                                        borderColor: 'pink',
+                                        fill: false,
+                                        borderWidth: 1,
+                                        tension: 0.1
+                                    },
+                                    {
+                                        label: 'Miners',
+                                        data: minerPower,
+                                        borderColor: 'green',
+                                        fill: false,
+                                        borderWidth: 1,
+                                        tension: 0.1
+                                    },
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        title: {
+                                            display: true,
+                                            text: 'Total Power (kW)'
+                                        }
+                                    }
+                                },
+                                plugins: {
+                                    legend: {
+                                        position: 'bottom',
+                                        labels: {
+                                            font: {
+                                                size: 10 // or whatever smaller value fits
+                                            },
+                                            boxWidth: 10, // reduce size of color box
+                                            padding: 8     // space around legend items
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: `Power Requirements `,
+                                        font: {
+                                            size: 18
+                                        },
+                                        padding: {
+                                            top: 20,
+                                            bottom: 30
+                                        }
+                                    },
+                                    tooltip: {
+                                        callbacks: {
+                                            // Customize the tooltip to show the power breakdown when hovering
+                                            title: function (tooltipItem) {
+                                                return `Month ${tooltipItem[0].label}`;
+                                            },
+
+                                            label: function (tooltipItem) {
+                                                const datasetIndex = tooltipItem.datasetIndex;
+                                                const monthIndex = tooltipItem.dataIndex;
+
+                                                // If hovering over Inverter (kW)
+                                                if (datasetIndex === 0) {
+                                                    const breakdown = breakdownData[monthIndex].join('\n');
+                                                    const totalPower = totalPowerData[monthIndex].totalPower.toFixed(2);
+                                                    return [`Total Inverter Power: ${totalPower} kW`, breakdown];
+                                                }
+
+                                                // If hovering over Panels (kW)
+                                                if (datasetIndex === 1) {
+                                                    const solarPanelNumber = solarPanelData[monthIndex];
+                                                    const solarPower = solarPanlePower[monthIndex].toFixed(2);
+                                                    return `Number of Panels: ${solarPanelNumber}, Total Power: ${solarPower} Kw`;
+                                                }
+
+                                                // If hovering over Inverters (kW)
+                                                if (datasetIndex === 2) {
+                                                    const minersNumber = minerCountData[monthIndex];
+                                                    const minersPower = minerPower[monthIndex].toFixed(2);
+                                                    return `Number of Miners: ${minersNumber}, Total Power: ${minersPower} Kw`;
+                                                }
+
+
+                                                return ''; // Fallback
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+
+
+
+                        const batteryCapacityTotal = batteryData.map(x => (x * config.batteryCapacity));
+
+                        // Initialize the chart
+                        const ctx3 = document.getElementById('energyChart').getContext('2d');
+
+                        // Destroy the previous chart instance if it exists
+                        if (window.energyChartInstance) {
+                            window.energyChartInstance.destroy();
+                        }
+
+
+                        window.energyChartInstance = new Chart(ctx3, {
+                            type: 'line',
+                            data: {
+                                labels: monthKeys,  // Months as x-axis labels
+                                datasets: [
+                                    {
+                                        label: 'Batteries',
+                                        data: batteryCapacityTotal,  // Total power per month
+                                        borderColor: 'teal',
+                                        fill: false,
+                                        borderWidth: 1,
+                                        tension: 0.1
+                                    },
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        title: {
+                                            display: true,
+                                            text: 'Total Energy (kwh)'
+                                        }
+                                    }
+                                },
+                                plugins: {
+                                    legend: {
+                                        position: 'bottom',
+                                        labels: {
+                                            font: {
+                                                size: 10 // or whatever smaller value fits
+                                            },
+                                            boxWidth: 10, // reduce size of color box
+                                            padding: 8     // space around legend items
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: `Stored Energy`,
+                                        font: {
+                                            size: 18
+                                        },
+                                        padding: {
+                                            top: 20,
+                                            bottom: 30
+                                        }
+                                    },
+                                    tooltip: {
+                                        callbacks: {
+                                            // Customize the tooltip to show the power breakdown when hovering
+                                            title: function (tooltipItem) {
+                                                return `Month ${tooltipItem[0].label}`;
+                                            },
+
+                                            label: function (tooltipItem) {
+                                                const monthIndex = tooltipItem.dataIndex;
+
+                                                const batteryNumber = batteryData[monthIndex];
+                                                const batteryEnergy = batteryCapacityTotal[monthIndex].toLocaleString();
+                                                return `Number of Batteries: ${batteryNumber}, Battery Rating : ${config.batteryCapacity} kwh, Total Energy: ${batteryEnergy} Kwh`;
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+
+
+
+
+                        const transformersApparentPowerTotal = transformerData.map(x => (x * config.transformerKVA));
+
+                        // Initialize the chart
+                        const ctx4 = document.getElementById('apparentPowerChart').getContext('2d');
+
+                        // Destroy the previous chart instance if it exists
+                        if (window.apparentPowerChartInstance) {
+                            window.apparentPowerChartInstance.destroy();
+                        }
+
+
+
+                        window.apparentPowerChartInstance = new Chart(ctx4, {
+                            type: 'line',
+                            data: {
+                                labels: monthKeys,  // Months as x-axis labels
+                                datasets: [
+                                    {
+                                        label: 'Transformers',
+                                        data: transformersApparentPowerTotal,  // Total power per month
+                                        borderColor: 'orange',
+                                        fill: false,
+                                        borderWidth: 1,
+                                        tension: 0.1
+                                    },
+                                    {
+                                        label: 'Generator',
+                                        data: generatorData,  // Total power per month
+                                        borderColor: 'red',
+                                        fill: false,
+                                        borderWidth: 1,
+                                        tension: 0.1
+                                    },
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        title: {
+                                            display: true,
+                                            text: 'Total Apparent Power (Kva)'
+                                        }
+                                    }
+                                },
+                                plugins: {
+                                    legend: {
+                                        position: 'bottom',
+                                        labels: {
+                                            font: {
+                                                size: 10 // or whatever smaller value fits
+                                            },
+                                            boxWidth: 10, // reduce size of color box
+                                            padding: 8     // space around legend items
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: `Apparent Power `,
+                                        font: {
+                                            size: 18
+                                        },
+                                        padding: {
+                                            top: 20,
+                                            bottom: 30
+                                        }
+                                    },
+                                    tooltip: {
+                                        callbacks: {
+                                            // Customize the tooltip to show the power breakdown when hovering
+                                            title: function (tooltipItem) {
+                                                return `Month ${tooltipItem[0].label}`;
+                                            },
+
+                                            label: function (tooltipItem) {
+                                                const datasetIndex = tooltipItem.datasetIndex;
+                                                const monthIndex = tooltipItem.dataIndex;
+
+
+                                                if (datasetIndex === 0) {
+                                                    const transformerNumber = transformerData[monthIndex];
+                                                    const transformersApparentPower = transformersApparentPowerTotal[monthIndex].toFixed(2);
+                                                    return `Number of Transformers: ${transformerNumber}, Transformer Rating : ${config.transformerKVA} Kva, Total Apparent Power: ${transformersApparentPower} Kva`;
+                                                }
+
+                                                if (datasetIndex === 1) {
+                                                    const selectedGenerator = generatorData[monthIndex];
+                                                    return `Generator Rating : ${selectedGenerator} Kva`;
+                                                }
+
+
+                                                return ''; // Fallback
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+
+
+
+                    });
+
+                };
+
+
+            };
+
+            window.loadSimulation?.();
+
+            (async () => {
+                await window.loadSimulation();
+                $('#inputForm').parsley().on('field:validated', function () {
+                    var ok = $('.parsley-error').length === 0;
+                    $('.bs-callout-info').toggleClass('hidden', !ok);
+                    $('.bs-callout-warning').toggleClass('hidden', ok);
+                })
+            });
+
+        })();
+
+    </script>
+
+</body>
+
+
+</html>

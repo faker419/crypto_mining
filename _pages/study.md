@@ -1,580 +1,1676 @@
 ---
 title: Project Study
-author: Issa Fares 
-date: 2024-01-19
+author: Issa Fares
+date: 2025-05-23
 category: Jekyll
-layout: home
+layout: post
 mermaid: true
 ---
 
-**Name:** Issa Fares 
-**Date:** `2024-19-01`  
-**Contact:** faresissa22@gmail.com
+<head>
+
+<link href="{{ site.baseurl }}/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="{{ site.baseurl }}/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="{{ site.baseurl }}/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/proposal_images/bg.jpg"  style="width: 80%; height: auto;">
-</p>
+<style>
 
-# 1.0 Introduction
+    nav {
+        display: block
+    }
 
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-overflow-scrolling: touch;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-text-size-adjust: none;
+        -webkit-touch-callout: none;
+        -webkit-font-smoothing: antialiased
+    }
 
-In the following report, the theoretical implementation of a leafy green vertical farm is discussed and analyzed. 
-the general design flow includes: the plant production process, the climate management components, 
-nutrition delivery system (NDS) elements and, the structure itself.  Inputs into the system include: 
-seeds, energy (light & heat/cooling), carbon dioxide and irrigation water with nutrients.  The 
-returned intermediate outputs, are the water coming from the runoff or the reclaimed water vapor 
-and the heat surplus in the air management system (AMS). The final outputs obtained through the 
-harvest are inedible matter (waste) and edible matter (product). 
+    a {
+        text-decoration: none
+    }
 
-The separate subsystem chapters include the detailed analysis of the lighting requirements, climatic 
-requirements, horticulture processes, and power consumption analysis among others. Each of the 
-subsystems is related to a part of the general process flow. Each subsystem needs to be complemented 
-by the others. An example can be found in the vegetative and generative stage element 
-where most of the systems connect, either through associated elements or the element itself. 
+    body,
+    html {
+        height: 100%
+    }
 
-<p align="center">
-  <figcaption >Figure 1: System and subsystem elements in the general VF process flow design </figcaption>
-  <img src="{{ site.baseurl }}/assets/proposal_images/figure_1.JPG"  style="width: 80%; height: auto;">
-</p>
+    html {
+        font-size: 62.5%
+    }
 
+    body {
+        text-rendering: optimizeLegibility;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        letter-spacing: .2px;
+        text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%
+    }
 
-# 2.0 Architecture Layout
+    .swot-list li {
+        margin-bottom: 1rem;         
+        line-height: 1.4;             
+    }
 
-## 2.1  Modular Design
+    .projection-chart-tittle{
+        text-align: center;
+        font-style: italic;
 
-The baseline design resulted in 5 warehouses that each measures 75 m by 35 m. 
-4 of which are cultivation modules, with a singular central convergence warehouse
-acting as the hub. each cultivation module is divided into two general areas:
-the core and the production area separated by decontamination airlock. Each of
-the modules measures 6 m floor-to-ceiling. The overall footprint of the projects
-is 13,125 m².
+    }
 
-## 2.2 Central Hub Description 
+    .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        aspect-ratio: 16 / 9;
+        /* or 4 / 3 for square-ish charts */
+        margin-bottom: 2rem;
+    }
 
-The central hub area comprises of the main entrance, a room for staff, the fresh water unit and 
-storage tank, the main control room for all the modules and the main decontamination airlock. The 
-main airlock also contains the changing and decontamination rooms for employees which provides 
-the first level of separation between the cultivation area and any contaminants from the outside or 
-core areas 
+    @media (max-width: 768px) {
+        .chart-container {
+            aspect-ratio: 4 / 3;
+        }
+    }
 
-There are 10 cold storage rooms, each one 5 m by 4 m, located in the middle of
-the central hub floor, five on each side. Each storage rooms can store a full
-harvest from a single module each day, 21 pallets (2,040 kg) of lettuce.  
-The rooms have to maintain a minimum temperature of 2°C and a relative humidity
-between 90 - 95 %.  
+    .sankey-container {
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 66.66%;
+        /* 16:9 aspect ratio (9 / 16 * 100) */
+        margin-bottom: 2rem;
+    }
 
-A second exit allows product to be transported from the cold storage to
-transport trucks.   A small vestibule of three meters is between the cold
-storage rooms and the truck gate.  The vestibule creates an air buffer between
-the outside and the refrigerated area, which will minimize the inflow of warm
-air into the cold storage area. Outside the core area are large water buffer
-tanks and CO2 tanks which serve the various cultivation modules.
+    #sankey_chart {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 
-## 2.3 Cultivation module description
-
-on the low floor,the module houses the bulk nutrient solution storage (NDS) tank and mixing unit, a 
-germination room, the module airlock and a packaging room as well as the utility lines connected to 
-the central hub.
-
-<p align="center">
-  <figcaption >Figure 2: Lower level of the lettuce level core together with the nurseries in the working area </figcaption>
-  <img src="{{ site.baseurl }}/assets/proposal_images/figure_2.JPG"  style="width: 80%; height: auto;">
-</p>
-
-
-On top of the germination room, airlock and NDS room the air management, thermal, power control 
-and distribution system components are housed. Detailed descriptions of each of the 
-subsystems and their respective components are in the dedicated subsystem chapters in this report. 
-The production area is divided into the working area, containing the nurseries, and the cultivation 
-area, where the growth racks are placed. 
-The working space measures four meters in length. Here, the workers have space
-to harvest, clean and plant gutters which will then be trans ported to their
-appropriate areas for the start of the growth cycle.  This area will
-additionally provide space for the workers to package the incoming produce to be
-shipped away.  The two nurseries are located near the core and measure 3 m wide
-by 13 m long and are stacked five layers high.  The total nursery area per
-module is therefore 390 m².
-
-<p align="center">
-  <figcaption >Figure 3: Top view of a module production level  </figcaption>
-  <img src="{{ site.baseurl }}/assets/proposal_images/figure_3.JPG"  style="width: 80%; height: auto;">
-</p>
-
-The cultivation area contains five gutter growth racks, with each rack being 50 m long and 5 m wide . 
-The total height of the growth rack is 6 m, which is the entire floor-to-ceiling 
-height in the cultivation area.  Each rack is divided into five, 1 m high growing compartments. The 
-compartments are each equipped with a drain, an irrigation pipe with individual drippers, and at the 
-top of each compartment, LED panels are placed.
-
-The lettuce heads will be in 5 m long gutters, moving on the growth track.  
-The germination room, located in the core of the lettuce module, will be the starting point for 
-seeding.  Following successful germination, the young seedlings move to the nurseries in the work 
-area of the lettuce module.  The lettuce is transplanted from the nursery into the gutters upon 
-maturity.  Lettuce plants are planted 15 cm apart, allowing 33 plants per gutter.
+    @media (max-width: 768px) {
+        .sankey-container {
+            padding-bottom: 100%;
+            /* 1:1 aspect ratio for better mobile height */
+        }
+    }
 
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 20px; text-align: center;">
+
+</style>
+
+</head>
+
+**Name:** Issa Fares **Date:** `2024-19-01` **Contact:** faresissa22@gmail.com
+
+<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
   <div>
-    <figcaption>Figure 4: Frame</figcaption>
-    <img src="{{ site.baseurl }}/assets/proposal_images/figure_4.JPG" style="width: 80%; height: auto;">
-  </div>
-  <div>
-    <figcaption>Figure 5: Lighting</figcaption>
-    <img src="{{ site.baseurl }}/assets/proposal_images/figure_5.JPG" style="width: 80%; height: auto;">
-  </div>
-</div>
-
-<div style="display: flex; justify-content: center; align-items: center; gap: 20px; text-align: center;">
-  <div>
-    <figcaption>Figure 6: Air ducts</figcaption>
-    <img src="{{ site.baseurl }}/assets/proposal_images/figure_6.JPG" style="width: 80%; height: auto;">
-  </div>
-  <div>
-    <figcaption>Figure 7: conveyor with gutters</figcaption>
-    <img src="{{ site.baseurl }}/assets/proposal_images/figure_7.jpg" style="width: 80%; height: auto;">
-  </div>
-</div>
-
-<div style="display: flex; justify-content: center; align-items: center; gap: 20px; text-align: center;">
-  <div>
-    <figcaption>Figure 8: pipe system</figcaption>
-    <img src="{{ site.baseurl }}/assets/proposal_images/figure_8.jpg" style="width: 80%; height: auto;">
-  </div>
-  <div>
-    <figcaption>Figure 9: solution collection duct</figcaption>
-    <img src="{{ site.baseurl }}/assets/proposal_images/figure_9.jpg" style="width: 80%; height: auto;">
+  <p >
+    <img src="{{ site.baseurl }}/assets/pilot_images/mining_1.jpg"  style="width: 90%; height: auto;">
+  </p>
   </div>
 </div>
 
 
+# 1.0 Executive Summary
+
+This report outlines a strategic Bitcoin mining operation based in Kano, Nigeria, designed for long-term profitability and sustainability through a blend of high-performance mining hardware and renewable energy integration. The operation leverages Bitmain’s Antminer S21 XP Hydro units, known for their energy efficiency and high hashrate performance (473 TH/s per unit). With an initial deployment of 30 units, the farm is engineered to maximize uptime, optimize cooling in a challenging climate, and progressively shift towards solar energy reliance.
+
+A purely initial investment scenario projects a **first-year net profit of ＄145,248 on a total revenue of ＄275,670, with an annual operating cost of ＄130,422**. When reinvestment strategies are included—particularly the allocation of 85% of monthly profit into operational scaling and solar expansion—the project yields a **3-year net profit of ＄478,845**, with a **Return on Investment (ROI) of 68.5%**. The solar power share is expected to increase from **60% to 93%**, significantly reducing long-term energy costs.
+
+The operation is designed with scalability and regulatory foresight, capitalizing on Nigeria’s recent recognition of digital assets in 2025. This legal backing is expected to enhance investor confidence and open the doors for institutional partnerships. In addition to cryptocurrency mining, the facility is positioned to evolve into a hybrid data center offering services such as edge computing and hosting.
+
+Risks such as regulatory shifts, grid instability, and market volatility are actively mitigated through redundancy planning, energy diversification, and continual technical oversight. The facility’s modular infrastructure, climate-aware design, and strategic location offer long-term viability and opportunities for expansion.
+
+---
+
+# 2.0 Introduction
+
+This report outlines the budget for the pilot study of a Crypto mining project. The project involves the construction of a facility from the ground up, incorporating advanced systems for energy integration, cooling mechanisms, and mining. The goal of this pilot study is to validate the feasibility and efficiency of the proposed design.
+
+## 2.1 Background of Cryptocurrency and ASIC Mining
+
+Cryptocurrency, a form of decentralized digital currency built on blockchain technology, has experienced rapid growth and adoption since the launch of Bitcoin in 2009. At the core of many cryptocurrencies, particularly Bitcoin, is a consensus mechanism known as Proof of Work (PoW), which requires solving complex cryptographic puzzles to validate transactions and secure the network. This process, commonly referred to as mining, demands significant computational power and energy consumption.
+
+To meet these demands, the mining industry has evolved from using standard CPUs and GPUs to deploying specialized hardware known as Application-Specific Integrated Circuits (ASICs). ASIC miners are purpose-built chips designed to execute a narrow set of tasks with unmatched speed and efficiency—in this case, performing SHA-256 hashing used in Bitcoin mining. These devices dramatically outperform traditional hardware in both speed and energy efficiency, making them the industry standard for profitable large-scale mining operations.
+
+
+## 2.2 Global trends in crypto mining
+
+Over the last decade, cryptocurrency mining has transitioned into a global industrial operation. Countries like the United States, Russia, Kazakhstan, and previously China have led in hash rate production due to access to cheap electricity and favorable climates for cooling [Cambridge Centre for Alternative Finance, 2023]. However, rising regulatory scrutiny and environmental concerns have pushed the industry to seek more sustainable energy sources.
+
+A notable trend is the integration of renewable energy, particularly solar and hydro, into mining infrastructure to reduce carbon footprints and maintain profitability. Furthermore, the industry has shown a shift toward modular mining units like Bitmain’s Antbox containers, which offer scalability, rapid deployment, and improved thermal management. These trends align with global ESG (Environmental, Social, and Governance) concerns and regulatory pressure on carbon-intensive data operations.
+
+## 2.3 Project scope
+
+This business study proposes the development of a solar-powered, containerized ASIC mining facility in Kano, Nigeria, utilizing Bitmain’s ANTSPACE HK5 (formerly HW5) modular hydro-cooling data center and Antminer S21 XP Hyd units. The ANTSPACE HK5 is a high-performance, closed-loop liquid cooling container capable of hosting up to 210 hydro-cooled miners per unit, offering exceptional energy efficiency and thermal stability in hot climates.
+
+The mining facility will be powered entirely by solar photovoltaic (PV) energy, with additional energy storage and a UPS (uninterruptible power supply) system to ensure continuous operations during nighttime or periods of low solar irradiance. Given the high temperatures and dust levels characteristic of Northern Nigeria, hydro cooling offers a more reliable and efficient solution than traditional air cooling, significantly reducing the risk of thermal throttling and downtime.
+
+This report provides a comprehensive analysis of the project’s technical, environmental, and financial feasibility. It covers the infrastructure and energy requirements, cooling design, capital and operational expenditures, local regulatory considerations, and projected return on investment (ROI). The project aims to showcase a clean, scalable, and profitable crypto mining model that leverages Nigeria’s abundant solar resources and growing interest in blockchain infrastructure development.
+
+---
+
+# 3.0 Project Design
+
+## Description
+
+The building structure will be constructed from the ground up, designed to accommodate the batteries module, office, water filtration and cooling system, and the HVAC system. It will include reinforced foundations, walls, and roofing to support the weight of the infrastructure and ensure durability.
+
+## 3.1 General Infrastructure
+
+<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+  <div>
+  <p >
+    <figcaption><b>Figure 1:</b> Site (Top view)  </figcaption>
+    <img src="{{ site.baseurl }}/assets/pilot_images/topview_new.JPG"  style="width: 90%; height: auto;">
+  </p>
+  </div>
+</div>
+
+<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+  <div>
+  <p >
+    <figcaption><b>Figure 2:</b> Structural Foundation </figcaption>
+    <img src="{{ site.baseurl }}/assets/pilot_images/foundation.JPG"  style="width: 90%; height: auto;">
+  </p>
+  </div>
+</div>
+
+<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+  <div>
+  <p >
+    <figcaption><b>Figure 3:</b> Structural columns </figcaption>
+    <img src="{{ site.baseurl }}/assets/pilot_images/columns.JPG"  style="width: 90%; height: auto;">
+  </p>
+  </div>
+</div>
+
+<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+  <div>
+  <p >
+    <figcaption><b>Figure 4:</b> Overhead Slab </figcaption>
+    <img src="{{ site.baseurl }}/assets/pilot_images/overhead_slab.JPG"  style="width: 90%; height: auto;">
+  </p>
+  </div>
+</div>
+
+## 3.2 Mining Infrastructure
+
+### 3.2.1 Use of Bitmain Antbox / Modular Containers
+
+The project will utilize Bitmain's ANTSPACE HK5 (Hydro Cooling Data Center), a state-of-the-art, containerized data center specifically engineered for hydro-cooled ASIC mining hardware. Each HK5 unit supports up to 210 Antminer Hydro units and is fully integrated with internal water circulation, heat exchangers, and power distribution systems.
+
+The choice of the HK5 is based on several key advantages:
+
+- Optimized Cooling Performance: The hydro-cooling system ensures stable miner operation in high-temperature environments such as Kano, Nigeria, where ambient temperatures can exceed 40°C. Water cooling drastically reduces heat buildup, ensuring higher miner uptime and performance consistency.
+
+- Dust and Debris Protection: Compared to air cooling, hydro-cooling minimizes exposure of internal electronics to environmental dust, which is common in Northern Nigeria due to the Harmattan season.
+
+- High Density, Small Footprint: The container form factor allows easy transportation and compact deployment, ideal for modular growth without large infrastructure investment.
+
+- Pre-engineered for S21 XP Hyd Compatibility: The HK5 is designed to support the high power and cooling needs of Bitmain's latest hydro miners, ensuring seamless integration.
+
+<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+  <div>
+  <p >
+    <figcaption><b>Figure 5:</b> ANTSPACE HW5 From Bitmain </figcaption>
+    <img src="{{ site.baseurl }}/assets/pilot_images/container.jpg"  style="width: 90%; height: auto;">
+  </p>
+  </div>
+</div>
+
+### 3.2.2 ASIC Miner Selection
+
+The selected ASIC model is the Bitmain Antminer S21 XP Hyd, a high-efficiency, hydro-cooled miner capable of delivering up to 473 TH/s with an energy efficiency of 12 J/TH, making it one of the most cost-efficient options available.
+
+Due to capital constraints and a strategic decision to scale operations sustainably, the initial deployment will consist of:
+
+- 1 x ANTSPACE HK5 container
+
+- Up to 30 x Antminer S21 XP Hyd units (14.28% of HK5 full capacity)
+
+This phased approach allows the business to manage initial capital expenditure while preparing the infrastructure for future expansion. The remaining capacity within the container will be populated in future procurement cycles using returns generated from the initial deployment.
+
+**Why S21 XP Hyd?**
+
+- Best-in-class energy efficiency lowers operational costs and increases BTC mined per watt.
+
+- Hydro cooling compatibility with the HK5 eliminates additional cooling infrastructure costs.
+
+- Long-term ROI: High hash rate-to-power ratio extends the economic lifespan of each unit, even during periods of low Bitcoin price or high difficulty.
+
+<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+  <div>
+  <p >
+    <figcaption><b>Figure 6:</b> Miner S21 XP Hyd </figcaption>
+    <img src="{{ site.baseurl }}/assets/pilot_images/s21.jpg"  style="width: 90%; height: auto;">
+  </p>
+  </div>
+</div>
+
+### 3.2.3 Deployment Scale and Strategy
+
+The deployment will begin with one modular unit, designed to operate semi-autonomously with minimal on-site staff. As profits are realized, additional S21 XP Hyd units will be procured to fill the HK5 to full capacity. Following that, further expansion to multiple containers is anticipated in 12–18 month cycles based on performance and reinvestment metrics.
+
+**Each container will be:**
+
+- Installed on pre-prepared concrete pads with integrated utility access
+
+- Connected to a dedicated solar PV array and battery storage system
+
+- Managed via centralized remote monitoring software provided by Bitmain or third-party integrators
+
+## 3.3 Cooling System
+
+The cooling system is a critical aspect of any high-density ASIC mining deployment, especially when targeting performance optimization, energy efficiency, and equipment longevity. For this project, the Bitmain ANTSPACE HK5 container solution has been selected due to its integrated hydro-cooling architecture, which supports the Antminer S21 XP Hydro series.
+
+### 3.3.1 Hydro-Cooling Loop Design
+
+The ANTSPACE HK5 employs a closed-loop water cooling system, which circulates coolant (typically purified water or a water-glycol mixture) through internal piping that interfaces directly with the miners' cold plates. Heat is absorbed by the water and transported outside the container to a dry cooler (radiator system), where it is dissipated into the air before returning to the container for re-circulation.
+
+- This configuration offers several benefits over traditional air-cooled or immersion-cooled solutions:
+
+- Significantly higher thermal efficiency, allowing for higher hash rate operation with lower failure rates.
+
+- Fully enclosed and isolated system, reducing dust ingress, corrosion, and noise.
+
+- Modular design, enabling outdoor deployment in remote or industrial zones.
+
+Each HK5 container supports approximately 210–250 kW of mining capacity, and the internal loop is designed to minimize fluid loss, although regular inspection and topping up are required.
+
+### 3.3.2 Water Supply and Quality Management
+
+Although the hydro-loop is sealed, it requires an initial charging volume of purified water, as well as periodic top-ups to compensate for evaporative losses or system maintenance. Importantly, Bitmain and other hardware manufacturers explicitly recommend the use of deionized or distilled water to prevent:
+
+- **Scale buildup** in heat exchangers (from calcium or magnesium)
+
+- **Electrochemical corrosion** from high ionic content
+
+- **Biofouling**, which can block pipes and reduce cooling efficiency
+
+Given that the proposed deployment site is in Kano, Nigeria — a region where groundwater (borehole) sources often exhibit high mineral content and microbiological load — direct use of untreated water is not viable. Instead, an on-site Reverse Osmosis (RO) treatment system is proposed.
+
+### 3.3.3 Water Treatment System Design
+
+The proposed treatment train is as follows:
+
+1. **Borehole Intake** – Provides raw water input.
+
+2. **Sediment Filtration (5–20 micron)** – Removes sand and suspended solids.
+
+3. **Activated Carbon Filtration** – Removes chlorine, organic matter, and odors.
+
+4. **Antiscalant or Softener** – Prevents mineral scaling of RO membrane.
+
+5. **Reverse Osmosis System** – Produces purified water with low conductivity and low TDS (<10 ppm).
+
+6. **UV Sterilization or Ozone Disinfection** – Optional microbial control.
+
+7. **Storage Tank (5,000–10,000 liters)** – To buffer treated water for system fill-ups and maintenance.
+
+8. **Delivery Pump** – Feeds treated water into the HK5 container as needed.
+
+The RO system need not be continuous-flow and can be designed to produce 1,000–2,000 liters/day, sufficient to meet the initial fill (~5,000–8,000 L per container) and weekly top-ups (~50–100 L per container).
+
+### 3.3.4 Maintenance and Monitoring
+
+To ensure consistent cooling performance and system health:
+
+- Water conductivity, temperature, and flow rate will be monitored continuously via sensors.
+
+- Filter cartridges (pre-RO) will be replaced monthly or as required.
+
+- The dry cooler will be maintained periodically to ensure unrestricted airflow and fan performance.
+
+- Water quality testing will be performed quarterly to validate purification system output.
+
+This integrated approach to hydro-cooling and water purification is designed to ensure optimal ASIC performance, minimal downtime, and long-term operational sustainability — all while maintaining a compact environmental footprint suitable for deployment in northern Nigeria.
+
+<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+  <div>
+  <p >
+    <figcaption><b>Figure 7:</b> Water treatment and testing laboratory  </figcaption>
+    <img src="{{ site.baseurl }}/assets/pilot_images/lab.JPG"  style="width: 90%; height: auto;">
+  </p>
+</div>
+</div>
+
+## 3.4 Power System
+
+A robust and efficient power infrastructure is paramount for the continuous operation of high-density ASIC miners. Leveraging Kano's high solar irradiance, this project adopts a hybrid energy solution combining solar photovoltaic (PV) generation, battery energy storage systems (BESS), uninterruptible power supply (UPS), and a diesel generator for backup.
+
+### 3.4.1 Load Profile and Total Power Demand
+
+The deployment includes 30 Antminer S21 XP Hyd units, each consuming approximately 5.7 kW under optimal hydro-cooled conditions.
+
+Total ASIC Power Load:
+
+```
+30 units × 5.7 kW = 171 kW
+```
+
+Including Cooling Systems, RO Units, and Safety Margin (~10%):
+
+```
+Total Continuous Load ≈ 188 kW
+```
+
+### 3.4.2 Solar Farm Design
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 10px; text-align: center;">
+  <div>
+  <p >
+    <figcaption><b>Figure 8:</b> Effective layout of 600 monocrystalline solar panels <strong>(drawn to scale)</strong></figcaption>
+    <img src="{{ site.baseurl }}/assets/pilot_images/solar_panels.JPG"  style="width: 90%; height: auto;">
+  </p>
+  </div>
+</div>
+
+Kano benefits from an average of 7.0 Peak Sun Hours (PSH) per day, making it ideal for solar energy generation.
+
+**Daily Energy Requirement:**
+
+```
+188 kW × 24 hours = 4,512 kWh/day
+```
+
+**Solar Generation Target (Daylight Hours):**
+
+only 60% of the energy will be sourced from solar energy for starters, while the rest will be procured from KEDKO. thus, to meet the daily demand during daylight:
+
+```
+(4,512 kWh x 60/100) ÷ 7.0 PSH ≈ 386.7 kW (DC Capacity)
+```
+
+**Panel Rating:** 610 W (monocrystalline)
+
+**Number of Panels Required:**
+
+```
+386.7 KW ÷ 0.610 KW/panel ≈ 635 panels
+```
+
+**Land Requirement:**
+
+Assuming a **5x10 grid** of panels each with the dimensions of **width 1.2m, length = 2.4m** per panel angled at 25 degrees from the horizontal, and a grid spacing of **2.2m** as seen in figure 9 Below:
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 10px; text-align: center;">
+  <div>
+  <p >
+    <figcaption><b>Figure 9:</b> Solar Grid Illustration (to scale)</figcaption>
+    <img src="{{ site.baseurl }}/assets/pilot_images/solar_grid.JPG"  style="width: 90%; height: auto;">
+  </p>
+  </div>
+</div>
+
+```
+grid length (width spacing) = (2.4m x 10 panels) + 1.1 = 25.1m
+grid width (width spacing) = (1.2m x 5 panels x cos(25)) + 1.1 = 6.54m
+```
+
+```
+Area of grid (50 panels)= total grid length x total grid width ≈ 164.1 m²
+```
+
+```
+total required area = Area of grid x (635 panels / 50 panels per grid)
+total required area = 164.1 m² x (635/50) ≈  2,084 m² (~0.5 acres)
+```
+
+### 3.4.3 Batteries
+
+**Energy storage Requirement:**
+
+- The total energy required continuously is 4,512 Kwh, but since only 60% will be provided by solar panels as mentioned earlier, only 2,707.2 Kwh need to be evaluated.
+- The energy produced during the 7 hours of peak solar hours daily will be used up directly and does not require storage, thus energy to be stored is:
+
+```
+Total Energy stored =  total solar energy -  (total power required × 7 PSH)
+Total Energy stored =  2,707.2 -  (188 kW × 7 PSH) = 1,391.2 kWh
+```
+
+**Including 10% Buffer for Inefficiencies during charge/discharge cycles:**
+
+```
+1,391.2 kWh / 0.9 = 1,545.8 kWh (~1.55 MWh)
+```
+
+**Battery Selection:**
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 10px; text-align: center;">
+  <div>
+  <p >
+    <figcaption><b>Figure 10:</b> 215 Kwh Battery module</figcaption>
+    <img src="{{ site.baseurl }}/assets/pilot_images/battery.JPG"  style="width: 90%; height: auto;">
+  </p>
+  </div>
+</div>
+
+- **Type:** Lithium Iron Phosphate (LiFePO₄)
+
+- **Advantages:** High cycle life, thermal stability, safety
+
+  **Battery Module Configuration:**
+
+  **Module Capacity:** 215 kWh
+
+  **Number of Modules Required:**
+
+  ```
+  1,545.8 kWh ÷ 215 kWh/module ≈ 7.18 → 8 modules
+  ```
+
+  **System Layout:**
+
+  - Modular racks with integrated Battery Management Systems (BMS)
+
+### 3.4.4 Inverters
+
+- The inverter rating should be above the total Continuous Load by a small margin.
+- For easier integration down the line, the system will have multiple inverters connected and working in parallel
+  **Inverter starting Selection:**
+
+```
+- 1 Inverter rated for continuous  150 kW, 3-phase, 400 V output
+- 1 Inverter rated for continuous 50 kW, 3-phase, 400 V output
+```
+
+### 3.4.5 Diesel Generator Backup
+
+**Apparent Power Required (Kva):**
+
+```
+Apparent Power = (power required x generator Redundancy Factor) / generator power Factor;
+Apparent Power = (188 x 1.15) / 0.9 ≈ 240.2 Kva
+```
+
+- **Configuration:** 1 × 250 kVA diesel generators (N+1 redundancy)
+
+- **Features:**
+
+  - Auto-start capability
+  - Fuel-efficient operation
+
+- **Usage Scenario:** Extended cloudy periods, maintenance downtime, or emergency situations
+
+### 3.4.6 Transformers
+
+**Step-Up Transformer:** 400V to 11kV for grid integration
+Facilitates energy export and grid support
+
+- Assuming a typical power factor of 0.9 for mining equipment
+- Targeting 80% of full capacity for continuous loads
+
+```
+Apparent Power (kVA)  =  Real Power (kW) / (Power Factor (PF) x (working Capacity Percentage / 100))
+Apparent Power (kVA)  =  188 / (0.9 x (80 / 100))
+Apparent Power (kVA)  = ~261 KVA
+```
+
+**Transformer Selection:**
+
+- **Capacity:** 300 kVA
+
+- **Primary Voltage:** 11 kV
+
+- **Secondary Voltage:** 400 V (3-phase)
+
+### 3.4.7 Visual Diagrams and Layout
+
+To aid in visualization, the following schematic illustrates the integrated power system:
+
+<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+  <div>
+  <p >
+    <figcaption><b>Figure 11:</b> Power transition Structure </figcaption>
+    <img src="{{ site.baseurl }}/assets/pilot_images/power_diagram.jpg"  style="width: 90%; height: auto;">
+  </p>
+</div>
+</div>
+
+This diagram showcases the flow from solar panels through inverters, battery storage, and load distribution, including backup systems.
+
+**Summary of Power System Specifications**
+
+| Component                 | Specification                                        |
+| ------------------------- | ---------------------------------------------------- |
+| **ASIC Load**             | 171 kW                                               |
+| **Total Load w/ Cooling** | ~188 kW                                              |
+| **Solar Capacity**        | ~387 kW (DC Capacity), ~635 panels                   |
+| **Battery Storage**:      | ~1.55 MWh LiFePO₄ (8 modules of 215 kWh)             |
+| **Inverters**             | 200 kW, 3-phase, 400 V output                        |
+| **Generator Backup**      | 1 × 250 kVA Diesel (N+1 Redundancy)                  |
+| **Transformer**           | Isolation (off-grid) / Step-Up 400V→11kV (grid-tied) |
+
+## 3.5 Network setup
+
+<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+  <div>
+  <p >
+    <figcaption><b>Figure 12:</b> Dual-WAN Network Redundancy Structure  </figcaption>
+    <img src="{{ site.baseurl }}/assets/pilot_images/network_setup.jpg"  style="width: 90%; height: 800px;">
+  </p>
+</div>
+</div>
+
+1. **Starlink Setup**
+
+   - Starlink Dish (Outdoors)
+
+   - Starlink Router (bridged mode or via Ethernet Adapter)
+
+   - Supplies internet via Ethernet
+
+2. **Local ISP Setup**
+
+   - Fiber, LTE, or microwave modem/router
+
+   - Also outputs via Ethernet
+
+3. **Dual-WAN Router (Main Brain)**
+   Use a router that supports automatic failover + load balancing. Good examples:
+
+   - Ubiquiti EdgeRouter
+
+   - TP-Link ER605
+
+   - MikroTik hEX S
+
+   - Peplink Balance
+
+   **Functions:**
+
+   - Monitors both WANs
+
+   - If local ISP fails → automatically routes traffic to Starlink
+
+   - Can balance traffic across both if desired (non-mining traffic, updates, etc.)
+
+4. **Switch & LAN**
+   - Gigabit Ethernet switch
+   - Connects miners, NMS (network management system), local control PC
+
+**Optional: Firewall / VPN**
+
+- For secure remote access, use:
+
+- A small firewall appliance (like pfSense or OPNsense)
+
+- VPN tunnel for remote monitoring
+
+**Benefits of This Structure**
+
+- High Uptime: One link goes down, the other takes over
+
+- Performance: Can load-balance software updates or background tasks to avoid blocking mining traffic
+
+- Scalability: Easily extendable as you grow from 100 to 300+ miners
+
+---
+
+# 4.0 Financial Analysis
+
+## 4.1 Capital Expenditure (CAPEX)
+
+This section details the initial capital investment required to deploy the ASIC mining project. Costs are estimated based on standard international and Nigerian market prices as of 2024–2025, including logistics and engineering.
+
+### 4.1.1 Site Preparation and Construction
+
+<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+  <div>
+  <p >
+    <figcaption><b>Figure 13:</b> Construction Breakdown by Phase (overview)</figcaption>
+    <img src="{{ site.baseurl }}/assets/pilot_images/construction_pie_chart.jpg"  style="width: 80%; height: auto;">
+  </p>
+  </div>
+</div>
+
+<table  cellspacing="0" cellpadding="5">
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 1:</b> Construction Breakdown by Phase (detailed)</caption>
+    <tr>
+        <th>Sub-Structure (₦9,897,800)</th>
+        <th>Super-Structure (₦28,281,000)</th>
+        <th>Blockwork (₦9,188,500)</th>
+        <th>Electrical (₦4,652,500)</th>
+        <th>Finishing (₦10,889,500)</th>
+    </tr>
+    <tr>
+        <td>Site Clearing</td>
+        <td>Formwork to Columns and Beams</td>
+        <td>Block to Headcourse</td>
+        <td>Electrical Piping and Wiring</td>
+        <td>Plastering of Walls Both Faces</td>
+    </tr>
+    <tr>
+        <td>Excavation of Foundation</td>
+        <td>Casting to Columns and Beams</td>
+        <td>&nbsp;</td>
+        <td>Fixtures and Fittings</td>
+        <td>Dressing of Doors and Windows</td>
+    </tr>
+    <tr>
+        <td>Starter: Columns and Base</td>
+        <td>Formwork to Headcourse</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Epoxy Flooring</td>
+    </tr>
+    <tr>
+        <td>Casting of Foundation</td>
+        <td>Rebar to Headcourse</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Site Clearing to Handover</td>
+    </tr>
+    <tr>
+        <td>Blockwork Filled Solid</td>
+        <td>Rebar to Column and Beams</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>Casting of Starter Column</td>
+        <td>Casting of Headcourse</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>Hardcore Filling and Compaction</td>
+        <td>Formwork to Suspended Roof</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>Damp Proof Course (DPC)</td>
+        <td>Rebar to Suspended Roof</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Casting of Suspended Roof</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+
+- **Subtotal:**
+  **≈ ₦62,909,300**
+
+* for more details please view **Appendix 1** at the end
+
+### 4.1.2 Office and lab equipments
+
+<table>
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 3:</b> Furniture and Utility Items</caption>
+    <tr>
+        <th>Location</th>
+        <th>Item</th>
+        <th>Qty</th>
+        <th>Unit Price (₦)</th>
+        <th>Amount (₦)</th>
+    </tr>
+    <tr>
+        <td rowspan="5">Office</td>
+        <td>Office Chair</td>
+        <td>3</td>
+        <td>65,000</td>
+        <td>195,000</td>
+    </tr>
+    <tr>
+        <td>Office Table</td>
+        <td>2</td>
+        <td>120,000</td>
+        <td>240,000</td>
+    </tr>
+    <tr>
+        <td>Cabinet</td>
+        <td>1</td>
+        <td>150,000</td>
+        <td>150,000</td>
+    </tr>
+    <tr>
+        <td>Seating Area</td>
+        <td>1</td>
+        <td>150,000</td>
+        <td>150,000</td>
+    </tr>
+    <tr>
+        <td>Computer</td>
+        <td>2</td>
+        <td>400,000</td>
+        <td>800,000</td>
+    </tr>
+    <tr>
+        <td rowspan="3">Lab</td>
+        <td>Chemical Equipments</td>
+        <td>1</td>
+        <td>500,000</td>
+        <td>500,000</td>
+    </tr>
+    <tr>
+        <td>Laboratory Workstation</td>
+        <td>1</td>
+        <td>850,000</td>
+        <td>850,000</td>
+    </tr>
+    <tr>
+        <td>Misc</td>
+        <td>-</td>
+        <td>-</td>
+        <td>200,000</td>
+    </tr>
+    <tr>
+        <td colspan="4" style="text-align:center;"><b>Total</b></td>
+        <td><b>3,085,000</b></td>
+    </tr>
+</table>
+
+### 4.1.3 Bitmain Containers and ASICs
+
+- **ANTSPACE HW5 Hydro Cooling Container**
+
+  - Each container holds up to 210 miners (the project aims to start with 30 units, allowing future expansion).
+
+  - Cost Estimate: ~**＄84,000 USD**(container only)
+
+- **Antminer S21 XP Hyd (473 TH/s @ 5676W)**
+
+  - **Unit Cost (bulk rate):** ~10,170 USD per unit × 30 = **＄305,100**
+
+  - **Power Draw:** ~170.28 kW total for 30 units
+
+  - **Crypto algorithmcoins:** SHA256 BTC/BCH/BSV
+
+  - Comes with hydro cooling blocks integrated
+
+- **Subtotal:**
+  ≈ **＄389,100 USD**
+
+### 4.1.4 Batteries, Solar Panels, Inverters, Transformers, and Generator
+
+**Batteries:**
+
+- **Industrial-grade LiFePO₄ (215 kWh/module)** with integrated BMS and rack housing
+- **Market Rate** : ＄16,500 USD per battery
+- Subtotal: 8 batteries × 16,500 USD ≈ **132,000 USD**
+
+**Solar Panels:**
+
+- 610W panels → need ~635 units
+
+- Price per panel (uninstalled): ~51.24 USD
+- with racking and installation estimated at 10%, price (installed): ＄57
+
+- Subtotal: **＄36,195 USD**
+
+**Inverters:**
+
+- 1 x ATESS HPS Series, 150Kw Inverter Commercial-grade,hybrid inverter at 20600
+- 1 x ATESS HPS Series, 50Kw Inverter Commercial-grade,hybrid inverter at 8600
+
+- Subtotal: **＄29,200 USD**
+
+**Transformers:**
+
+- 1 x 11kv 3-phase transformer
+- Subtotal: **＄4,950**
+
+**Generator:**
+
+- 1 × 250 kVA diesel generators (N+1 redundancy)
+
+**TOTAL: ＄215,345 USD**
+
+- Subtotal: **＄13,000**
+
+### 4.1.4 HVAC cooling
+
+<table>
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 8:</b> Cost breakdown for the HVAC system</caption>
+    <tr>
+        <th>Item</th>
+        <th>Model</th>
+        <th>Qty</th>
+        <th>Description</th>
+        <th>Capacity (Kw)</th>
+        <th>Unit Price (＄)</th>
+        <th>Total Price (＄)</th>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td><b>VRF Outdoor Units</b></td>
+        <td>&nbsp;</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>4TVVT192DD07CAA</td>
+        <td>1</td>
+        <td>Trane/20HP TVR 7G Modular Cooling Only</td>
+        <td>56.00</td>
+        <td>7,011.49</td>
+        <td>7,011.49</td>
+    </tr>
+        <tr>
+        <td>&nbsp;</td>
+        <td><b>VRF Indoor Units</b></td>
+        <td>&nbsp;</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>4TVBD009AB07RAA </td>
+        <td>1</td>
+        <td>Trane TVR 7G Compact Four-way Cassette Unit</td>
+        <td>2.80</td>
+        <td>395.78</td>
+        <td>395.78</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>4TVCD038AB07RAA </td>
+        <td>1</td>
+        <td>Trane TVR 7G Four-way Cassette Unit</td>
+        <td>11.20</td>
+        <td>704.10</td>
+        <td>704.10</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>4TVCD055AB07RAA</td>
+        <td>3</td>
+        <td>Trane TVR 7G Four-way Cassette Unit</td>
+        <td>16.00</td>
+        <td>880.91</td>
+        <td>2,642.74</td>
+    </tr>
+        <tr>
+        <td>&nbsp;</td>
+        <td><b>Branch Distributors & Accessories</b></td>
+        <td>&nbsp;</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>4TV0RDK01CA007G</td>
+        <td>1</td>
+        <td>Trane/IDU Y Joint, kW < 22.4</td>
+        <td>-</td>
+        <td>34.69</td>
+        <td>34.69</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>4TV0RDK03CA007G</td>
+        <td>3</td>
+        <td>Trane/IDU Y Joint, 33≤ KW < 104</td>
+        <td>-</td>
+        <td>69.96</td>
+        <td>209.87</td>
+    </tr>
+    <tr>
+        <td colspan="6" style="text-align:right;"><b>Total Price (USD)</b></td>
+        <td>＄10,998.67</td>
+    </tr>
+    <tr>
+        <td colspan="6" style="text-align:right;"><b>Total Price (NGN)</b></td>
+        <td>₦17,597,866.00</td>
+    </tr>
+    <tr>
+        <td colspan="6" style="text-align:right;"><b>VAT (7.5%)</b></td>
+        <td>₦1,319,839.95</td>
+    </tr>
+    <tr>
+        <td colspan="6" style="text-align:right;"><b>Grand Total</b></td>
+        <td>₦18,917,705.95</td>
+    </tr>
+
+</table>
+
+### 4.1.5 Liquid Cooling System Setup for miners
+
+<table>
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 6:</b> Stainless steel tank construction</caption>
+    <thead>
+        <tr>
+            <th>Component</th>
+            <th>Quantity</th>
+            <th>Unit Price (₦)</th>
+            <th>Total (₦)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>120m 1 inch PVC pipe</td>
+            <td>50</td>
+            <td>2,200</td>
+            <td>110,000</td>
+        </tr>
+        <tr>
+            <td>40m 1/2 inch PVC pipe</td>
+            <td>15</td>
+            <td>1,800</td>
+            <td>27,000</td>
+        </tr>
+        <tr>
+            <td>Stainless steel 2mm</td>
+            <td>10</td>
+            <td>150,000</td>
+            <td>1,500,000</td>
+        </tr>
+        <tr>
+            <td>Hollow Quad Pipe (Stainless 50 X 20 X 2 mm)</td>
+            <td>4</td>
+            <td>50,000</td>
+            <td>200,000</td>
+        </tr>
+        <tr>
+            <td>Hollow Circular Pipe (Stainless)</td>
+            <td>4</td>
+            <td>25,000</td>
+            <td>100,000</td>
+        </tr>
+        <tr>
+            <td>Labour + fixtures</td>
+            <td>1</td>
+            <td>500,000</td>
+            <td>500,000</td>
+        </tr>
+        <tr>
+            <td colspan="3" style="text-align:end;"><strong>Total</strong></td>
+            <td><strong>2,437,000</strong></td>
+        </tr>
+    </tbody>
+</table>
+
+<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+  <div>
+  <p >
+    <figcaption><b>Figure 14:</b> Stainless steel tanks</figcaption>
+    <img src="{{ site.baseurl }}/assets/pilot_images/tanks_final_v2.jpg"  style="width: 80%; height: auto;">
+  </p>
+  </div>
+</div>
+
+- water from the ground tends to be contaminated with all kind of natural salts, molecules, and elements. To acquire neutral water, the water will pass through a reverse osmosis process with the help of the purification machine shown in **figure 15** below. The price varies at about **₦6,000,000**.
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 10px; text-align: center;">
+  <div>
+  <p >
+    <figcaption><b>Figure 15:</b> Reverse Osmosis Machinery</figcaption>
+    <img src="{{ site.baseurl }}/assets/pilot_images/Reverse-Osmosis-System.jpg"  style="width: 90%; height: auto;">
+  </p>
+  </div>
+</div>
+
+### 4.1.6 Labor and Engineering Fees
+
+- Electrical, mechanical, and civil contractors
+- Solar + electrical system design and commissioning
+- Technical documentation, inspection, and testing
+
+- **Estimated Total:**
+  - 5,000 – 10,000 USD
+
+### 4.1.7 Logistics and Import Duties
+
+- International shipping of container, ASICs, solar panels
+
+- Port clearance, inland transport to Kano
+
+- Customs duties, taxes, agent fees
+
+- **Customs Duty (Nigeria):**
+
+  - Varies ~5–20% depending on equipment
+
+  - Budget margin: ~7.5% of equipment cost
+
+- **Estimate:**
+  - ＄29,183 USD
+
+### 4.1.8 Capex Summary
+
+<p class="projection-chart-tittle"><b>Figure 16:</b> Capital Expenditure Breakdown</p>
+<div class="sankey-container">
+    <div id="sankey_chart"></div>
+</div>
 
 
 
-
-# 3.0 Horticulture Procedures 
-
-The total life cycle for lettuce is 48 days from the seed to harvest.  Germination takes place in the 
-germination rooms under germination specific conditions.  The seedlings then spend 
-14 days in the nurseries before they are transplanted out into the main gutter growth system.  
-Lettuce will spend a total of 28 days maturing in the primary gutter system.  These 28 days are divided 
-up into three distinct phases differing mainly in light intensities.  Each of the five 
-levels within the five cultivation racks will act as an independent growing system 
-containing all the necessary lighting conditions to produce fully mature lettuce as they move down 
-the length of the grow rack.  Mature head of lettuce are ready to harvest when it reaches an edible 
-fresh weight of approximately 200 g.
-
-<table  style="border-collapse: collapse; width: 100%; font-size: 12px;">
-  <caption style='font-weight: bold; text-align: center; margin-bottom: 5px;'>Table 3-1:  Growth conditions for each of the growth stages throughout the lettuce life cycle</caption>
-  <tr>
-    <th >Stage</th>
-    <th >Days</th>
-    <th >Temperature 
-[°C]</th>
-    <th >Relative 
-Humidity 
-[%]</th>
-    <th >Light In-
-tensity 
-[μmol/²/s]</th>
-    <th >CO2 
-[ppm]</th>
-    <th >Wind 
-speed 
-[m/s]</th>
-  </tr>
-  <tr>
-    <td style=''>Germination Phase 1 
-[Germination room]</td>
-    <td style=''>1,5 - 2</td>
-    <td style=''>22</td>
-    <td style=''>95</td>
-    <td style=''>150</td>
-    <td style=''>1.0</td>
-    <td style=''>0,3-0,5</td>
-  </tr>
-  <tr>
-    <td style=''>Germination Phase 2 
-[Nurseries]</td>
-    <td style=''>14</td>
-    <td style=''>22</td>
-    <td style=''>80</td>
-    <td style=''>200</td>
-    <td style=''>1.0</td>
-    <td style=''>0,3-0,5</td>
-  </tr>
-  <tr>
-    <td style=''>Growth Phase 1</td>
-    <td style=''>10</td>
-    <td style=''>23</td>
-    <td style=''>80</td>
-    <td style=''>200</td>
-    <td style=''>1.0</td>
-    <td style=''>0,3-0,5</td>
-  </tr>
-  <tr>
-    <td style=''>Growth Phase 2</td>
-    <td style=''>9</td>
-    <td style=''>23</td>
-    <td style=''>80</td>
-    <td style=''>225</td>
-    <td style=''>1.0</td>
-    <td style=''>0,3-0,5</td>
-  </tr>
-  <tr>
-    <td style=''>Growth Phase 3</td>
-    <td style=''>9</td>
-    <td style=''>23</td>
-    <td style=''>80</td>
-    <td style=''>250</td>
-    <td style=''>1.0</td>
-    <td style=''>0,3-0,5</td>
-  </tr>
+<table >
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 12:</b> CAPEX Budget summary overview</caption>
+    <tr>
+        <th rowspan="2">Section</th>
+        <th>Cost</th>
+        <th></th>
+    </tr>
+    <tr>
+        <th>USD (＄)</th>
+        <th>NGN (₦)</th>
+    </tr>
+    <tr>
+        <td>Site Preparation and Construction</td>
+        <td>-</td>
+        <td>62,909,300</td>
+    </tr>
+    <tr>
+        <td>Office and lab equipments</td>
+        <td>-</td>
+        <td>3,085,000</td>
+    </tr>
+    <tr>
+        <td>Bitmain Containers and ASICs</td>
+        <td>389,100</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>Batteries, Solar Panels, Inverters, Transformers</td>
+        <td>215,345</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>HVAC cooling</td>
+        <td>-</td>
+        <td>18,917,500</td>
+    </tr>
+    <tr>
+        <td>Liquid Cooling System</td>
+        <td>-</td>
+        <td>8,437,000</td>
+    </tr>
+    <tr>
+        <td>Labor and Engineering Fees</td>
+        <td>7,500</td>
+        <td>-</td>
+    </tr>
+        <tr>
+        <td>Logistics and Import Duties</td>
+        <td>29,183</td>
+        <td>-</td>
+    </tr>
+    <tr>
+      <td colspan="1" style="text-align:center;"><strong>Total</strong></td>
+      <td><strong>641,128</strong></td>
+      <td><strong>93,348,800</strong></td>
+    </tr>
 </table>
 
 
-Plants from the nurseries are transplanted into the gutters by workers, with the facility running at full 
-capacity, they will need to replant 308 gutters per module per day.  Gutters are 5 m in length and 0.1 m in width.  Plants 
-are spaced 0.15 m from center of planting hole to center of the following planting hole.  This spacing 
-allows for thirty-three plants to be planted per gutter.   
-Plants will mature and be ready for daily harvest in twelve gutter batches.  Each day workers will 
-collect gutters from each growth rack level and replace at the other end with newly transplanted 
-gutters.  The gutters in the level then shift up to fill the space created by the day´s harvest.   
-Growth phase 1 is 12.2 m long and has gutters packed with no spacing be
-tween them, resulting in a plant density of 66 pl/m².  This stage will last for a total of ten days.  Fol
-lowing this stage the gutters will move into the middle section, which is 
-15,7 m long and has the gutters spaced at 5 cm, which results in a plant density of 44 pl/m². 
-This stage lasts nine days.  The third and final stage, is 22 m long and increases 
-the spacing between the gutters to 10 cm resulting in a final harvesting density of 33 pl/m².  
-The gutters spend a total of nine days in this section before they are ready to be harvested. 
 
-This level of production will produce a maximum of 2,029.5 kg of edible mass per day per module.  This level of production will allow each 
-square meter of growing area to produce 146.5 kg of edible produce per year per module.  Calculating the Harvest 
-Index (HI) of a crop looks at the ratio of edible mass to the inedible mass.  For lettuce the HI is 0,85, 
-assuming a uniform distribution of cellular water, this will result in the production of 304.4 kg of inedible mass per day per module.  
-The lettuce is packed in boxes of 0.24 m² (dimensions 40 x 60 x 20 cm), each box contains twelve 
-heads of lettuce.  There will be four boxes arranged in a standard EPAL pallet (80 cm x 120 cm).  Each 
-box will weigh approximately 2.4 kg, and will be stacked twelve boxes high.  This results in a total of 
-forty boxes per pallet, with a total pallet weight of 96 kg.  The total production will be approximately 
-twenty one pallets per day per module.  Inedible matter is sent to the central hub through a chute to be pro
-cessed outside the project. 
-Gutters are washed following each use using a mobile gutter washing system to keep them free from 
-any buildup of algae or other biological waste/growth that could promote plant pathogens from entering the facility. 
+**At 1,600 ₦ /USD, the GRAND TOTAL: ＄699,471**
 
-<table  style="border-collapse: collapse; width: 100%; font-size: 12px;">
-  <caption style='font-weight: bold; text-align: center; margin-bottom: 5px;'>Table 3-2:   Key values of the Horticulture procedures subsystem</caption>
-  <tr>
-    <th >Operational Elements</th>
-    <th >Units</th>
-  </tr>
-  <tr>
-    <td style=''>Nurseries</td>
-    <td style=''>2.0</td>
-  </tr>
-  <tr>
-    <td style=''>Gutter Rack Structure**</td>
-    <td style=''>257259.0</td>
-  </tr>
-  <tr>
-    <td style=''>Gutter Rack Controller 
-and Motors</td>
-    <td style=''>18.0</td>
-  </tr>
-  <tr>
-    <td style=''>Washing Machine</td>
-    <td style=''>1.0</td>
-  </tr>
-  <tr>
-    <td style=''>Germination Racks</td>
-    <td style=''>1.0</td>
-  </tr>
-  <tr>
-    <td style=' font-weight: bold; text-align: center;' colspan='2'>Production Elements</td>
-  </tr>
-  <tr>
-    <td style=''>Rockwool Cubes and Cups</td>
-    <td style=''>353400.0</td>
-  </tr>
-  <tr>
-    <td style=''>Waste Transport*</td>
-    <td style=''>5000.0</td>
-  </tr>
-  <tr>
-    <td style=''>Gutters</td>
-    <td style=''>10000.0</td>
-  </tr>
-  <tr>
-    <td style=''>Pallets for Transport</td>
-    <td style=''>2000.0</td>
-  </tr>
-  <tr>
-    <td style=''>Trolleys</td>
-    <td style=''>3.0</td>
-  </tr>
-  <tr>
-    <td style=''>Packing Tables</td>
-    <td style=''>3.0</td>
-  </tr>
-  <tr>
-    <td style=''>Plastic Wrappers*</td>
-    <td style=''>5.0</td>
-  </tr>
-  <tr>
-    <td style=' font-weight: bold; text-align: center;' colspan='2'>Spares, Consumables, 
-Tools</td>
-  </tr>
+
+
+## 4.2 Operational Expenditure (OPEX)
+
+### 4.2.1 Electicity Cost
+
+Total ASIC Power Load:
+
+```
+30 units × 5,676 W = 170.28 kW
+```
+
+Including Cooling Systems, RO Units, and Safety Margin (~10%):
+
+```
+Total Continuous Load ≈ 187.308 kW
+```
+
+**Yearly Energy Requirement:**
+
+```
+187.308 kW × 24 hours x 30 days x 12 months = 1,618.34 MWh/year
+```
+
+**Yearly Energy Cost:**
+only 60% of the energy will be sourced from solar energy for starters, while the rest will be procured from KEDKO. thus:
+
+```
+1,618.34 MWh x 224,000 ₦/MWh x 0.4 ≈ ₦145,003,364
+```
+
+At the rate of 1600 ₦/USD, the total is:
+
+```
+₦145,003,364 / 1,600 ₦/USD ≈ ＄90,627 USD
+```
+
+### 4.2.2 Maintenance of Miners & Cooling
+
+**ASINC maintainance:** ~ 150–200 USD /year per ASIC miner
+
+**For 30 miners:**
+
+```
+＄200 × 30  = ＄6,000/year
+```
+
+**Cooling system (pumps, RO filters):** ~2–3% of equipment CAPEX annually
+**cooling capex at 11,823:**
+
+```
+ ＄11,823 x 2% = ＄236.5/year
+```
+
+### 4.2.3 Staff Salaries
+
+<table >
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 10:</b> Specialized Employee's projected salaries for the duration of 6 months</caption>
+    <thead>
+        <tr>
+            <th>Employee Role</th>
+            <th>Monthly Salary (₦)</th>
+            <th>Number of Workers</th>
+            <th>Total Yearly Salary (₦)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Manager</td>
+            <td>450,000</td>
+            <td>1</td>
+            <td>5,400,000</td>
+        </tr>
+        <tr>
+            <td>Mechanical Engineer (Fabrication)</td>
+            <td>300,000</td>
+            <td>1</td>
+            <td>3,600,000</td>
+        </tr>
+        <tr>
+            <td>Electrician</td>
+            <td>300,000</td>
+            <td>1</td>
+            <td>3,600,000</td>
+        </tr>
+        <tr>
+            <td>Technicians</td>
+            <td>120,000</td>
+            <td>2</td>
+            <td>2,880,000</td>
+        </tr>
+        <tr>
+            <td>Security</td>
+            <td>50,000</td>
+            <td>4</td>
+            <td>2,400,000</td>
+        </tr>
+        <tr>
+            <td>Lab Technician</td>
+            <td>150,000</td>
+            <td>1</td>
+            <td>1,800,000</td>
+        </tr>
+        <tr>
+            <td>Casual workers</td>
+            <td>40,000</td>
+            <td>3</td>
+            <td>1,440,000</td>
+        </tr>
+        <tr>
+            <th colspan="3" style="text-align:right;">Total</th>
+            <th>21,120,000</th>
+        </tr>
+    </tbody>
+</table>
+
+At the rate of 1600 ₦/USD, the total is:
+
+```
+₦21,120,000 / 1,600 ₦/USD ≈ ＄13,200 USD
+```
+
+### 4.2.4 Internet & Network Services
+
+**Starlink:** ＄43/month (as of Nigeria rates)
+
+**Local ISP backup:** 20–30 USD/month
+
+**Router maintenance:** ＄100/year
+
+**Annual:** ~＄1,000/year
+
+### 4.2.5 Insurance & Security
+
+**Equipment insurance (Include fire/theft/policy costs):** 1–2% of CAPEX
+
+```
+Fixed Assets = Total Capex - Labor and Engineering Fees  - Logistics and Import Duties
+Fixed Assets = ＄699,471 - ＄7,500 - ＄29,183 = ＄662,788
+
+Insurance = ＄662,788 x (2/100) = ＄13,256
+```
+
+### 4.2.6 Spare Parts & Consumables
+
+**Budget (Fans, cables, hoses, filters)**: 2–3% of mining equipment cost/year
+
+**Est:** ＄6,102/year
+
+### 4.2.7 OPEX Summary
+
+<table >
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 12:</b> OPEX Budget summary overview</caption>
+    <tr>
+        <th rowspan="1">Section</th>
+        <th>Anual Cost USD (＄)</th>
+    </tr>
+    <tr>
+        <td>Maintenance & Spearparts</td>
+        <td>12,339</td>
+    </tr>
+    <tr>
+        <td>Electricity (at 60% solar)</td>
+        <td>90,627</td>
+    </tr>
+    <tr>
+        <td>Fixed Costs(Overheads and Bills)</td>
+        <td>14,200</td>
+    </tr>
+    <tr>
+        <td>Insurance</td>
+        <td>13,256</td>
+    </tr>
+    <tr>
+      <td colspan="1" style="text-align:center;"><strong>Total</strong></td>
+      <td><strong>130,422</strong></td>
+    </tr>
 </table>
 
 
+---
 
-# 4.0 Nutrient Delivery System 
+# 5.0 Profit Projections
 
-This section describes the Nutrient Delivery System (NDS)>. The irrigation
-method used is a Nutrient Film Technique (NFT) system.   A detailed description
-of the nutrient flow in the cultivation system is given for each of the modules.
-All calculations and requirements are based on the capturing of water produced
-during crop transpiration; all transpired water is reclaimed through
-dehumidification in the air management system and sent back into the system. 
+## 5.1 Profit & ROI
 
-## 4.1  Baseline Design 
-
-The system was developed to be a closed loop design.  Located in the core of each 
-module is the subsystem.  Water from the fresh water tank with the addition of the water reclaimed 
-from plant transpiration is pumped into the stock solution tanks (Solution A Tank and Solution B 
-Tank).  A Priva Nutrijet system  is utilized to control the flow of water from the fresh 
-water tank, the addition of solutions from both tank A and B and the acid and base control to ensure 
-an optimal nutrient solution in the Mixing Tank.  By using two stock solutions (A and B) the nutrient 
-balance can be maintained for a longer period of time.  Electric Conductivity (EC) and pH sensors are 
-placed at the junction of the incoming fresh water and the mixing tank of the injection system to 
-assess fresh water quality.  These sensors are also placed in a separate loop coming from the mixing 
-tank before the nutrients are distributed to the cultivation system to ensure the proper dosage.  
-Sand and fine filters are placed before the distribution and a flow meter is used to make sure the 
-system is working correctly.  
-
-<p align="center">
-  <figcaption >Figure 10: Diagram of the nutrient delivery system of the modules </figcaption>
-  <img src="{{ site.baseurl }}/assets/proposal_images/figure_10.JPG"  style="width: 80%; height: auto;">
-</p>
-
-After irrigating the plants, the nutrient solution is pumped through UV
-sterilization treatment and into distributed nutrient solution buffer tanks.
-The incoming fresh water only tops off distributed nutrient solution buffer
-tanks which empty slowly through plant activity and any leaks or grower
-activities.  The bulk solution tanks and mixing computer system are placed in
-the NDS room located in the core of the module, clean access (from inside the
-plant growth area) is provided to this room. The two fresh water tanks in the
-central hub are set to be 150 m³ to allow for expansion of modular production of
-the Vertical Farm without new investment, which supplies enough fresh water
-needed for all the initial modules. 
-
-The baseline nutrient solution is designed following comprehensive analyses of the supply water to 
-factor in native minerals and pH levels. Over time, the nutrient solution inside the system will be
-come unbalanced.  The rate of nutrient absorption by the plants may change for different ions, and 
-the lack of individual ions cannot be restored using a dual stock solution system. This can be solved 
-by analyzing the time it takes for an important imbalance in the nutrient solution to occur and flush
-ing the system completely. The nutrient solution is restored approximately every six months.
-
-### 4.1.1 Gutter System, Lettuce, Irrigation 
-
-The initial calculations for the irrigation needs of the system were based on the transpiration rate of 
-the mature crop.  For a fully grown lettuce, the transpiration rate is 3 liter per m² per day, and a wa
-ter buffer of 27 liter per m² per day was assumed. For a 5,000 m² cultivation area, this amounts to 
-150 m³ per day or 30 liter per m² per day for each lettuce module. The distributed nutrient solution 
-tanks are 75m³ (75,000 liter) per module. 
-Each growth rack is divided into five growth levels of one meter each, each equipped with a drain 
-and an irrigation pipe with individual drippers.  Irrigation is suspended above each 
-channel to allow for mobility of the gutters.  Drainage channels leading to the reservoirs are present 
-underneath the drain side to capture the solution.  Each grow unit has a dedicated 
-845 W pump for irrigation, with an irrigation cycle of 5 minutes on, 10 minutes off, throughout the 
-day.  By staggering irrigation cycles between racks, it allows for a smaller distributed nutrient solution tank size. 
-
-Each of the dripper manifolds was assumed to work with 2 bars of pressure at the inlet and was sized 
-at 16/13.6 mm (outer/inner diameter).  Pressure losses due to elbows and tee flows are taken into 
-account.  The maximum velocity inside the pipes was 2.2 m/s and a design pressure of 1.72 bar was 
-used.  The calculation resulted in a 2 meter distribution inlet line per rack of 69.5 mm Ã˜ (2 ½ inch) 
-and 1 meter sections of 84.6 mm Ã˜ (3 inch) and 108 mm Ã˜ (4 inch) each.  The main distribution line 
-pressure and velocity allows for the use of only 108 mm Ã˜ (4 inch) pipes, approximately 50 meters 
-long. The return pipe length was estimated in 60 meters.
+The folling calculations are Based Purely on the Initial setup and does not account any reinvestemnt strategies.
 
 
-# 5.0 Illumination System 
+The total expected revenue generated from Bitcoin mining is directly related to the contributed computational power, measured in hashrate — the number of cryptographic guesses a miner can make per second. In Bitcoin mining, the probability of successfully mining a block (and earning a reward) is proportional to a miner’s hashrate relative to the total network hashrate.
 
-The analysis of the lighting system is of great importance. It significantly affects the 
-energy consumption of the project, both due to the quantity of lights and duration of the photoperiod,
- and due to its effects on the thermal load within the project.Lighting design influences the 
-photosynthesis rate of the crop, which impacts the final marketable yield. This section addresses the 
-types of lighting systems required for the illumination of the crops the resulting energy loads on the project.
-The assumed photoperiod for the calculations is 18 hours.  
-
-## 5.1  Baseline Design 
-
-The lights should provide optimal lighting conditions 
-without disturbing the optimal climatic conditions of the plant; a rise in temperature near the plant 
-canopy due to heat from the lighting system needs to be avoided.  The light selected as a model for 
-these features is the Heliospectra LightBar V101G-L .  It is optimized for water cooling 
-and specifically developed for VF applications.  It produces a light spectrum specially designed to 
-optimize photosynthesis.  Its dimensions are 1235 x 56 x 62 mm and its power consumption is ap
-proximately 125 W at normal operation, an initially more expensive but operationally cheaper approach would be the
-DYNA C9 model or MITRA X Flex which is more than twice as efficient, thus fewer units would be needed.
-
-<p align="center">
-  <figcaption >Figure 11: MITRA X Flex Model </figcaption>
-  <img src="{{ site.baseurl }}/assets/proposal_images/figure_11.JPG"  style="width: 80%; height: auto;">
-</p>
-
-
-<p align="center">
-  <figcaption >Figure 12: spectrum for helioSPEC MITRA X R80F Flex  </figcaption>
-  <img src="{{ site.baseurl }}/assets/proposal_images/figure_12.JPG"  style="width: 80%; height: auto;">
-</p>
-
-The lamps should be placed at 0.25 m from the top of the plant canopy.  For the
-first section of the growth level, where the plants are in the early development
-stage (day 0-10), the lighting system should provide 200 Î¼mol / m² s of
-Photosynthetically Active Radiation (PAR), defined as light available for
-photosynthesis between the wavelengths of 400-700 nm, and 30 Î¼mol / m² s of Far
-Infrared Radiation (FIR). Throughout the middle section of the growth levels,
-where the plants are in the second phase of development , the lighting system
-should provide 225 Î¼mol / m²s PAR and 34 Î¼mol / m² s FIR.  
-For the final section of the growth levels, where the plants reach maturity (day
-19-28), the lighting system should provide 250 Î¼mol / m² s PAR   
-only. The lighting system layout is designed with sets of four light bars when
-using V101G-L, which are mounted end to end, perpendicular to the length of the
-growth rack Each level of the growth rack contains 70 sets of lights, thus there
-is a set of lights every 0.71 m.  Each set is powered by an Artesyn LCC 600 watt
-conduction cooled AC-DC power supply.
-
-Each light set is supplied with 500 W to power the lights, which adds to 35000 W
-per level in each growth rack.  Each growth rack has five grow levels with
-lights; the total power demand for each cultivation rack is 175 kW.  The total
-power needed for the whole cultivation area is 880 kW.   Ap proximately 40% of
-the heat is dissipated by the liquid cooling (352 kW), the rest is radiated to
-the surrounding air (528 kW). The nurseries use a separate lighting system which
-provides 150 Î¼mol / m² s PAR, with a power consumption of 37.5 kW.  This brings
-the total power consumption for the  production module to 917.5 kW.  
+The **Reward Per Hash** represents the expected revenue earned per individual hash attempt. It is typically calculated by dividing the total block reward (in monetary terms, including transaction fees) by the expected number of hashes required to successfully find a block — a value determined by the current mining difficulty. This metric provides a probabilistic estimate of how much revenue can be earned per unit of computational effort.
 
 
 
-# 6 Air Management & Thermal Control System 
-
-As mentioned above the cultivation area air will have two major sources of thermal energy: sensible 
-energy from the LED lighting system and latent energy from transpiration of the crops.  The air management
- and thermal control systems primary goal is to remove this extra energy to maintain optimal 
- growing conditions.  Warm and moist air from the plant compartment is transported to the air 
-management and thermal control system room, located in the core of the module, where it is mixed 
-with CO2 to obtain optimal CO2 levels.  This air is then moved to the first stage of the heat pump 
-where it is cooled, allowing it to decrease its humidity content by means of condensation.  This re
-claimed water is transported to buffer tanks, filtered through a UV filter, and used later by the nutrient 
-delivery system.  The cooled air (with high relative humidity) then passes to the second stage of 
-the heat pump where it is heated again to deliver air that will provide the target conditions inside the 
-growth compartment.  Extra heat will dissipate through heat exchanger units mounted on the side 
-wall of the core structure in each module. 
-The design of the system is based on the capacity to dehumidify the warm moist air coming from the 
-cultivation areas to maintain optimal conditions.  The ventilation rate needed to remove the extra 
-humidity content from the growth compartment air can be calculated using the following equation: 
-
-$$
-\dot{V} = \frac{E}{x_{\text{in}} - x_{\text{out}}} \times \frac{1}{\rho}
-$$
-
-where  $\dot{V} $ is the required ventilation rate in m³/m²/h,E is the evapotranspiration rate of the crop 
-in g/m²/h,  is the absolute air humidity inside the compartment in g/kg, $ x_{\text{out}} $ is the absolute air 
-humidity of the air at the outlet of the air management system in g/kg and $ \rho $ is the density of the air 
-in kg/m³.  It is assumed that 100 % of the water vapor in the treated air is recovered.  The total energy
- removed from the ventilated air is obtained from the following equation: 
+Figure 17 below illustrates the revenue obtained from a Bitmain Antminer **S21 XP Hydro**, which operates at a rated hashrate of 473 TH/s, over the past six months.
 
 
-$$
-E_{\text{remove}} = \frac{\dot{V} \times \rho}{3600} \times \left( \left( h_{\text{in}} - h_{\text{out}} \right) + \left( H \times \left( x_{\text{in}} - x_{\text{out}} \right) \right) \right)
-$$
+<p class="projection-chart-tittle"><b>Figure 17:</b> Bitmain Antminer S21 XP Hydro Miner Revenue with a hashrate of 473 TH/S</p>
+<div class="chart-container">
+    <canvas id="hashRate"></canvas>
+</div>
 
 
-Where $ E_{\text{remove}} $ is the energy removed in kW/m², H is the evaporation heat of water at 0°C in kJ/kg, 
-$ h_{\text{in}} $ is the enthalpy inside the compartment in kJ/kg, and $ h_{\text{out}} $  is the enthalpy of the air from the 
-outlet of the air management system in kJ/kg. 
+
+Using the average revenue for the past 6 months we can calculate an approximate Reward Per Hash:
+- If a miner earned 25.525 USD and the BTC price is 104,200 USD/BTC, then the miner earned:
+```
+BTC Revenue = 25.525 USD ÷ 104,200 USD/BTC ≈ 0.000245 BTC
+```
+- Since that revenue was generated using 473 TH/s over one day (86,400 seconds), then:
+```
+473 TH/s = 473 × 10¹² hashes per second
+Total Hashes = 473 × 10¹² × 86,400 = 4.08672 × 10¹⁹ hashes
+```
+- The BTC and USD per hash is:
+```
+Reward Per Hash (in BTC) = 0.000245 BTC ÷ 4.08672 × 10¹⁹ ≈ 6.0 × 10⁻²⁴ BTC/hash
+Reward Per Hash (in USD) ≈ 6.0 × 10⁻²⁴ × 104,200 ≈ 6.25 × 10⁻²⁰ USD/hash
+```
+Yearly revenue for 30 miners:
+```
+revenue = Number of miners x Reward Per Hash (in USD) x Total Hashes per day x 365 days
+revenue = 30 x 6.25 × 10⁻²⁰ x 4.08672 × 10¹⁹ x 365
+revenue = 275,670 USD
+```
 
 
-The desired conditions inside the lettuce production area are 23°C and 80 % relative humidity (RH) 
-(Jasper den Besten, HAS university).  It is assumed that most of the evapotranspiration of the plants 
-occurs during lighting hours, the photoperiod for this crop is 18 hours of light per day. Evapotranspiration
- of the crop was only considered for the photoperiod of 18 h (Jasper den Besten, HAS university). 
- Using a maximum evapotranspiration value of 3 l/m² per day (18 h), it results in 167 g/m² per 
-hour of water vaper added to the air by the plants. 
 
-In order to achieve a de-humidification of 167 g/m² per hour and assuming the air management sys
-tem provides cooling conditions of 10°C and 100 % relative humidity, a ventilation rate of 21.9 m³/h 
-is needed for each square meter of cultivation surface.  The latent energy removed at this stage is 
-0.116 kW per square meter of cultivation space and the removed sensible heat is 0.210 kW/m², 
-which results in a total energy removal of 0,326 kW/m².  The total recirculation ventilation rate of a 
-single 5.000 m² lettuce module cultivation area is 109.686 m³/h. It is assumed that the module needs 
-8 refreshments of outdoor air per day, which adds 3.500 m³/h.  This addition of environmental air 
-will add to the final amount of CO2 which needs to be added to the growth compartment. The CO2 
-requirements were calculating assuming an average assimilation rate of the crop inside the leafy 
-greens module of 4 g/m² h and in the high wire cultivation module of 5 g/m².  External CO2 concentration 
-was assume constant at 400 ppm. 
-
-It is assumed that the air is reheated to 21°C before reintroducing it to the plant compartment.  The 
-temperature at the outlet of the ventilation ducts is 21°C and the absolute humidity of 7.6 gH2O/kgair, 
-which results in a relative humidity of 49.5%.  The air management process represented in the psychrometric 
-chart of the closed loop. 
-A total of 0.084 kW/m² is needed to reheat the air to 21°C.  The total recovered heat from the pro
-cess is 0.242 kW/m².  Power consumption for this processes are estimated in hot and cold cases.  In 
-the hot case, the energy consumption for the HVAC system is 400 kWh per year, with a peak day of 
-1.85 kWh with a coefficient of performance (COP) of 2.6.  In the cold case, the energy consumption 
-for the HVAC system is 160 kWh per year, with a peak day of 1.10 kWh with a COP of 4.5. 
-
-<p align="center">
-  <figcaption >Figure 13: psychrometric chart </figcaption>
-  <img src="{{ site.baseurl }}/assets/proposal_images/figure_13.JPG"  style="width: 80%; height: auto;">
-</p>
+**Annual Profit:** 
+```
+= Revenue - Annual Operating Cost
+= 275,670 - 130,422
+= ＄145,248 USD
+```
 
 
-The supply of air to each layer of the cultivation rack is done using a 500 mm round duct, this duct 
-keeps allowable air speeds below 8 m/s.  90°angles should not be used in the pipe to avoid pressure 
-loss.  Distribution of air inside the levels of the racks is achieved using 5 channels of 500 mm x 200 
-mm which  results in air speeds of approximately 0.3 m/s. The logical layout is one channel for every 
-meter of layer width 
+## 5.2 Reinvestment strategies
+
+**The following projections for the reinvestment strategy** were calculated using the previously established starting point, along with the following assumptions:
+
+- The Bitcoin price is held constant at its current value throughout the 3-year simulation.
+
+- Dividend payouts are fixed at **15%** during the reinvestment period.
+
+- The reinvestment period spans the **first 11 months** of the simulation.
+
+- The reinvestment strategy prioritizes **energy efficiency**, specifically by increasing the share of solar-generated power from the initial **60%**.
+
+The resulting projections are outlined below:
+<div class="mt-5" id="results">
+
+<div class="row">
+    <div  class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-body d-flex justify-content-between align-items-center p-2">
+                <strong class="fw-bold text-success">Total CAPEX:</strong>
+                <span id="breakEvenText" class="text-secondary">699,471</span>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-body d-flex justify-content-between align-items-center p-2">
+                <strong class="fw-bold text-success">Net Profit:</strong>
+                <span id="breakEvenText" class="text-secondary">478,845</span>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-body d-flex justify-content-between align-items-center p-2">
+                <strong class="fw-bold text-success">OPEX (avg):</strong>
+                <span id="breakEvenText" class="text-secondary">5,911</span>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-body d-flex justify-content-between align-items-center p-2">
+                <strong class="fw-bold text-success">Final Solar Load Percentile:</strong>
+                <span id="breakEvenText" class="text-secondary">93.0%</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-body d-flex justify-content-between align-items-center p-2">
+                <strong class="fw-bold text-success">Asset Evaluation (year 3):</strong>
+                <span id="breakEvenText" class="text-secondary">690,390</span>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-body d-flex justify-content-between align-items-center p-2">
+                <strong class="fw-bold text-success">Monthly Profit (avg):</strong>
+                <span id="breakEvenText" class="text-secondary">13,301</span>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-body d-flex justify-content-between align-items-center p-2">
+                <strong class="fw-bold text-success">ROI:</strong>
+                <span id="breakEvenText" class="text-secondary">68.5%</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr style="height: 2px; background-color: rgb(15, 15, 15); border: none; width: 50%; margin: 15px auto;">
+
+<p class="projection-chart-tittle"><b>Figure 18:</b> Average OPEX Distribution</p>
+<div class="chart-container">
+    <canvas id="opexPieChart"></canvas>
+</div>
+
+<hr style="height: 2px; background-color: rgb(15, 15, 15); border: none; width: 50%; margin: 15px auto;">
+
+<p class="projection-chart-tittle"><b>Figure 19:</b> Financial Position</p>
+<div class="chart-container">
+    <canvas id="profitChart"></canvas>
+</div>
+
+<hr style="height: 2px; background-color: rgb(15, 15, 15); border: none; width: 50%; margin: 15px auto;">
+
+<p class="projection-chart-tittle"><b>Figure 19:</b> Power Requirements</p>
+<div class="chart-container">
+    <canvas id="powerChart"></canvas>
+</div>
+
+<hr style="height: 2px; background-color: rgb(15, 15, 15); border: none; width: 50%; margin: 15px auto;">
+
+<p class="projection-chart-tittle"><b>Figure 20:</b> Stored Energy</p>
+<div class="chart-container">
+    <canvas id="energyChart"></canvas>
+</div>
+
+
+</div>
 
 
 
 
 
-# 7 Plant Health Monitoring & Control Architecture 
+# 6.0 S.W.O.T Analysis
 
-Controlling and monitoring the climate and status of the plants are essential elements in any agricultural 
-production. It allows taking corrective measures in time to avoid a decrease in yield and a potential loss 
-of marketable product.  The automatic control of climate variables enables optimum conditions inside the
-cultivation modules, helps to reduce energy consumption and delivers the best product possible. 
-In this section, monitoring and control elements are addressed. 
+<div class="container my-4">
+  <div class="row align-items-stretch g-4">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header bg-success text-white fw-bold">Strengths</div>
+            <div class="card-body">
+                <ul class="mb-0 swot-list">
+                    <li><strong>Low Operating Costs:</strong> Relatively affordable land and labor in Kano reduce overhead.</li>
+                    <li><strong>Tailored Infrastructure:</strong> Purpose-built mining setup optimized for Bitmain ASICs, ensuring maximum hashrate and uptime.</li>
+                    <li><strong>Scalability:</strong> Facility design can accommodate scaling with additional ASIC units.</li>
+                    <li><strong>Technical Expertise:</strong> Completed study indicates deep understanding of local grid and mining tech.</li>
+                    <li><strong>Potential for Off-Grid Power:</strong> Abundant sunlight supports solar/hybrid setups for long-term cost savings.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header bg-warning text-white fw-bold">Weaknesses</div>
+            <div class="card-body">
+                <ul class="mb-0 swot-list">
+                    <li><strong>High Initial Capital:</strong> ASIC hardware and cooling infrastructure are expensive.</li>
+                    <li><strong>Energy Demands:</strong> ASICs require consistent high-power input; stress on grid or need for custom generation.</li>
+                    <li><strong>Heat Management:</strong> Kano’s high ambient temperature challenges cooling systems.</li>
+                    <li><strong>Maintenance Needs:</strong> Dust, heat, and voltage fluctuation may increase hardware failure rate.</li>
+                    <li><strong>Specialized Skill Requirement:</strong> Running mining operations needs experienced operators and electricians.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header bg-info text-white fw-bold">Opportunities</div>
+            <div class="card-body">
+                <ul class="mb-0 swot-list">
+                    <li><strong>New Legal Recognition of Digital Assets (2025):</strong> Crypto now has legal backing under Nigerian law, opening doors for institutional investments, regulated growth, and investor confidence.</li>
+                    <li><strong>Solar Integration:</strong> High solar irradiance supports hybrid/solar energy to reduce grid reliance.</li>
+                    <li><strong>Rising Bitcoin Adoption:</strong> Potential for long-term profitability as demand for BTC increases thus driving the price.</li>
+                    <li><strong>Cheap Renewable Projects:</strong> Government or private incentives for renewable power infrastructure.</li>
+                    <li><strong>Data Center Expansion:</strong> Facility can evolve to offer other services (e.g., hosting, edge computing).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header bg-danger text-white fw-bold">Threats</div>
+            <div class="card-body">
+                <ul class="mb-0 swot-list">
+                    <li><strong>Unstable Grid:</strong> Frequent outages, surges, and inconsistent supply from regional power providers.</li>
+                    <li><strong>Regulatory Uncertainty:</strong> Nigeria's shifting stance on crypto could impose sudden restrictions.</li>
+                    <li><strong>Crypto Market Volatility:</strong> Profitability swings heavily with BTC price and network difficulty.</li>
+                    <li><strong>Import Constraints:</strong> Customs delays, duties, or restrictions on ASIC hardware and cooling tech.</li>
+                    <li><strong>Naira Inflation:</strong> Currency devaluation impacts cost of imported goods and ROI calculations.</li>
+                    <li><strong>Market Shift to Proof-of-Stake (PoS):</strong> Increasing global momentum toward energy-efficient blockchains may reduce long-term viability of ASIC mining.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+---
+
+# 7.0 Summary
+
+This report presents a financially and technically grounded Bitcoin mining initiative in Kano, Nigeria. The operation combines cutting-edge ASIC technology with a well-defined path toward solar power integration. Profitability is demonstrated through detailed financial modeling, including both baseline and reinvestment projections. The strategy emphasizes resilience—addressing regulatory, environmental, and operational challenges while seizing opportunities in a maturing African digital economy.
+
+Key highlights include:
+
+- Initial Year Profit: ＄145,248
+
+- 3-Year Net Profit (with reinvestment): ＄478,845
+
+- Projected ROI: 68.5%
+
+- Solar Power Penetration by Month 11: 93%
+
+- Capital Expenditure (CAPEX): ＄699,471
+
+-  Monthly Profit with a Reinvestment strategy of ＄13,301:
+  - An average of ＄2,202 for ther first 11 months
+  - An spike to ＄20,2007 on month 12 due to injection from unrealized investment funds
+  - A monthly profit of ＄18,109 from month 13 to 36
+
+This investment offers strategic exposure to the cryptocurrency mining industry, anchored in a forward-looking model that prioritizes renewable energy integration, infrastructure scalability, and long-term sustainability. Backed by detailed financial projections and a reinvestment strategy that accelerates profitability, the venture provides a structured pathway into the global digital asset ecosystem — with strong local development impact and clear, data-driven ROI potential.
 
 
-To create a healthy growing environment, temperature, relative humidity (RH) and CO2 have to be 
-carefully controlled.  For optimum control, a climate controller located in the core of each module is 
-installed to measure temperature, RH and CO2 sensors.  Environmental conditions are constantly 
-monitored and are electronically maintained. The amount of fresh air allowed into the building 
-along with the recycled air is carefully controlled to keep the conditions stable and optimal.
-
-The climate controller receives constant measurements from several Priva E-Measuring boxes, or 
-similar sensor (Raspberry pi with modules), located in each cultivation area.  The box contains sensors for 
-temperature, RH and CO2.  Nurseries are also equipped with these sensor boxes for climate monitoring.  
-6 boxes are distributed in the cultivation area.
-The climate controller responds to these sensors to keep the optimal climactic conditions 
-inside each cultivation module. 
 
 
+---
 
-<p align="center">
-  <figcaption >Figure 14: Priva E-Measuring box </figcaption>
-  <img src="{{ site.baseurl }}/assets/proposal_images/figure_14.jpg"  style="width: 80%; height: auto;">
-</p>
+# 8.0 Appendix
+
+## Appendix 1
+
+<table >
+  <caption style='text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 2:</b> Construction Breakdown by BOM</caption>
+  <tr>
+    <th>Description</th>
+    <th></th>
+    <th>Unit</th>
+    <th>Qty</th>
+    <th>Unit Price (₦)</th>
+    <th>Total (₦)</th>
+  </tr>
+  <tr>
+    <td rowspan="3"><b>Reinforcement</b></td>
+    <td>Y16 for Columns</td><td>Units</td><td>67</td><td>22,700</td><td>1,520,900</td>
+  </tr>
+  <tr>
+    <td>Y16 for Beams</td><td>Units</td><td>310</td><td>22,700</td><td>7,037,000</td>
+  </tr>
+  <tr>
+    <td>Y10 for Stirmp</td><td>Units</td><td>50</td><td>8,700</td><td>435,000</td>
+  </tr>
+  <tr>
+    <td><b>Blocks</b></td>
+    <td></td><td>Units</td><td>12,522</td><td>700</td><td>8,765,400</td>
+  </tr>
+  <tr>
+    <td><b>Reinforcements</b></td>
+    <td>Y12 for Slab</td>
+    <td>Units</td><td>420</td><td>12,300</td><td>5,166,000</td>
+  </tr>
+  <tr>
+    <td rowspan="8"><b>Cement</b></td>
+    <td>Blockwork</td><td>Bags</td><td>140</td><td>9,500</td><td>1,330,000</td>
+  </tr>
+  <tr>
+    <td>Casting of Columns</td><td>Bags</td><td>64</td><td>9,500</td><td>608,000</td>
+  </tr>
+  <tr>
+    <td>Casting of Slab</td><td>Bags</td><td>350</td><td>9,500</td><td>3,325,000</td>
+  </tr>
+  <tr>
+    <td>Casting of Beams</td><td>Bags</td><td>150</td><td>9,500</td><td>1,425,000</td>
+  </tr>
+  <tr>
+    <td>Casting of DPC</td><td>Bags</td><td>360</td><td>9,500</td><td>3,420,000</td>
+  </tr>
+  <tr>
+    <td>Casting of Binding</td><td>Bags</td><td>150</td><td>9,500</td><td>1,425,000</td>
+  </tr>
+  <tr>
+    <td>Casting of Plaster</td><td>Bags</td><td>200</td><td>9,500</td><td>1,900,000</td>
+  </tr>
+  <tr>
+    <td>External Plaster</td><td>Bags</td><td>200</td><td>9,500</td><td>1,900,000</td>
+  </tr>
+  <tr>
+    <td><b>Marine Boards</b></td>
+    <td></td><td>Units</td><td>490</td><td>26,500</td><td>12,985,000</td>
+  </tr>
+  <tr>
+    <td><b>Bamboo</b></td>
+    <td></td><td>Units</td><td>300</td><td>2,300</td><td>690,000</td>
+  </tr>
+  <tr>
+    <td rowspan="2"><b>Braces</b></td>
+    <td>2x3</td><td>Units</td><td>500</td><td>200</td><td>100,000</td>
+  </tr>
+  <tr>
+    <td>2x4</td><td>Units</td><td>500</td><td>200</td><td>100,000</td>
+  </tr>
+  <tr>
+    <td rowspan="2"><b>Nails</b></td>
+    <td>3 Inch</td><td>Bags</td><td>9</td><td>33,000</td><td>297,000</td>
+  </tr>
+  <tr>
+    <td>6 Inch</td><td>Bags</td><td>6</td><td>35,000</td><td>210,000</td>
+  </tr>
+  <tr>
+    <td rowspan="2"><b>Sand</b></td>
+    <td>Plaster Sand</td><td>Trips</td><td>14</td><td>130,000</td><td>1,820,000</td>
+  </tr>
+  <tr>
+    <td>Sharp Sand</td><td>Trips</td><td>14</td><td>140,000</td><td>1,960,000</td>
+  </tr>
+  <tr>
+    <td><b>Gravel</b></td>
+    <td>Size 3/4</td><td>Trips</td><td>8</td><td>430,000</td><td>3,440,000</td>
+  </tr>
+  <tr>
+    <td><b>Laterite</b></td>
+    <td></td><td>Trips</td><td>15</td><td>70,000</td><td>1,050,000</td>
+  </tr>
+<tr>
+    <td colspan="5" style="text-align:center;"><b>Total</b></td>
+    <td><b>60,909,300</b></td>
+</tr>
+
+</table>
 
 
-Clean conditions inside the production modules are maintained through the use of an airlock decontamination 
-system to ensure the growing environment remains clear of any plant pathogens or fun
-gal and bacterial infections. In the airlock chamber, workers disinfect their hands using soap and 
-water as well as put on sterile over suits with hairnets and shoe covers.  In case of a contamination 
-event, the responsible contaminant/pathogen will be identified and treated with hand held pump 
-sprayers. To prevent insect and fly infestations, in case they are brought into the clean growth area, 
-50 Sticky cards are equally distributed inside the cultivation modules.  Regular inspections by the 
-head grower of the facility will help to identify any negative factors quickly and timely decisions can 
-be made with regards to the required solution.
+## Appendix 2
+
+<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+  <div>
+  <p >
+    <figcaption><b>Figure 21:</b> Solar Irradiance Nigeria (2018)  </figcaption>
+    <img src="{{ site.baseurl }}/assets/pilot_images/solar_irridance.jpg"  style="width: 90%; height: 800px;">
+  </p>
+</div>
+</div>
+
+---
+
+<script src="{{ site.baseurl }}/assets/projection_charts.js"></script>
