@@ -287,7 +287,7 @@ The ANTSPACE HW5 employs a closed-loop water cooling system, which circulates co
 
 - Modular design, enabling outdoor deployment in remote or industrial zones.
 
-Each HW5 container supports approximately 1200KW of mining capacity, and the internal loop is designed to minimize fluid loss, although regular inspection and topping up are required.
+Each HW5 container supports approximately 1200Kw of mining capacity, and the internal loop is designed to minimize fluid loss, although regular inspection and topping up are required.
 
 ### 3.3.2 Water Supply and Quality Management
 
@@ -352,18 +352,18 @@ A robust and efficient power infrastructure is paramount for the continuous oper
 
 ### 3.4.1 Load Profile and Total Power Demand
 
-The deployment includes 30 Antminer S21 XP Hyd units, each consuming approximately 5.7 kW under optimal hydro-cooled conditions.
+The deployment includes 30 Antminer S21 XP Hyd units, each consuming approximately 5.7 Kw under optimal hydro-cooled conditions.
 
 Total ASIC Power Load:
 
 ```
-30 units × 5.7 kW = 171 kW
+30 units × 5.7 Kw = 171 Kw
 ```
 
 Including Cooling Systems, RO Units, and Safety Margin (~10%):
 
 ```
-Total Continuous Load ≈ 188 kW
+Total Continuous Load ≈ 188 Kw
 ```
 
 ### 3.4.2 Solar Farm Design
@@ -382,7 +382,7 @@ Kano benefits from an average of 7.0 Peak Sun Hours (PSH) per day, making it ide
 **Daily Energy Requirement:**
 
 ```
-188 kW × 24 hours = 4,512 kWh/day
+188 Kw × 24 hours = 4,512 Kwh/day
 ```
 
 **Solar Generation Target (Daylight Hours):**
@@ -390,7 +390,7 @@ Kano benefits from an average of 7.0 Peak Sun Hours (PSH) per day, making it ide
 only 60% of the energy will be sourced from solar energy for starters, while the rest will be procured from KEDKO. thus, to meet the daily demand during daylight:
 
 ```
-(4,512 kWh x 60/100) ÷ 7.0 PSH ≈ 386.7 kW (DC Capacity)
+(4,512 Kwh x 60/100) ÷ 7.0 PSH ≈ 386.7 Kw (DC Capacity)
 ```
 
 **Panel Rating:** 610 W (monocrystalline)
@@ -398,7 +398,7 @@ only 60% of the energy will be sourced from solar energy for starters, while the
 **Number of Panels Required:**
 
 ```
-386.7 KW ÷ 0.610 KW/panel ≈ 635 panels
+386.7 Kw ÷ 0.610 Kw/panel ≈ 635 panels
 ```
 
 **Land Requirement:**
@@ -437,13 +437,13 @@ total required area = 164.1 m² x (635/50) ≈  2,084 m² (~0.5 acres)
 
 ```
 Total Energy stored =  total solar energy -  (total power required × 7 PSH)
-Total Energy stored =  2,707.2 -  (188 kW × 7 PSH) = 1,391.2 kWh
+Total Energy stored =  2,707.2 -  (188 Kw × 7 PSH) = 1,391.2 Kwh
 ```
 
 **Including 10% Buffer for Inefficiencies during charge/discharge cycles:**
 
 ```
-1,391.2 kWh / 0.9 = 1,545.8 kWh (~1.55 MWh)
+1,391.2 Kwh / 0.9 = 1,545.8 Kwh (~1.55 MWh)
 ```
 
 **Battery Selection:**
@@ -463,12 +463,12 @@ Total Energy stored =  2,707.2 -  (188 kW × 7 PSH) = 1,391.2 kWh
 
   **Battery Module Configuration:**
 
-  **Module Capacity:** 215 kWh
+  **Module Capacity:** 215 Kwh
 
   **Number of Modules Required:**
 
   ```
-  1,545.8 kWh ÷ 215 kWh/module ≈ 7.18 → 8 modules
+  1,545.8 Kwh ÷ 215 Kwh/module ≈ 7.18 → 8 modules
   ```
 
   **System Layout:**
@@ -482,8 +482,8 @@ Total Energy stored =  2,707.2 -  (188 kW × 7 PSH) = 1,391.2 kWh
   **Inverter starting Selection:**
 
 ```
-- 1 Inverter rated for continuous  150 kW, 3-phase, 400 V output
-- 1 Inverter rated for continuous 50 kW, 3-phase, 400 V output
+- 1 Inverter rated for continuous  150 Kw, 3-phase, 400 V output
+- 1 Inverter rated for continuous 50 Kw, 3-phase, 400 V output
 ```
 
 ### 3.4.5 Diesel Generator Backup
@@ -495,7 +495,7 @@ Apparent Power = (power required x generator Redundancy Factor) / generator powe
 Apparent Power = (188 x 1.15) / 0.9 ≈ 240.2 Kva
 ```
 
-- **Configuration:** 1 × 250 kVA diesel generators (N+1 redundancy)
+- **Configuration:** 1 × 250 Kva diesel generators (N+1 redundancy)
 
 - **Features:**
 
@@ -513,14 +513,14 @@ Facilitates energy export and grid support
 - Targeting 80% of full capacity for continuous loads
 
 ```
-Apparent Power (kVA)  =  Real Power (kW) / (Power Factor (PF) x (working Capacity Percentage / 100))
-Apparent Power (kVA)  =  188 / (0.9 x (80 / 100))
-Apparent Power (kVA)  = ~261 KVA
+Apparent Power (Kva)  =  Real Power (Kw) / (Power Factor (PF) x (working Capacity Percentage / 100))
+Apparent Power (Kva)  =  188 / (0.9 x (80 / 100))
+Apparent Power (Kva)  = ~261 Kva
 ```
 
 **Transformer Selection:**
 
-- **Capacity:** 300 kVA
+- **Capacity:** 300 Kva
 
 - **Primary Voltage:** 11 kV
 
@@ -545,12 +545,12 @@ This diagram showcases the flow from solar panels through inverters, battery sto
 
 | Component                 | Specification                                        |
 | ------------------------- | ---------------------------------------------------- |
-| **ASIC Load**             | 171 kW                                               |
-| **Total Load w/ Cooling** | ~188 kW                                              |
-| **Solar Capacity**        | ~387 kW (DC Capacity), ~635 panels                   |
-| **Battery Storage**:      | ~1.55 MWh LiFePO₄ (8 modules of 215 kWh)             |
-| **Inverters**             | 200 kW, 3-phase, 400 V output                        |
-| **Generator Backup**      | 1 × 250 kVA Diesel (N+1 Redundancy)                  |
+| **ASIC Load**             | 171 Kw                                               |
+| **Total Load w/ Cooling** | ~188 Kw                                              |
+| **Solar Capacity**        | ~387 Kw (DC Capacity), ~635 panels                   |
+| **Battery Storage**:      | ~1.55 MWh LiFePO₄ (8 modules of 215 Kwh)             |
+| **Inverters**             | 200 Kw, 3-phase, 400 V output                        |
+| **Generator Backup**      | 1 × 250 Kva Diesel (N+1 Redundancy)                  |
 | **Transformer**           | Isolation (off-grid) / Step-Up 400V→11kV (grid-tied) |
 
 ## 3.5 Network setup
@@ -642,7 +642,7 @@ This section details the initial capital investment required to deploy the ASIC 
     <tr>
         <th>Sub-Structure (₦9,897,800)</th>
         <th>Super-Structure (₦28,281,000)</th>
-        <th>Blockwork (₦9,188,500)</th>
+        <th>BlocKwork (₦9,188,500)</th>
         <th>Electrical (₦4,652,500)</th>
         <th>Finishing (₦10,889,500)</th>
     </tr>
@@ -675,7 +675,7 @@ This section details the initial capital investment required to deploy the ASIC 
         <td>Site Clearing to Handover</td>
     </tr>
     <tr>
-        <td>Blockwork Filled Solid</td>
+        <td>BlocKwork Filled Solid</td>
         <td>Rebar to Column and Beams</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
@@ -743,7 +743,7 @@ This section details the initial capital investment required to deploy the ASIC 
     </tr>
     <tr>
       <td rowspan="8"><b>Cement</b></td>
-      <td>Blockwork</td><td>Bags</td><td>140</td><td>9,500</td><td>1,330,000</td>
+      <td>BlocKwork</td><td>Bags</td><td>140</td><td>9,500</td><td>1,330,000</td>
     </tr>
     <tr>
       <td>Casting of Columns</td><td>Bags</td><td>64</td><td>9,500</td><td>608,000</td>
@@ -894,7 +894,7 @@ This section details the initial capital investment required to deploy the ASIC 
 
   - **Unit Cost (bulk rate):** ~＄10,170 per unit × 30 = **＄305,100** <a href="#appendix-2">[2]</a>
 
-  - **Power Draw:** ~170.28 kW total for 30 units
+  - **Power Draw:** ~170.28 Kw total for 30 units
 
   - **Crypto algorithmcoins:** SHA256 BTC/BCH/BSV
 
@@ -907,7 +907,7 @@ This section details the initial capital investment required to deploy the ASIC 
 
 **Batteries:**
 
-- **Industrial-grade LiFePO₄ (215 kWh/module)** with integrated BMS and rack housing
+- **Industrial-grade LiFePO₄ (215 Kwh/module)** with integrated BMS and rack housing
 - **Market Rate** : ＄16,500 per battery <a href="#appendix-3">[3]</a>
 - Subtotal: 8 batteries × ＄16,500  ≈ **＄132,000**
 
@@ -934,7 +934,7 @@ This section details the initial capital investment required to deploy the ASIC 
 
 **Generator:**
 
-- 1 × 250 kVA diesel generators (N+1 redundancy)
+- 1 × 250 Kva diesel generators (N+1 redundancy)
 - Subtotal: **＄13,000** <a href="#appendix-7">[7]</a>
 
 **TOTAL: ＄215,345**
@@ -1005,7 +1005,7 @@ This section details the initial capital investment required to deploy the ASIC 
         <td>5</td>
         <td>4TV0RDK01CA007G</td>
         <td>1</td>
-        <td>Trane/IDU Y Joint, kW < 22.4</td>
+        <td>Trane/IDU Y Joint, Kw < 22.4</td>
         <td>-</td>
         <td>34.69</td>
         <td>34.69</td>
@@ -1014,7 +1014,7 @@ This section details the initial capital investment required to deploy the ASIC 
         <td>6</td>
         <td>4TV0RDK03CA007G</td>
         <td>3</td>
-        <td>Trane/IDU Y Joint, 33≤ KW < 104</td>
+        <td>Trane/IDU Y Joint, 33≤ Kw < 104</td>
         <td>-</td>
         <td>69.96</td>
         <td>209.87</td>
@@ -1217,19 +1217,19 @@ This section details the initial capital investment required to deploy the ASIC 
 Total ASIC Power Load:
 
 ```
-30 units × 5,676 W = 170.28 kW
+30 units × 5,676 W = 170.28 Kw
 ```
 
 Including Cooling Systems, RO Units, and Safety Margin (~10%):
 
 ```
-Total Continuous Load ≈ 187.308 kW
+Total Continuous Load ≈ 187.308 Kw
 ```
 
 **Yearly Energy Requirement:**
 
 ```
-187.308 kW × 24 hours x 30 days x 12 months = 1,618.34 MWh/year
+187.308 Kw × 24 hours x 30 days x 12 months = 1,618.34 MWh/year
 ```
 
 **Yearly Energy Cost:**
@@ -1646,7 +1646,7 @@ This investment offers strategic exposure to the cryptocurrency mining industry,
    </p>
 
 3. <p id="appendix-3">
-     <a class="fw-bold text-decoration-none text-primary" href="https://alicosolar.en.made-in-china.com/product/ndgTWRwAbqtZ/China-215kwh-Industrial-Commercial-Solar-Lithium-Battery-Cabinet-LiFePO4-Batteries-Energy-Storage-System.html?utm_source=chatgpt.com" target="_blank">215 kWh Industrial Solar Lithium Battery Cabinet (LiFePO4)
+     <a class="fw-bold text-decoration-none text-primary" href="https://alicosolar.en.made-in-china.com/product/ndgTWRwAbqtZ/China-215Kwh-Industrial-Commercial-Solar-Lithium-Battery-Cabinet-LiFePO4-Batteries-Energy-Storage-System.html?utm_source=chatgpt.com" target="_blank">215 Kwh Industrial Solar Lithium Battery Cabinet (LiFePO4)
       </a>
    </p>
 
@@ -1657,17 +1657,17 @@ This investment offers strategic exposure to the cryptocurrency mining industry,
    </p>
 
 5. <p id="appendix-5">
-     <a class="fw-bold text-decoration-none text-primary" href="https://www.alibaba.com/product-detail/ATESS-HPS-Series-Inverter-30KW-50KW_1600552498846.html?spm=a2700.7724857.0.0.62642e868KdVyl" target="_blank">30-150Kw Inverters
+     <a class="fw-bold text-decoration-none text-primary" href="https://www.alibaba.com/product-detail/ATESS-HPS-Series-Inverter-30Kw-50Kw_1600552498846.html?spm=a2700.7724857.0.0.62642e868KdVyl" target="_blank">30-150Kw Inverters
       </a>
    </p>
 
 6. <p id="appendix-6">
-     <a class="fw-bold text-decoration-none text-primary" href="https://www.made-in-china.com/video-channel/zhifengtransformer_fJXYEwaosire_Affordable-11kv-Transformers-From-Trusted-Chinese-Suppliers-in-Nigeria.html?utm_source=chatgpt.com" target="_blank">11kV Transformer – Chinese Suppliers in Nigeria
+     <a class="fw-bold text-decoration-none text-primary" href="https://www.made-in-china.com/video-channel/zhifengtransformer_fJXYEwaosire_Affordable-11kv-Transformers-From-Trusted-Chinese-Suppliers-in-Nigeria.html?utm_source=chatgpt.com" target="_blank">11kV 1600 Kva Transformer
       </a>
    </p>
 
 7. <p id="appendix-7">
-     <a class="fw-bold text-decoration-none text-primary" href="https://www.alibaba.com/product-detail/Wholesale-220kw-225kw-Genset-260Kva-270Kva_1601242728736.html?spm=a2700.galleryofferlist.normal_offer.2.3e4313a01C54ou" target="_blank">220–270 kVA Diesel Generator Set (Genset)
+     <a class="fw-bold text-decoration-none text-primary" href="https://www.alibaba.com/product-detail/Wholesale-220Kw-225Kw-Genset-260Kva-270Kva_1601242728736.html?spm=a2700.galleryofferlist.normal_offer.2.3e4313a01C54ou" target="_blank">220–270 Kva Diesel Generators
       </a>
    </p>
 
