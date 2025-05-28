@@ -106,7 +106,9 @@ mermaid: true
         }
     }
 
-
+    caption {
+      caption-side: top !important;
+    }
 
 </style>
 
@@ -148,17 +150,17 @@ To meet these demands, the mining industry has evolved from using standard CPUs 
 
 ## 2.2 Global trends in crypto mining
 
-Over the last decade, cryptocurrency mining has transitioned into a global industrial operation. Countries like the United States, Russia, Kazakhstan, and previously China have led in hash rate production due to access to cheap electricity and favorable climates for cooling [Cambridge Centre for Alternative Finance, 2023]. However, rising regulatory scrutiny and environmental concerns have pushed the industry to seek more sustainable energy sources.
+Over the last decade, cryptocurrency mining has transitioned into a global industrial operation. Countries like the United States, Russia, Kazakhstan, and China have led in hash rate production due to access to cheap electricity and favorable climates for cooling [Cambridge Centre for Alternative Finance, 2023]. However, rising regulatory scrutiny and environmental concerns have pushed the industry to seek more sustainable energy sources.
 
-A notable trend is the integration of renewable energy, particularly solar and hydro, into mining infrastructure to reduce carbon footprints and maintain profitability. Furthermore, the industry has shown a shift toward modular mining units like Bitmain’s Antbox containers, which offer scalability, rapid deployment, and improved thermal management. These trends align with global ESG (Environmental, Social, and Governance) concerns and regulatory pressure on carbon-intensive data operations.
+A notable trend is the integration of renewable energy, particularly solar and hydro, into mining infrastructure to reduce carbon footprints and maintain profitability. Furthermore, the industry has shown a shift toward modular mining units like Bitmain’s Antbox containers, which offer scalability, rapid deployment, and improved thermal management.
 
 ## 2.3 Project scope
 
-This business study proposes the development of a solar-powered, containerized ASIC mining facility in Kano, Nigeria, utilizing Bitmain’s ANTSPACE HK5 (formerly HW5) modular hydro-cooling data center and Antminer S21 XP Hyd units. The ANTSPACE HK5 is a high-performance, closed-loop liquid cooling container capable of hosting up to 210 hydro-cooled miners per unit, offering exceptional energy efficiency and thermal stability in hot climates.
+This business study proposes the development of a solar-powered, containerized ASIC mining facility in Kano, Nigeria, utilizing Bitmain’s ANTSPACE HW5 modular hydro-cooling data center and Antminer S21 XP Hyd units. The ANTSPACE HW5 is a high-performance, closed-loop liquid cooling container capable of hosting up to 210 hydro-cooled miners per unit, offering exceptional energy efficiency and thermal stability in hot climates.
 
-The mining facility will be powered entirely by solar photovoltaic (PV) energy, with additional energy storage and a UPS (uninterruptible power supply) system to ensure continuous operations during nighttime or periods of low solar irradiance. Given the high temperatures and dust levels characteristic of Northern Nigeria, hydro cooling offers a more reliable and efficient solution than traditional air cooling, significantly reducing the risk of thermal throttling and downtime.
+The mining facility will be powered by solar photovoltaic (PV) for 60% of its energy requirements which will further be increase with capital re-injection, with additional energy storage and a UPS (uninterruptible power supply) system to ensure continuous operations during nighttime or periods of low solar irradiance. Given the high temperatures and dust levels characteristic of Northern Nigeria, hydro cooling offers a more reliable and efficient solution than traditional air cooling, significantly reducing the risk of thermal throttling and downtime.
 
-This report provides a comprehensive analysis of the project’s technical, environmental, and financial feasibility. It covers the infrastructure and energy requirements, cooling design, capital and operational expenditures, local regulatory considerations, and projected return on investment (ROI). The project aims to showcase a clean, scalable, and profitable crypto mining model that leverages Nigeria’s abundant solar resources and growing interest in blockchain infrastructure development.
+This report provides a comprehensive analysis of the project’s technical, environmental, and financial feasibility. It covers the infrastructure and energy requirements, cooling design, capital and operational expenditures, local regulatory considerations, and projected return on investment (ROI). The project aims to showcase a clean, scalable, and profitable crypto mining model that leverages Nigeria’s abundant solar resources.
 
 ---
 
@@ -210,9 +212,9 @@ The building structure will be constructed from the ground up, designed to accom
 
 ### 3.2.1 Use of Bitmain Antbox / Modular Containers
 
-The project will utilize Bitmain's ANTSPACE HK5 (Hydro Cooling Data Center), a state-of-the-art, containerized data center specifically engineered for hydro-cooled ASIC mining hardware. Each HK5 unit supports up to 210 Antminer Hydro units and is fully integrated with internal water circulation, heat exchangers, and power distribution systems.
+The project will utilize Bitmain's ANTSPACE HW5 (Hydro Cooling Data Center), a state-of-the-art, containerized data center specifically engineered for hydro-cooled ASIC mining hardware. Each HW5 unit supports up to 210 Antminer Hydro units and is fully integrated with internal water circulation, heat exchangers, and power distribution systems.
 
-The choice of the HK5 is based on several key advantages:
+The choice of the HW5 is based on several key advantages:
 
 - Optimized Cooling Performance: The hydro-cooling system ensures stable miner operation in high-temperature environments such as Kano, Nigeria, where ambient temperatures can exceed 40°C. Water cooling drastically reduces heat buildup, ensuring higher miner uptime and performance consistency.
 
@@ -220,7 +222,7 @@ The choice of the HK5 is based on several key advantages:
 
 - High Density, Small Footprint: The container form factor allows easy transportation and compact deployment, ideal for modular growth without large infrastructure investment.
 
-- Pre-engineered for S21 XP Hyd Compatibility: The HK5 is designed to support the high power and cooling needs of Bitmain's latest hydro miners, ensuring seamless integration.
+- Pre-engineered for S21 XP Hyd Compatibility: The HW5 is designed to support the high power and cooling needs of Bitmain's latest hydro miners, ensuring seamless integration.
 
 <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
   <div>
@@ -237,9 +239,9 @@ The selected ASIC model is the Bitmain Antminer S21 XP Hyd, a high-efficiency, h
 
 Due to capital constraints and a strategic decision to scale operations sustainably, the initial deployment will consist of:
 
-- 1 x ANTSPACE HK5 container
+- 1 x ANTSPACE HW5 container
 
-- Up to 30 x Antminer S21 XP Hyd units (14.28% of HK5 full capacity)
+- Up to 30 x Antminer S21 XP Hyd units (14.28% of HW5 full capacity)
 
 This phased approach allows the business to manage initial capital expenditure while preparing the infrastructure for future expansion. The remaining capacity within the container will be populated in future procurement cycles using returns generated from the initial deployment.
 
@@ -247,7 +249,7 @@ This phased approach allows the business to manage initial capital expenditure w
 
 - Best-in-class energy efficiency lowers operational costs and increases BTC mined per watt.
 
-- Hydro cooling compatibility with the HK5 eliminates additional cooling infrastructure costs.
+- Hydro cooling compatibility with the HW5 eliminates additional cooling infrastructure costs.
 
 - Long-term ROI: High hash rate-to-power ratio extends the economic lifespan of each unit, even during periods of low Bitcoin price or high difficulty.
 
@@ -262,9 +264,9 @@ This phased approach allows the business to manage initial capital expenditure w
 
 ### 3.2.3 Deployment Scale and Strategy
 
-The deployment will begin with one modular unit, designed to operate semi-autonomously with minimal on-site staff. As profits are realized, additional S21 XP Hyd units will be procured to fill the HK5 to full capacity. Following that, further expansion to multiple containers is anticipated in 12–18 month cycles based on performance and reinvestment metrics.
+The deployment will begin with one modular unit, designed to operate semi-autonomously with minimal on-site staff. As profits are realized, the solar setup will be expanded to boost its contribution from the initial 60% to 97% in 11 months.Following that, additional S21 XP Hyd units will be procured to fill the HW5 to full capacity based on performance and reinvestment metrics.
 
-**Each container will be:**
+**The container will be:**
 
 - Installed on pre-prepared concrete pads with integrated utility access
 
@@ -274,11 +276,11 @@ The deployment will begin with one modular unit, designed to operate semi-autono
 
 ## 3.3 Cooling System
 
-The cooling system is a critical aspect of any high-density ASIC mining deployment, especially when targeting performance optimization, energy efficiency, and equipment longevity. For this project, the Bitmain ANTSPACE HK5 container solution has been selected due to its integrated hydro-cooling architecture, which supports the Antminer S21 XP Hydro series.
+The cooling system is a critical aspect of any high-density ASIC mining deployment, especially when targeting performance optimization, energy efficiency, and equipment longevity. For this project, the Bitmain ANTSPACE HW5 container solution has been selected due to its integrated hydro-cooling architecture, which supports the Antminer S21 XP Hydro series.
 
 ### 3.3.1 Hydro-Cooling Loop Design
 
-The ANTSPACE HK5 employs a closed-loop water cooling system, which circulates coolant (typically purified water or a water-glycol mixture) through internal piping that interfaces directly with the miners' cold plates. Heat is absorbed by the water and transported outside the container to a dry cooler (radiator system), where it is dissipated into the air before returning to the container for re-circulation.
+The ANTSPACE HW5 employs a closed-loop water cooling system, which circulates coolant (typically purified water or a water-glycol mixture) through internal piping that interfaces directly with the miners' cold plates. Heat is absorbed by the water and transported outside the container to a dry cooler (radiator system), where it is dissipated into the air before returning to the container for re-circulation.
 
 - This configuration offers several benefits over traditional air-cooled or immersion-cooled solutions:
 
@@ -288,7 +290,7 @@ The ANTSPACE HK5 employs a closed-loop water cooling system, which circulates co
 
 - Modular design, enabling outdoor deployment in remote or industrial zones.
 
-Each HK5 container supports approximately 210–250 kW of mining capacity, and the internal loop is designed to minimize fluid loss, although regular inspection and topping up are required.
+Each HW5 container supports approximately 1200KW of mining capacity, and the internal loop is designed to minimize fluid loss, although regular inspection and topping up are required.
 
 ### 3.3.2 Water Supply and Quality Management
 
@@ -318,11 +320,11 @@ The proposed treatment train is as follows:
 
 6. **UV Sterilization or Ozone Disinfection** – Optional microbial control.
 
-7. **Storage Tank (5,000–10,000 liters)** – To buffer treated water for system fill-ups and maintenance.
+7. **Storage Tank (1,000–2,000 liters)** – To buffer treated water for system fill-ups and maintenance.
 
-8. **Delivery Pump** – Feeds treated water into the HK5 container as needed.
+8. **Delivery Pump** – Feeds treated water into the HW5 container as needed.
 
-The RO system need not be continuous-flow and can be designed to produce 1,000–2,000 liters/day, sufficient to meet the initial fill (~5,000–8,000 L per container) and weekly top-ups (~50–100 L per container).
+The RO system need not be continuous-flow and can be designed to produce 300–500 liters/day, sufficient to meet the initial fill and top-ups.
 
 ### 3.3.4 Maintenance and Monitoring
 
@@ -637,6 +639,7 @@ This section details the initial capital investment required to deploy the ASIC 
   </div>
 </div>
 
+<div style="overflow-x: auto;">
 <table  cellspacing="0" cellpadding="5">
 <caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 1:</b> Construction Breakdown by Phase (detailed)</caption>
     <tr>
@@ -710,6 +713,7 @@ This section details the initial capital investment required to deploy the ASIC 
         <td>&nbsp;</td>
     </tr>
 </table>
+</div>
 
 - **Subtotal:**
   **≈ ₦62,909,300**
@@ -718,8 +722,9 @@ This section details the initial capital investment required to deploy the ASIC 
 
 ### 4.1.2 Office and lab equipments
 
+<div style="overflow-x: auto;">
 <table>
-<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 3:</b> Furniture and Utility Items</caption>
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 2:</b> Furniture and Utility Items</caption>
     <tr>
         <th>Location</th>
         <th>Item</th>
@@ -782,6 +787,7 @@ This section details the initial capital investment required to deploy the ASIC 
         <td><b>3,085,000</b></td>
     </tr>
 </table>
+</div>
 
 ### 4.1.3 Bitmain Containers and ASICs
 
@@ -843,8 +849,9 @@ This section details the initial capital investment required to deploy the ASIC 
 
 ### 4.1.4 HVAC cooling
 
+<div style="overflow-x: auto;">
 <table>
-<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 8:</b> Cost breakdown for the HVAC system</caption>
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 3:</b> Cost breakdown for the HVAC system</caption>
     <tr>
         <th>Item</th>
         <th>Model</th>
@@ -856,12 +863,7 @@ This section details the initial capital investment required to deploy the ASIC 
     </tr>
     <tr>
         <td>&nbsp;</td>
-        <td><b>VRF Outdoor Units</b></td>
-        <td>&nbsp;</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td colspan="6" style="text-align: center;"><b>VRF Outdoor Units</b></td>
     </tr>
     <tr>
         <td>1</td>
@@ -874,12 +876,7 @@ This section details the initial capital investment required to deploy the ASIC 
     </tr>
         <tr>
         <td>&nbsp;</td>
-        <td><b>VRF Indoor Units</b></td>
-        <td>&nbsp;</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td colspan="6" style="text-align: center;"><b>VRF Indoor Units</b></td>
     </tr>
     <tr>
         <td>2</td>
@@ -910,12 +907,7 @@ This section details the initial capital investment required to deploy the ASIC 
     </tr>
         <tr>
         <td>&nbsp;</td>
-        <td><b>Branch Distributors & Accessories</b></td>
-        <td>&nbsp;</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td colspan="6" style="text-align: center;"><b>Branch Distributors & Accessories</b></td>
     </tr>
     <tr>
         <td>5</td>
@@ -951,13 +943,14 @@ This section details the initial capital investment required to deploy the ASIC 
         <td colspan="6" style="text-align:right;"><b>Grand Total</b></td>
         <td>₦18,917,705.95</td>
     </tr>
-
 </table>
+</div>
 
 ### 4.1.5 Liquid Cooling System Setup for miners
 
+<div style="overflow-x: auto;">
 <table>
-<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 6:</b> Stainless steel tank construction</caption>
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 4:</b> Stainless steel tank construction</caption>
     <thead>
         <tr>
             <th>Component</th>
@@ -1009,6 +1002,7 @@ This section details the initial capital investment required to deploy the ASIC 
         </tr>
     </tbody>
 </table>
+</div>
 
 <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
   <div>
@@ -1064,13 +1058,12 @@ This section details the initial capital investment required to deploy the ASIC 
 </div>
 
 
-
+<div style="overflow-x: auto;">
 <table >
-<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 12:</b> CAPEX Budget summary overview</caption>
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 5:</b> CAPEX Budget summary overview</caption>
     <tr>
         <th rowspan="2">Section</th>
-        <th>Cost</th>
-        <th></th>
+        <th colspan="2">Cost</th>
     </tr>
     <tr>
         <th>USD (＄)</th>
@@ -1122,6 +1115,7 @@ This section details the initial capital investment required to deploy the ASIC 
       <td><strong>93,348,800</strong></td>
     </tr>
 </table>
+</div>
 
 
 
@@ -1183,8 +1177,9 @@ At the rate of 1600 ₦/USD, the total is:
 
 ### 4.2.3 Staff Salaries
 
+<div style="overflow-x: auto;">
 <table >
-<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 10:</b> Specialized Employee's projected salaries for the duration of 6 months</caption>
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 6:</b> Specialized Employee's projected salaries for the duration of 6 months</caption>
     <thead>
         <tr>
             <th>Employee Role</th>
@@ -1242,6 +1237,7 @@ At the rate of 1600 ₦/USD, the total is:
         </tr>
     </tbody>
 </table>
+</div>
 
 At the rate of 1600 ₦/USD, the total is:
 
@@ -1278,8 +1274,9 @@ Insurance = ＄662,788 x (2/100) = ＄13,256
 
 ### 4.2.7 OPEX Summary
 
+<div style="overflow-x: auto;">
 <table >
-<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 12:</b> OPEX Budget summary overview</caption>
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 7:</b> OPEX Budget summary overview</caption>
     <tr>
         <th rowspan="1">Section</th>
         <th>Anual Cost USD (＄)</th>
@@ -1305,6 +1302,7 @@ Insurance = ＄662,788 x (2/100) = ＄13,256
       <td><strong>130,422</strong></td>
     </tr>
 </table>
+</div>
 
 
 ---
@@ -1444,14 +1442,14 @@ The resulting projections are outlined below:
 
 <hr style="height: 2px; background-color: rgb(15, 15, 15); border: none; width: 50%; margin: 15px auto;">
 
-<p class="projection-chart-tittle"><b>Figure 19:</b> Power Requirements</p>
+<p class="projection-chart-tittle"><b>Figure 20:</b> Power Requirements</p>
 <div class="chart-container">
     <canvas id="powerChart"></canvas>
 </div>
 
 <hr style="height: 2px; background-color: rgb(15, 15, 15); border: none; width: 50%; margin: 15px auto;">
 
-<p class="projection-chart-tittle"><b>Figure 20:</b> Stored Energy</p>
+<p class="projection-chart-tittle"><b>Figure 21:</b> Stored Energy</p>
 <div class="chart-container">
     <canvas id="energyChart"></canvas>
 </div>
@@ -1561,8 +1559,9 @@ This investment offers strategic exposure to the cryptocurrency mining industry,
 
 ## Appendix 1
 
+<div style="overflow-x: auto;">
 <table >
-  <caption style='text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 2:</b> Construction Breakdown by BOM</caption>
+  <caption style='text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 8:</b> Construction Breakdown by BOM</caption>
   <tr>
     <th>Description</th>
     <th></th>
@@ -1656,8 +1655,8 @@ This investment offers strategic exposure to the cryptocurrency mining industry,
     <td colspan="5" style="text-align:center;"><b>Total</b></td>
     <td><b>60,909,300</b></td>
 </tr>
-
 </table>
+</div>
 
 
 ## Appendix 2
@@ -1665,7 +1664,7 @@ This investment offers strategic exposure to the cryptocurrency mining industry,
 <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
   <div>
   <p >
-    <figcaption><b>Figure 21:</b> Solar Irradiance Nigeria (2018)  </figcaption>
+    <figcaption><b>Figure 22:</b> Solar Irradiance Nigeria (2018)  </figcaption>
     <img src="{{ site.baseurl }}/assets/pilot_images/solar_irridance.jpg"  style="width: 90%; height: 800px;">
   </p>
 </div>

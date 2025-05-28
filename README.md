@@ -33,3 +33,10 @@ Both documents are also accessible through the left sidebar when viewing on desk
 ---
 
 *Last updated: {{ site.time | date: '%B %d, %Y' }}*
+
+<script>
+  window.loadSimulation = () => {};
+  window.loadSimulation?.();
+  window.loadProjections = () => {};
+  window.loadProjections?.();
+</script>
