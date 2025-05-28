@@ -15,7 +15,6 @@ mermaid: true
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-
 <style>
 
     nav {
@@ -124,7 +123,6 @@ mermaid: true
   </div>
 </div>
 
-
 # 1.0 Executive Summary
 
 This report outlines a strategic Bitcoin mining operation based in Kano, Nigeria, designed for long-term profitability and sustainability through a blend of high-performance mining hardware and renewable energy integration. The operation leverages Bitmain’s Antminer S21 XP Hydro units, known for their energy efficiency and high hashrate performance (473 TH/s per unit). With an initial deployment of 30 units, the farm is engineered to maximize uptime, optimize cooling in a challenging climate, and progressively shift towards solar energy reliance.
@@ -146,7 +144,6 @@ This report outlines the budget for the pilot study of a Crypto mining project. 
 Cryptocurrency, a form of decentralized digital currency built on blockchain technology, has experienced rapid growth and adoption since the launch of Bitcoin in 2009. At the core of many cryptocurrencies, particularly Bitcoin, is a consensus mechanism known as Proof of Work (PoW), which requires solving complex cryptographic puzzles to validate transactions and secure the network. This process, commonly referred to as mining, demands significant computational power and energy consumption.
 
 To meet these demands, the mining industry has evolved from using standard CPUs and GPUs to deploying specialized hardware known as Application-Specific Integrated Circuits (ASICs). ASIC miners are purpose-built chips designed to execute a narrow set of tasks with unmatched speed and efficiency—in this case, performing SHA-256 hashing used in Bitcoin mining. These devices dramatically outperform traditional hardware in both speed and energy efficiency, making them the industry standard for profitable large-scale mining operations.
-
 
 ## 2.2 Global trends in crypto mining
 
@@ -239,7 +236,7 @@ The selected ASIC model is the Bitmain Antminer S21 XP Hyd, a high-efficiency, h
 
 Due to capital constraints and a strategic decision to scale operations sustainably, the initial deployment will consist of:
 
-- 1 x ANTSPACE HW5 container
+- 1 x ANTSPACE HW5 container <a href="#appendix-1">[1]</a>
 
 - Up to 30 x Antminer S21 XP Hyd units (14.28% of HW5 full capacity)
 
@@ -380,7 +377,7 @@ Total Continuous Load ≈ 188 kW
   </div>
 </div>
 
-Kano benefits from an average of 7.0 Peak Sun Hours (PSH) per day, making it ideal for solar energy generation.
+Kano benefits from an average of 7.0 Peak Sun Hours (PSH) per day, making it ideal for solar energy generation. <a href="#appendix-8">[8]</a>
 
 **Daily Energy Requirement:**
 
@@ -706,7 +703,7 @@ This section details the initial capital investment required to deploy the ASIC 
         <td>&nbsp;</td>
     </tr>
     <tr>
-        <td></td>
+        <td>&nbsp;</td>
         <td>Casting of Suspended Roof</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
@@ -715,16 +712,112 @@ This section details the initial capital investment required to deploy the ASIC 
 </table>
 </div>
 
-- **Subtotal:**
-  **≈ ₦62,909,300**
+  <div style="overflow-x: auto;">
+  <table >
+    <caption style='text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 2:</b> Construction Breakdown by BOM</caption>
+    <tr>
+      <th colspan="2">Description</th>
+      <th>Unit</th>
+      <th>Qty</th>
+      <th>Unit Price (₦)</th>
+      <th>Total (₦)</th>
+    </tr>
+    <tr>
+      <td rowspan="3"><b>Reinforcement</b></td>
+      <td>Y16 for Columns</td><td>Units</td><td>67</td><td>22,700</td><td>1,520,900</td>
+    </tr>
+    <tr>
+      <td>Y16 for Beams</td><td>Units</td><td>310</td><td>22,700</td><td>7,037,000</td>
+    </tr>
+    <tr>
+      <td>Y10 for Stirmp</td><td>Units</td><td>50</td><td>8,700</td><td>435,000</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Blocks</b></td>
+      <td>Units</td><td>12,522</td><td>700</td><td>8,765,400</td>
+    </tr>
+    <tr>
+      <td><b>Reinforcements</b></td>
+      <td>Y12 for Slab</td>
+      <td>Units</td><td>420</td><td>12,300</td><td>5,166,000</td>
+    </tr>
+    <tr>
+      <td rowspan="8"><b>Cement</b></td>
+      <td>Blockwork</td><td>Bags</td><td>140</td><td>9,500</td><td>1,330,000</td>
+    </tr>
+    <tr>
+      <td>Casting of Columns</td><td>Bags</td><td>64</td><td>9,500</td><td>608,000</td>
+    </tr>
+    <tr>
+      <td>Casting of Slab</td><td>Bags</td><td>350</td><td>9,500</td><td>3,325,000</td>
+    </tr>
+    <tr>
+      <td>Casting of Beams</td><td>Bags</td><td>150</td><td>9,500</td><td>1,425,000</td>
+    </tr>
+    <tr>
+      <td>Casting of DPC</td><td>Bags</td><td>360</td><td>9,500</td><td>3,420,000</td>
+    </tr>
+    <tr>
+      <td>Casting of Binding</td><td>Bags</td><td>150</td><td>9,500</td><td>1,425,000</td>
+    </tr>
+    <tr>
+      <td>Casting of Plaster</td><td>Bags</td><td>200</td><td>9,500</td><td>1,900,000</td>
+    </tr>
+    <tr>
+      <td>External Plaster</td><td>Bags</td><td>200</td><td>9,500</td><td>1,900,000</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Marine Boards</b></td>
+      <td>Units</td><td>490</td><td>26,500</td><td>12,985,000</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Bamboo</b></td>
+      <td>Units</td><td>300</td><td>2,300</td><td>690,000</td>
+    </tr>
+    <tr>
+      <td rowspan="2"><b>Braces</b></td>
+      <td>2x3</td><td>Units</td><td>500</td><td>200</td><td>100,000</td>
+    </tr>
+    <tr>
+      <td>2x4</td><td>Units</td><td>500</td><td>200</td><td>100,000</td>
+    </tr>
+    <tr>
+      <td rowspan="2"><b>Nails</b></td>
+      <td>3 Inch</td><td>Bags</td><td>9</td><td>33,000</td><td>297,000</td>
+    </tr>
+    <tr>
+      <td>6 Inch</td><td>Bags</td><td>6</td><td>35,000</td><td>210,000</td>
+    </tr>
+    <tr>
+      <td rowspan="2"><b>Sand</b></td>
+      <td>Plaster Sand</td><td>Trips</td><td>14</td><td>130,000</td><td>1,820,000</td>
+    </tr>
+    <tr>
+      <td>Sharp Sand</td><td>Trips</td><td>14</td><td>140,000</td><td>1,960,000</td>
+    </tr>
+    <tr>
+      <td><b>Gravel</b></td>
+      <td>Size 3/4</td><td>Trips</td><td>8</td><td>430,000</td><td>3,440,000</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Laterite</b></td>
+      <td>Trips</td><td>15</td><td>70,000</td><td>1,050,000</td>
+    </tr>
+  <tr>
+      <td colspan="5" style="text-align:center;"><b>Total</b></td>
+      <td><b>60,909,300</b></td>
+  </tr>
+  </table>
+  </div>
 
-* for more details please view **Appendix 1** at the end
+- **Subtotal:**
+  **≈ ₦62,909,300**(Including Labour)
 
 ### 4.1.2 Office and lab equipments
 
 <div style="overflow-x: auto;">
 <table>
-<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 2:</b> Furniture and Utility Items</caption>
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 3:</b> Furniture and Utility Items</caption>
     <tr>
         <th>Location</th>
         <th>Item</th>
@@ -795,11 +888,11 @@ This section details the initial capital investment required to deploy the ASIC 
 
   - Each container holds up to 210 miners (the project aims to start with 30 units, allowing future expansion).
 
-  - Cost Estimate: ~**＄84,000 USD**(container only)
+  - Cost Estimate: ~**＄84,000**(container only) <a href="#appendix-1">[1]</a>
 
 - **Antminer S21 XP Hyd (473 TH/s @ 5676W)**
 
-  - **Unit Cost (bulk rate):** ~10,170 USD per unit × 30 = **＄305,100**
+  - **Unit Cost (bulk rate):** ~＄10,170 per unit × 30 = **＄305,100** <a href="#appendix-2">[2]</a>
 
   - **Power Draw:** ~170.28 kW total for 30 units
 
@@ -808,50 +901,49 @@ This section details the initial capital investment required to deploy the ASIC 
   - Comes with hydro cooling blocks integrated
 
 - **Subtotal:**
-  ≈ **＄389,100 USD**
+  ≈ **＄389,100**
 
 ### 4.1.4 Batteries, Solar Panels, Inverters, Transformers, and Generator
 
 **Batteries:**
 
 - **Industrial-grade LiFePO₄ (215 kWh/module)** with integrated BMS and rack housing
-- **Market Rate** : ＄16,500 USD per battery
-- Subtotal: 8 batteries × 16,500 USD ≈ **132,000 USD**
+- **Market Rate** : ＄16,500 per battery <a href="#appendix-3">[3]</a>
+- Subtotal: 8 batteries × ＄16,500  ≈ **＄132,000**
 
 **Solar Panels:**
 
 - 610W panels → need ~635 units
 
-- Price per panel (uninstalled): ~51.24 USD
+- Price per panel (uninstalled): ~＄51.24 <a href="#appendix-4">[4]</a>
 - with racking and installation estimated at 10%, price (installed): ＄57
 
-- Subtotal: **＄36,195 USD**
+- Subtotal: **＄36,195**
 
 **Inverters:**
 
-- 1 x ATESS HPS Series, 150Kw Inverter Commercial-grade,hybrid inverter at 20600
-- 1 x ATESS HPS Series, 50Kw Inverter Commercial-grade,hybrid inverter at 8600
+- 1 x ATESS HPS Series, 150Kw Inverter Commercial-grade,hybrid inverter at 20600 <a href="#appendix-5">[5]</a>
+- 1 x ATESS HPS Series, 50Kw Inverter Commercial-grade,hybrid inverter at 8600 <a href="#appendix-5">[5]</a>
 
-- Subtotal: **＄29,200 USD**
+- Subtotal: **＄29,200**
 
 **Transformers:**
 
 - 1 x 11kv 3-phase transformer
-- Subtotal: **＄4,950**
+- Subtotal: **＄4,950** <a href="#appendix-6">[6]</a>
 
 **Generator:**
 
 - 1 × 250 kVA diesel generators (N+1 redundancy)
+- Subtotal: **＄13,000** <a href="#appendix-7">[7]</a>
 
-**TOTAL: ＄215,345 USD**
+**TOTAL: ＄215,345**
 
-- Subtotal: **＄13,000**
-
-### 4.1.4 HVAC cooling
+### 4.1.5 HVAC cooling
 
 <div style="overflow-x: auto;">
 <table>
-<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 3:</b> Cost breakdown for the HVAC system</caption>
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 4:</b> Cost breakdown for the HVAC system</caption>
     <tr>
         <th>Item</th>
         <th>Model</th>
@@ -946,11 +1038,11 @@ This section details the initial capital investment required to deploy the ASIC 
 </table>
 </div>
 
-### 4.1.5 Liquid Cooling System Setup for miners
+### 4.1.6 Liquid Cooling System Setup for miners
 
 <div style="overflow-x: auto;">
 <table>
-<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 4:</b> Stainless steel tank construction</caption>
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 5:</b> Stainless steel tank construction</caption>
     <thead>
         <tr>
             <th>Component</th>
@@ -1024,16 +1116,16 @@ This section details the initial capital investment required to deploy the ASIC 
   </div>
 </div>
 
-### 4.1.6 Labor and Engineering Fees
+### 4.1.7 Labor and Engineering Fees
 
 - Electrical, mechanical, and civil contractors
 - Solar + electrical system design and commissioning
 - Technical documentation, inspection, and testing
 
 - **Estimated Total:**
-  - 5,000 – 10,000 USD
+  - ＄5,000 – ＄10,000 
 
-### 4.1.7 Logistics and Import Duties
+### 4.1.8 Logistics and Import Duties
 
 - International shipping of container, ASICs, solar panels
 
@@ -1048,19 +1140,18 @@ This section details the initial capital investment required to deploy the ASIC 
   - Budget margin: ~7.5% of equipment cost
 
 - **Estimate:**
-  - ＄29,183 USD
+  - ＄29,183
 
-### 4.1.8 Capex Summary
+### 4.1.9 Capex Summary
 
 <p class="projection-chart-tittle"><b>Figure 16:</b> Capital Expenditure Breakdown</p>
 <div class="sankey-container">
     <div id="sankey_chart"></div>
 </div>
 
-
 <div style="overflow-x: auto;">
 <table >
-<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 5:</b> CAPEX Budget summary overview</caption>
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 6:</b> CAPEX Budget summary overview</caption>
     <tr>
         <th rowspan="2">Section</th>
         <th colspan="2">Cost</th>
@@ -1117,11 +1208,7 @@ This section details the initial capital investment required to deploy the ASIC 
 </table>
 </div>
 
-
-
-**At 1,600 ₦ /USD, the GRAND TOTAL: ＄699,471**
-
-
+**At 1,600 ₦ /＄, the GRAND TOTAL: ＄699,471**
 
 ## 4.2 Operational Expenditure (OPEX)
 
@@ -1152,15 +1239,15 @@ only 60% of the energy will be sourced from solar energy for starters, while the
 1,618.34 MWh x 224,000 ₦/MWh x 0.4 ≈ ₦145,003,364
 ```
 
-At the rate of 1600 ₦/USD, the total is:
+At the rate of 1600 ₦/＄, the total is:
 
 ```
-₦145,003,364 / 1,600 ₦/USD ≈ ＄90,627 USD
+₦145,003,364 / 1,600 ₦/＄ ≈ ＄90,627
 ```
 
 ### 4.2.2 Maintenance of Miners & Cooling
 
-**ASINC maintainance:** ~ 150–200 USD /year per ASIC miner
+**ASINC maintainance:** ~ ＄150–＄200  /year per ASIC miner
 
 **For 30 miners:**
 
@@ -1179,7 +1266,7 @@ At the rate of 1600 ₦/USD, the total is:
 
 <div style="overflow-x: auto;">
 <table >
-<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 6:</b> Specialized Employee's projected salaries for the duration of 6 months</caption>
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 7:</b> Specialized Employee's projected salaries for the duration of 6 months</caption>
     <thead>
         <tr>
             <th>Employee Role</th>
@@ -1239,17 +1326,17 @@ At the rate of 1600 ₦/USD, the total is:
 </table>
 </div>
 
-At the rate of 1600 ₦/USD, the total is:
+At the rate of 1600 ₦/＄, the total is:
 
 ```
-₦21,120,000 / 1,600 ₦/USD ≈ ＄13,200 USD
+₦21,120,000 / 1,600 ₦/＄ ≈ ＄13,200
 ```
 
 ### 4.2.4 Internet & Network Services
 
 **Starlink:** ＄43/month (as of Nigeria rates)
 
-**Local ISP backup:** 20–30 USD/month
+**Local ISP backup:** ＄20–＄30 USD/month
 
 **Router maintenance:** ＄100/year
 
@@ -1276,10 +1363,10 @@ Insurance = ＄662,788 x (2/100) = ＄13,256
 
 <div style="overflow-x: auto;">
 <table >
-<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 7:</b> OPEX Budget summary overview</caption>
+<caption style=' text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 8:</b> OPEX Budget summary overview</caption>
     <tr>
         <th rowspan="1">Section</th>
-        <th>Anual Cost USD (＄)</th>
+        <th>Anual Cost (＄)</th>
     </tr>
     <tr>
         <td>Maintenance & Spearparts</td>
@@ -1304,7 +1391,6 @@ Insurance = ＄662,788 x (2/100) = ＄13,256
 </table>
 </div>
 
-
 ---
 
 # 5.0 Profit Projections
@@ -1313,54 +1399,54 @@ Insurance = ＄662,788 x (2/100) = ＄13,256
 
 The folling calculations are Based Purely on the Initial setup and does not account any reinvestemnt strategies.
 
-
 The total expected revenue generated from Bitcoin mining is directly related to the contributed computational power, measured in hashrate — the number of cryptographic guesses a miner can make per second. In Bitcoin mining, the probability of successfully mining a block (and earning a reward) is proportional to a miner’s hashrate relative to the total network hashrate.
 
 The **Reward Per Hash** represents the expected revenue earned per individual hash attempt. It is typically calculated by dividing the total block reward (in monetary terms, including transaction fees) by the expected number of hashes required to successfully find a block — a value determined by the current mining difficulty. This metric provides a probabilistic estimate of how much revenue can be earned per unit of computational effort.
 
-
-
 Figure 17 below illustrates the revenue obtained from a Bitmain Antminer **S21 XP Hydro**, which operates at a rated hashrate of 473 TH/s, over the past six months.
-
 
 <p class="projection-chart-tittle"><b>Figure 17:</b> Bitmain Antminer S21 XP Hydro Miner Revenue with a hashrate of 473 TH/S</p>
 <div class="chart-container">
     <canvas id="hashRate"></canvas>
 </div>
 
-
-
 Using the average revenue for the past 6 months we can calculate an approximate Reward Per Hash:
-- If a miner earned 25.525 USD and the BTC price is 104,200 USD/BTC, then the miner earned:
+
+- If a miner earned ＄25.525 and the BTC price is 104,200 USD/BTC, then the miner earned:
+
 ```
-BTC Revenue = 25.525 USD ÷ 104,200 USD/BTC ≈ 0.000245 BTC
+BTC Revenue = ＄25.525 ＄ ÷ 104,200 USD/BTC ≈ 0.000245 BTC
 ```
+
 - Since that revenue was generated using 473 TH/s over one day (86,400 seconds), then:
+
 ```
 473 TH/s = 473 × 10¹² hashes per second
 Total Hashes = 473 × 10¹² × 86,400 = 4.08672 × 10¹⁹ hashes
 ```
+
 - The BTC and USD per hash is:
+
 ```
 Reward Per Hash (in BTC) = 0.000245 BTC ÷ 4.08672 × 10¹⁹ ≈ 6.0 × 10⁻²⁴ BTC/hash
 Reward Per Hash (in USD) ≈ 6.0 × 10⁻²⁴ × 104,200 ≈ 6.25 × 10⁻²⁰ USD/hash
 ```
+
 Yearly revenue for 30 miners:
+
 ```
 revenue = Number of miners x Reward Per Hash (in USD) x Total Hashes per day x 365 days
 revenue = 30 x 6.25 × 10⁻²⁰ x 4.08672 × 10¹⁹ x 365
-revenue = 275,670 USD
+revenue = ＄275,670
 ```
 
+**Annual Profit:**
 
-
-**Annual Profit:** 
 ```
 = Revenue - Annual Operating Cost
 = 275,670 - 130,422
-= ＄145,248 USD
+= ＄145,248
 ```
-
 
 ## 5.2 Reinvestment strategies
 
@@ -1375,6 +1461,7 @@ revenue = 275,670 USD
 - The reinvestment strategy prioritizes **energy efficiency**, specifically by increasing the share of solar-generated power from the initial **60%**.
 
 The resulting projections are outlined below:
+
 <div class="mt-5" id="results">
 
 <div class="row">
@@ -1454,12 +1541,7 @@ The resulting projections are outlined below:
     <canvas id="energyChart"></canvas>
 </div>
 
-
 </div>
-
-
-
-
 
 # 6.0 S.W.O.T Analysis
 
@@ -1502,7 +1584,6 @@ The resulting projections are outlined below:
                     <li><strong>Solar Integration:</strong> High solar irradiance supports hybrid/solar energy to reduce grid reliance.</li>
                     <li><strong>Rising Bitcoin Adoption:</strong> Potential for long-term profitability as demand for BTC increases thus driving the price.</li>
                     <li><strong>Cheap Renewable Projects:</strong> Government or private incentives for renewable power infrastructure.</li>
-                    <li><strong>Data Center Expansion:</strong> Facility can evolve to offer other services (e.g., hosting, edge computing).</li>
                 </ul>
             </div>
         </div>
@@ -1543,132 +1624,62 @@ Key highlights include:
 
 - Capital Expenditure (CAPEX): ＄699,471
 
--  Monthly Profit with a Reinvestment strategy of ＄13,301:
-  - An average of ＄2,202 for ther first 11 months
-  - An spike to ＄20,2007 on month 12 due to injection from unrealized investment funds
-  - A monthly profit of ＄18,109 from month 13 to 36
+- Monthly Profit with a Reinvestment strategy of ＄13,301:
+- An average of ＄2,202 for ther first 11 months
+- An spike to ＄20,2007 on month 12 due to injection from unrealized investment funds
+- A monthly profit of ＄18,109 from month 13 to 36
 
 This investment offers strategic exposure to the cryptocurrency mining industry, anchored in a forward-looking model that prioritizes renewable energy integration, infrastructure scalability, and long-term sustainability. Backed by detailed financial projections and a reinvestment strategy that accelerates profitability, the venture provides a structured pathway into the global digital asset ecosystem — with strong local development impact and clear, data-driven ROI potential.
-
-
-
 
 ---
 
 # 8.0 Appendix
 
-## Appendix 1
+1. <p id="appendix-1">
+     <a class="fw-bold text-decoration-none text-primary" href="https://shop.bitmain.com/product/detail?pid=000202503201717498292FAx9viR0699" target="_blank">Antminer ANTSPACE HW5 Container
+      </a>
+   </p>
 
-<div style="overflow-x: auto;">
-<table >
-  <caption style='text-align: center; margin-bottom: 5px; margin-top: 20px;'> <b>Table 8:</b> Construction Breakdown by BOM</caption>
-  <tr>
-    <th>Description</th>
-    <th></th>
-    <th>Unit</th>
-    <th>Qty</th>
-    <th>Unit Price (₦)</th>
-    <th>Total (₦)</th>
-  </tr>
-  <tr>
-    <td rowspan="3"><b>Reinforcement</b></td>
-    <td>Y16 for Columns</td><td>Units</td><td>67</td><td>22,700</td><td>1,520,900</td>
-  </tr>
-  <tr>
-    <td>Y16 for Beams</td><td>Units</td><td>310</td><td>22,700</td><td>7,037,000</td>
-  </tr>
-  <tr>
-    <td>Y10 for Stirmp</td><td>Units</td><td>50</td><td>8,700</td><td>435,000</td>
-  </tr>
-  <tr>
-    <td><b>Blocks</b></td>
-    <td></td><td>Units</td><td>12,522</td><td>700</td><td>8,765,400</td>
-  </tr>
-  <tr>
-    <td><b>Reinforcements</b></td>
-    <td>Y12 for Slab</td>
-    <td>Units</td><td>420</td><td>12,300</td><td>5,166,000</td>
-  </tr>
-  <tr>
-    <td rowspan="8"><b>Cement</b></td>
-    <td>Blockwork</td><td>Bags</td><td>140</td><td>9,500</td><td>1,330,000</td>
-  </tr>
-  <tr>
-    <td>Casting of Columns</td><td>Bags</td><td>64</td><td>9,500</td><td>608,000</td>
-  </tr>
-  <tr>
-    <td>Casting of Slab</td><td>Bags</td><td>350</td><td>9,500</td><td>3,325,000</td>
-  </tr>
-  <tr>
-    <td>Casting of Beams</td><td>Bags</td><td>150</td><td>9,500</td><td>1,425,000</td>
-  </tr>
-  <tr>
-    <td>Casting of DPC</td><td>Bags</td><td>360</td><td>9,500</td><td>3,420,000</td>
-  </tr>
-  <tr>
-    <td>Casting of Binding</td><td>Bags</td><td>150</td><td>9,500</td><td>1,425,000</td>
-  </tr>
-  <tr>
-    <td>Casting of Plaster</td><td>Bags</td><td>200</td><td>9,500</td><td>1,900,000</td>
-  </tr>
-  <tr>
-    <td>External Plaster</td><td>Bags</td><td>200</td><td>9,500</td><td>1,900,000</td>
-  </tr>
-  <tr>
-    <td><b>Marine Boards</b></td>
-    <td></td><td>Units</td><td>490</td><td>26,500</td><td>12,985,000</td>
-  </tr>
-  <tr>
-    <td><b>Bamboo</b></td>
-    <td></td><td>Units</td><td>300</td><td>2,300</td><td>690,000</td>
-  </tr>
-  <tr>
-    <td rowspan="2"><b>Braces</b></td>
-    <td>2x3</td><td>Units</td><td>500</td><td>200</td><td>100,000</td>
-  </tr>
-  <tr>
-    <td>2x4</td><td>Units</td><td>500</td><td>200</td><td>100,000</td>
-  </tr>
-  <tr>
-    <td rowspan="2"><b>Nails</b></td>
-    <td>3 Inch</td><td>Bags</td><td>9</td><td>33,000</td><td>297,000</td>
-  </tr>
-  <tr>
-    <td>6 Inch</td><td>Bags</td><td>6</td><td>35,000</td><td>210,000</td>
-  </tr>
-  <tr>
-    <td rowspan="2"><b>Sand</b></td>
-    <td>Plaster Sand</td><td>Trips</td><td>14</td><td>130,000</td><td>1,820,000</td>
-  </tr>
-  <tr>
-    <td>Sharp Sand</td><td>Trips</td><td>14</td><td>140,000</td><td>1,960,000</td>
-  </tr>
-  <tr>
-    <td><b>Gravel</b></td>
-    <td>Size 3/4</td><td>Trips</td><td>8</td><td>430,000</td><td>3,440,000</td>
-  </tr>
-  <tr>
-    <td><b>Laterite</b></td>
-    <td></td><td>Trips</td><td>15</td><td>70,000</td><td>1,050,000</td>
-  </tr>
-<tr>
-    <td colspan="5" style="text-align:center;"><b>Total</b></td>
-    <td><b>60,909,300</b></td>
-</tr>
-</table>
-</div>
+2. <p id="appendix-2">
+     <a class="fw-bold text-decoration-none text-primary" href="https://shop.bitmain.com/product/detail?pid=00020250312184146889fF0fd5720644" target="_blank">Antminer S21 XP Hyd. (473 TH/s)
+      </a>
+   </p>
 
+3. <p id="appendix-3">
+     <a class="fw-bold text-decoration-none text-primary" href="https://alicosolar.en.made-in-china.com/product/ndgTWRwAbqtZ/China-215kwh-Industrial-Commercial-Solar-Lithium-Battery-Cabinet-LiFePO4-Batteries-Energy-Storage-System.html?utm_source=chatgpt.com" target="_blank">215 kWh Industrial Solar Lithium Battery Cabinet (LiFePO4)
+      </a>
+   </p>
 
-## Appendix 2
+4. <p id="appendix-4">
+     <a class="fw-bold text-decoration-none text-primary" href="https://www.alibaba.com/product-detail/Bluesun-Full-Black-TOPCON-Large-Photovoltaic_1601036261619.html?spm=a2700.7724857.0.0.6a66b7bc8HMwGz" target="_blank">
+       610W Monocrystalline Silicon Panel
+     </a>
+   </p>
 
-<div style="display: flex; justify-content: center; align-items: center; text-align: center;">
-  <div>
-  <p >
-    <figcaption><b>Figure 22:</b> Solar Irradiance Nigeria (2018)  </figcaption>
-    <img src="{{ site.baseurl }}/assets/pilot_images/solar_irridance.jpg"  style="width: 90%; height: 800px;">
-  </p>
-</div>
-</div>
+5. <p id="appendix-5">
+     <a class="fw-bold text-decoration-none text-primary" href="https://www.alibaba.com/product-detail/ATESS-HPS-Series-Inverter-30KW-50KW_1600552498846.html?spm=a2700.7724857.0.0.62642e868KdVyl" target="_blank">30-150Kw Inverters
+      </a>
+   </p>
+
+6. <p id="appendix-6">
+     <a class="fw-bold text-decoration-none text-primary" href="https://www.made-in-china.com/video-channel/zhifengtransformer_fJXYEwaosire_Affordable-11kv-Transformers-From-Trusted-Chinese-Suppliers-in-Nigeria.html?utm_source=chatgpt.com" target="_blank">11kV Transformer – Chinese Suppliers in Nigeria
+      </a>
+   </p>
+
+7. <p id="appendix-7">
+     <a class="fw-bold text-decoration-none text-primary" href="https://www.alibaba.com/product-detail/Wholesale-220kw-225kw-Genset-260Kva-270Kva_1601242728736.html?spm=a2700.galleryofferlist.normal_offer.2.3e4313a01C54ou" target="_blank">220–270 kVA Diesel Generator Set (Genset)
+      </a>
+   </p>
+
+8. <p id="appendix-8" class="fw-bold text-decoration-none">Irradiance Map</p>
+  <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+    <div>
+    <p >
+      <figcaption><b>Figure 22:</b> Solar Irradiance Nigeria (2018)  </figcaption>
+      <img src="{{ site.baseurl }}/assets/pilot_images/solar_irridance.jpg"  style="width: 80%; height: 600px;">
+    </p>
+  </div>
+  </div>
 
 ---
 
